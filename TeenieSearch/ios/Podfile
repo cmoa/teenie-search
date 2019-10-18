@@ -34,20 +34,10 @@ target 'TeenieSearch' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'TeenieSearchTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
+
+  pod 'ReactNativeKeyboardManager', :path => '../node_modules/react-native-keyboard-manager'
+
 
   use_native_modules!
-end
-
-target 'TeenieSearch-tvOS' do
-  # Pods for TeenieSearch-tvOS
-
-  target 'TeenieSearch-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end

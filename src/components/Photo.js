@@ -66,7 +66,7 @@ class Photo extends Component {
     render() {
 
         return ( 
-            <div style={styles.page}>
+            <div style={styles.page} className="smoothScroller">
                 <div style={styles.photoContainer}>
                     <div style={styles.backButton} onClick={() => { this.props.closePhoto() }}>
                        {"<"} Back to search reults
@@ -99,7 +99,7 @@ class Photo extends Component {
                         })}
                     </div>
                     <div style={styles.suggestionsCategory}> More Photos from Downtown </div>
-                    <div style={styles.photoSuggestions}>  
+                    <div style={styles.photoSuggestions} className="smoothScroller">  
                         { this.props.hits.map((hit) => {
                             return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
                         })}

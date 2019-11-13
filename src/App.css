@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  -webkit-overflow-scrolling: touch !important;
 }
 
 .App-logo {
@@ -31,4 +30,10 @@
   background-color: papayawhip;
 }
 
-div::-webkit-scrollbar { width: 0 !important }
+.smoothScroller {
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.smoothScroller::-webkit-scrollbar {
+  width: 0 !important;
+}

@@ -130,7 +130,7 @@ class SearchResults extends Component {
 	        	{this.props.hitsCount > 0 && 
 	        		<div>
 			        	<div style={styles.searchOptions}> { this.props.hitsCount } Results</div>
-			            <div style={styles.searchResults}>
+			            <div style={styles.searchResults} className="smoothScroller">
 			            	<div style={styles.searchResultsColumn}>
 								{ this.props.hits.map((hit, i) => {
 									if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;

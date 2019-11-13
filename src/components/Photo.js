@@ -84,7 +84,7 @@ class Photo extends Component {
                 </div>
                 <div>
                     <div style={styles.suggestionsCategory}> More Photos of Jesse Jackson </div>
-                    <div style={styles.photoSuggestions}>  
+                    <div style={styles.photoSuggestions} className="smoothScroller"> 
                         { this.props.hits.map((hit) => {
                             return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
                         })}

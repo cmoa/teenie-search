@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import { search, closePhoto } from '../actions/actions'
 
+import globalStyles from '../styles'
+
 const searchSuggestionPadding = 10;
+
 
 const styles = {
     page: {
@@ -30,17 +33,9 @@ const styles = {
     },
     photoTitle: {
         marginBottom: '1.25rem',
-        fontWeight: 800,
-        fontSize: '1em',
-        lineHeight: '1.25',
-        fontFamily: 'Klavika Basic,Helvetica,sans-serif',
-        fontWeight: 800,
     },
     photoDate: {
-        fontSize: '.75em',
-        color: '#333',
         marginBottom: '2rem',
-        fontFamily: 'Klavika Basic,Helvetica,sans-serif',
     },
     backButton: {
         color: 'red',
@@ -58,7 +53,7 @@ const styles = {
     },
     suggestionsCategory: {
         width: '90vw',
-        margin: '5vw',
+        margin: '1vh 5vw',
     }
 }
 
@@ -68,49 +63,61 @@ class Photo extends Component {
         return ( 
             <div style={styles.page} className="smoothScroller">
                 <div style={styles.photoContainer}>
-                    <div style={styles.backButton} onClick={() => { this.props.closePhoto() }}>
+                    <div style={{ ...styles.photoTitle, ...globalStyles.photoTitle}}> { this.props.photo.emuInput.TitMainTitle } </div>
+                    <div style={{ ...styles.photoDate, ...globalStyles.photoDetail}}> { this.props.photo.emuInput.CreDateCreated } </div>
+                    <img style={styles.photoImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} width="100%" />
+                    
+                    <div style={{...styles.backButton, ...globalStyles.body, fontWeight: 'bold'}} onClick={() => { this.props.closePhoto() }}>
                        {"<"} Back to search reults
                     </div>
-                    <div style={styles.photoTitle}> { this.props.photo.emuRecord.TitMainTitle } </div>
-                    <div style={styles.photoDate}> { this.props.photo.emuRecord.CreDateCreated } </div>
-                    <img style={styles.photoImage} src={this.props.photo.url} width="100%" />
-                    
 
-                    <div style={{marginBottom: 50}}> Object Information 
-                        {Object.keys(this.props.photo.emuRecord).map((key) => {
-                            return ( <div> { key +" : " + this.props.photo.emuRecord[key] } </div>);
-                        })}
-                    </div>
+                    <div style={{marginBottom: 50}}> 
+                        <div style={{...globalStyles.body, fontWeight: 'bold'}}>Object Information </div>
+                        <table>
+                            {Object.keys(this.props.photo.emuInput).map((key) => {
+                                return ( 
+                                    <tr>
+                                        <td style={{...globalStyles.body }}> 
+                                            { key +": " } 
+                                        </td>
+                                        <td style={{...globalStyles.body }}> 
+                                            { this.props.photo.emuInput[key] } 
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </table>
+                    </div>      
                 </div>
                 <div>
-                    <div style={styles.suggestionsCategory}> More Photos of Jesse Jackson </div>
+                    <div style={{...globalStyles.body, fontWeight: 'bold', ...styles.suggestionsCategory}}> More Photos from [Year] </div>
                     <div style={styles.photoSuggestions} className="smoothScroller"> 
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
+                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
+                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
+                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
+                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                     </div>
-                    <div style={styles.suggestionsCategory}> More Photos from Downtown </div>
+                    <div style={{...globalStyles.body, fontWeight: 'bold', ...styles.suggestionsCategory}}> More Photos from [Neighborhood] </div>
                     <div style={styles.photoSuggestions} className="smoothScroller">  
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
+                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
+                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
+                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={hit.url} height="100" />);
+                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                     </div>
                 </div>

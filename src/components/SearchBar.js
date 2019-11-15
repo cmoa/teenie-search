@@ -4,6 +4,8 @@ import Photo from './Photo';
 import { connect } from 'react-redux'
 import { updateSearchTerm, search } from '../actions/actions'
 
+import globalStyles from '../styles'
+
 import posed from 'react-pose';
 
 const styles = {
@@ -16,26 +18,25 @@ const styles = {
 	},
 	searchInput: {
 		height: "5vh",
-    	padding: "0rem 1rem",
-    	fontSize: "1rem",
-    	border: "1px solid #555",
-    	borderRadius: 0,
-    	flex: 1,
-    	outlineOffset: -2,
-    },
-    searchButton: {
-    	height: "5vh",
-    	width: "5vh",
-    	backgroundColor: '#bf0d3e',
-    	display: 'flex',
-    	alignItems: 'center',
-    	justifyContent: 'center',
-    },
-    searchIcon: {
-    	color: 'white',
-    	width: '40%',
-    	height: '40%',
-    },
+  	padding: "0rem 1rem",
+  	border: "1px solid #555",
+  	borderRadius: 0,
+  	flex: 1,
+  	outlineOffset: -2,
+  },
+  searchButton: {
+  	height: "5vh",
+  	width: "5vh",
+  	backgroundColor: '#bf0d3e',
+  	display: 'flex',
+  	alignItems: 'center',
+  	justifyContent: 'center',
+  },
+  searchIcon: {
+  	color: 'white',
+  	width: '40%',
+  	height: '40%',
+  },
 }
 
 const SearchContainer = posed.div({
@@ -78,7 +79,7 @@ class SearchBar extends Component {
 	        			}}
 	        		>
 		                <input 
-		                	style={styles.searchInput}
+		                	style={{ ...styles.searchInput, ...globalStyles.searchTerm }}
 		                	type="search" 
 		                	placeholder="Search the collection..."
 		                	value={this.props.searchTerm} 

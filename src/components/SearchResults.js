@@ -2,6 +2,10 @@ import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
 import { search, openPhoto } from '../actions/actions'
+import globalStyles from '../styles';
+
+import SuggestedSearchView from './SuggestedSearchView';
+
 
 const searchSuggestionPadding = 20;
 const searchResultPadding = 0;
@@ -87,11 +91,7 @@ const styles = {
 		marginBottom: '1rem',
 	},
 	searchResultTitle: {
-		fontFamily: 'Franklin Gothic FS,Helvetica,sans-serif',
 		marginBottom: '.5rem',
-    	fontWeight: 800,
-    	fontSize: '1.1em',
-    	lineHeight: '1.25'
 	},
 	searchResultDate: {
 		fontSize: '1.1em',
@@ -101,28 +101,8 @@ const styles = {
 }
 
 class SearchResults extends Component {
+
     render() {
-
-    	var suggestedSearchTerms = [
-			"Hill District",
-			"1950s",
-			"Jazz",
-			"Presidents",
-			"Civil Rights",
-			"Portraits",
-		]
-
-		var suggestedSearchView = suggestedSearchTerms.map((term, i) => {
-			return (
-				<div  
-					style={styles.sampleSearchContainer}
-					onClick={() => { this.props.search(term) }}
-				>
-					<div style={styles.sampleSearchTerm}> { term } </div>
-				</div>
-			)
-		});
-
         return ( 
 	        <div style={styles.page} pose={this.props.screen}>
 
@@ -147,28 +127,9 @@ class SearchResults extends Component {
 
 				{ /* No Results */ }
 				{this.props.hitsCount === 0 && 
-		            <div style={styles.bottomHalf}> 
-		            	<div> NO RESULTS, try one of these: </div>
-		                <div style={styles.sampleSearchRow}>
-							{ suggestedSearchView[0] } 
-							{ suggestedSearchView[1] } 
-							{ suggestedSearchView[2] } 
-						</div>
-		                <div style={styles.sampleSearchRow}>
-							{ suggestedSearchView[3] } 
-							{ suggestedSearchView[4] } 
-							{ suggestedSearchView[5] } 
-						</div>
-						<div style={styles.sampleSearchRow}>
-							{ suggestedSearchView[1] } 
-							{ suggestedSearchView[2] } 
-							{ suggestedSearchView[3] } 
-						</div>
-						<div style={styles.sampleSearchRow}>
-							{ suggestedSearchView[3] } 
-							{ suggestedSearchView[4] } 
-							{ suggestedSearchView[5] } 
-						</div>
+		            <div style={{ ...styles.bottomHalf, paddingTop: 0 }}> 
+		            	<SuggestedSearchView />
+		            	<SuggestedSearchView />
 		            </div> 
 				}
 	        </div>
@@ -178,12 +139,13 @@ class SearchResults extends Component {
 
 
 const SearchResult = (props) => {
+	console.log(props.hit);
 	return(
 		<div style={styles.searchResultContainer} onClick={props.onClick}>
 			<div style={styles.searchResult}>
-				<img style={styles.searchResultImage} src={props.hit.url} width="100%" />
-				<div style={styles.searchResultTitle}> { props.hit.emuRecord.TitMainTitle } </div>
-				<div style={styles.searchResultDate}> { props.hit.emuRecord.CreDateCreated } </div>
+				<img style={styles.searchResultImage} src={process.env.PUBLIC_URL + '/images/'+props.hit.irn+'.jpg'} width="100%" />
+				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.emuInput.TitMainTitle } </div>
+				<div style={{...styles.searchResultDate, ...globalStyles.photoDate}}> { props.hit.emuInput.CreDateCreated } </div>
 			</div>
 		</div>
 	)

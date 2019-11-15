@@ -13,3 +13,43 @@ code {
 }
 
 div::-webkit-scrollbar { width: 0 !important }
+
+@font-face {
+  font-family: 'Klavika-bold';
+  src: url(fonts/klavika/klavika-bold.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'Klavika-bold-italic';
+  src: url(fonts/klavika/klavika-bold-italic.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'Klavika-light';
+  src: url(fonts/klavika/klavika-light.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'Klavika-light-italic';
+  src: url(fonts/klavika/klavika-light-italic.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'Klavika-medium';
+  src: url(fonts/klavika/klavika-medium.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'Klavika-medium-italic';
+  src: url(fonts/klavika/klavika-medium-italic.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'Klavika-regular';
+  src: url(fonts/klavika/klavika-regular.otf) format('otf');
+}
+
+@font-face {
+  font-family: 'Klavika-regular-italic';
+  src: url(fonts/klavika/klavika-regular-italic.otf) format('otf');
+}

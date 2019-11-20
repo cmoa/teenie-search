@@ -16,14 +16,6 @@ const styles = {
 		justifyContent: 'center',
 		height: '12vh',
 	},
-	searchInput: {
-		height: "5vh",
-  	padding: "0rem 1rem",
-  	border: "1px solid #555",
-  	borderRadius: 0,
-  	flex: 1,
-  	outlineOffset: -2,
-  },
   searchButton: {
   	height: "5vh",
   	width: "5vh",
@@ -79,7 +71,7 @@ class SearchBar extends Component {
 	        			}}
 	        		>
 		                <input 
-		                	style={{ ...styles.searchInput, ...globalStyles.searchTerm }}
+		                	style={{ ...globalStyles.searchTerm }}
 		                	type="search" 
 		                	placeholder="Search the collection..."
 		                	value={this.props.searchTerm} 

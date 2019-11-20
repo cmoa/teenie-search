@@ -13,7 +13,7 @@ const globalStyles = {
 	},
 	searchTerm: {
 		fontFamily: 'Franklin Gothic FS,Helvetica,sans-serif',
-		fontSize: '1rem',
+		fontSize: '1.2rem',
 		color: '#333',
 	},
 	sampleSearchTerm: {
@@ -28,8 +28,22 @@ const globalStyles = {
 	},
 	body: {
 		fontFamily: 'Franklin Gothic FS,Helvetica,sans-serif',
-		fontSize: '1rem',
+		fontSize: '1.2rem',
+		lineHeight: 1.5,
+		color: '#333',
 	},
+	bodySmall: {
+		fontFamily: 'Franklin Gothic FS,Helvetica,sans-serif',
+		fontSize: '1rem',
+		lineHeight: 1.5,
+		color: '#333',
+	},
+	line: {
+		width: '100vw',
+		borderBottom: '1px solid #aaa',
+		marginTop: '5vw',
+		marginBottom: '5vw',
+	}
 }
 
 export default globalStyles;

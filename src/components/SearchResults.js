@@ -6,7 +6,6 @@ import globalStyles from '../styles';
 
 import SuggestedSearchView from './SuggestedSearchView';
 
-
 const searchSuggestionPadding = 20;
 const searchResultPadding = 0;
 
@@ -109,7 +108,25 @@ class SearchResults extends Component {
 	        	{ /* Results */ }
 	        	{this.props.hitsCount > 0 && 
 	        		<div>
-			        	<div style={styles.searchOptions}> { this.props.hitsCount } Results</div>
+			        	<div style={{ ...globalStyles.body, ...styles.searchOptions}}> 
+			        		<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+			        			Filtered by&nbsp; 
+			        			<span style={{ display: 'inline-block', backgroundColor: '#bf0d3e', color: 'white', width: '5vh', height: '5vh', textAlign: 'center', lineHeight: '4.5vh' }}onClick={() => { console.log("Add filter") }}>
+			        				+
+		                		</span> 
+		                	</div>
+
+		                	<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
+				        		{ this.props.hitsCount } Results sorted by &nbsp;
+				        		<form>
+					        		<select name="sort" style={{ ...globalStyles.bodySmall }}>
+										<option value="date">Date</option>
+										<option value="accession">Accession Number</option>
+										<option value="relevance">Relevance</option>
+									</select>
+								</form>
+							</div>
+			        	</div>
 			            <div style={styles.searchResults} className="smoothScroller">
 			            	<div style={styles.searchResultsColumn}>
 								{ this.props.hits.map((hit, i) => {
@@ -145,7 +162,7 @@ const SearchResult = (props) => {
 			<div style={styles.searchResult}>
 				<img style={styles.searchResultImage} src={process.env.PUBLIC_URL + '/images/'+props.hit.irn+'.jpg'} width="100%" />
 				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.emuInput.TitMainTitle } </div>
-				<div style={{...styles.searchResultDate, ...globalStyles.photoDate}}> { props.hit.emuInput.CreDateCreated } </div>
+				<div style={{...styles.searchResultDate, ...globalStyles.photoDetail}}> { props.hit.emuInput.CreDateCreated } </div>
 			</div>
 		</div>
 	)

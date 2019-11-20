@@ -2,6 +2,9 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.15.3"
+  },
   "dependencies": {
     "algoliasearch": "^3.35.1",
     "papaparse": "^5.1.0",

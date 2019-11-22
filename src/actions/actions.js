@@ -17,7 +17,7 @@ export function openPhoto(irn) {
     console.log(irn);
 
     return dispatch => {
-        index.findObject(hit => hit.irn == irn, {}, (err, photo) => {
+        index.findObject(hit => hit.irn === irn, {}, (err, photo) => {
           console.log(photo);
           dispatch({
             type: "OPEN_PHOTO",
@@ -49,6 +49,7 @@ export function search(term) {
         type: "UPDATE_RESULTS",
         hits: hits,
         hitsCount: hitsCount,
+        pageCount: pageCount,
       });
     });
   }

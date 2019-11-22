@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import globalStyles from '../styles';
 import SuggestedSearchView from './SuggestedSearchView';
 
 const styles = {

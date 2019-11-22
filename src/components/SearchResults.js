@@ -131,11 +131,13 @@ class SearchResults extends Component {
 			            	<div style={styles.searchResultsColumn}>
 								{ this.props.hits.map((hit, i) => {
 									if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
+									return null;
 								})}
 							</div>
 							<div style={styles.searchResultsColumn}>
 								{ this.props.hits.map((hit, i) => {
 									if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
+									return null;
 								})}
 							</div>
 						</div>
@@ -145,8 +147,7 @@ class SearchResults extends Component {
 				{ /* No Results */ }
 				{this.props.hitsCount === 0 && 
 		            <div style={{ ...styles.bottomHalf, paddingTop: 0 }}> 
-		            	<SuggestedSearchView />
-		            	<SuggestedSearchView />
+		            	<SuggestedSearchView rows={4} columns={3} />
 		            </div> 
 				}
 	        </div>
@@ -156,11 +157,10 @@ class SearchResults extends Component {
 
 
 const SearchResult = (props) => {
-	console.log(props.hit);
 	return(
 		<div style={styles.searchResultContainer} onClick={props.onClick}>
 			<div style={styles.searchResult}>
-				<img style={styles.searchResultImage} src={process.env.PUBLIC_URL + '/images/'+props.hit.irn+'.jpg'} width="100%" />
+				<img style={styles.searchResultImage} alt="" src={process.env.PUBLIC_URL + '/images/'+props.hit.irn+'.jpg'} width="100%" />
 				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.emuInput.TitMainTitle } </div>
 				<div style={{...styles.searchResultDate, ...globalStyles.photoDetail}}> { props.hit.emuInput.CreDateCreated } </div>
 			</div>

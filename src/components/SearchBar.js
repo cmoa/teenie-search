@@ -1,6 +1,5 @@
 import React, {Component}
 from 'react';
-import Photo from './Photo';
 import { connect } from 'react-redux'
 import { updateSearchTerm, search } from '../actions/actions'
 

@@ -38,3 +38,15 @@
 .smoothScroller::-webkit-scrollbar {
   width: 0 !important;
 }
+
+.example-appear,
+.example-enter {
+  transition: opacity 2s;
+  opacity: 0;
+}
+
+.example-appear.example-appear-active,
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 2s;
+}

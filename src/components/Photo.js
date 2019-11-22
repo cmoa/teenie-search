@@ -4,9 +4,6 @@ import { search, closePhoto } from '../actions/actions'
 
 import globalStyles from '../styles'
 
-const searchSuggestionPadding = 10;
-
-
 const styles = {
     page: {
         display: 'flex',
@@ -27,8 +24,6 @@ const styles = {
     photoImage: {
         width: '95vw',
         height: 'auto',
-    },
-    photoImage: {
         marginBottom: '1rem',
     },
     photoTitle: {
@@ -97,7 +92,7 @@ class Photo extends Component {
                         { this.props.photo.emuInput.CreDateCreated }
                     </div>
 
-                    <img style={styles.photoImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} width="100%" />
+                    <img alt="" style={styles.photoImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} width="100%" />
 
                     <div style={{marginBottom: '5vw'}}> 
                         <div style={{ ...globalStyles.body }}> 
@@ -143,13 +138,13 @@ class Photo extends Component {
                     <div style={{...globalStyles.title, ...styles.suggestionsCategory}}> More Photos from [Year] </div>
                     <div style={styles.photoSuggestions} className="smoothScroller"> 
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
+                            return(<img alt="" style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                     </div>
                     <div style={{...globalStyles.title, ...styles.suggestionsCategory}}> More Photos from [Neighborhood] </div>
                     <div style={styles.photoSuggestions} className="smoothScroller">  
                         { this.props.hits.map((hit) => {
-                            return(<img style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
+                            return(<img alt="" style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} height="100" />);
                         })}
                     </div>
                 </div>

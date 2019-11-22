@@ -4,12 +4,9 @@ import { connect } from 'react-redux'
 import SearchBar from './SearchBar';
 import Home from './Home';
 import SearchResults from './SearchResults';
-import About from './About';
 import Photo from './Photo';
 
 import posed, { PoseGroup } from 'react-pose';
-
-const searchSuggestionPadding = 10;
 
 const Page = posed.div({
   enter: {
@@ -26,11 +23,11 @@ class Root extends Component {
     render() {
         return ( 
         	<PoseGroup>
-            {this.props.screen === "HOME" && (<Page key="home"><Home /></Page>)}
-            {this.props.screen === "SEARCH_RESULTS" && (<Page key="searchResults"><SearchResults /></Page>)}
-	        {true && <SearchBar key="searchBar" /> }
+                {this.props.screen === "HOME" && (<Page key="home"><Home /></Page>)}
+                {this.props.screen === "SEARCH_RESULTS" && (<Page key="searchResults"><SearchResults /></Page>)}
+    	        {true && <SearchBar key="searchBar" /> }
 
-	        {this.props.modal === "PHOTO" && (<Page key="photo"><Photo /></Page>)}
+    	        {this.props.modal === "PHOTO" && (<Page key="photo"><Photo /></Page>)}
 	        </PoseGroup>
         )
     }

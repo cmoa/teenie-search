@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { search, openPhoto } from '../actions/actions'
 import globalStyles from '../styles';
 
-import PerfectScrollbar from 'react-perfect-scrollbar'
 import SuggestedSearchView from './SuggestedSearchView';
 
 const searchSuggestionPadding = 20;
@@ -107,7 +106,7 @@ class SearchResults extends Component {
 	    if (bottom) { 
 	    	console.log("BOTTOM!")
 	    }
-	  }
+	}
 
     render() {
         return ( 

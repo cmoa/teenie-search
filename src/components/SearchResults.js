@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { search, openPhoto } from '../actions/actions'
 import globalStyles from '../styles';
 
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import SuggestedSearchView from './SuggestedSearchView';
 
 const searchSuggestionPadding = 20;
@@ -101,6 +102,13 @@ const styles = {
 
 class SearchResults extends Component {
 
+	handleScroll = (e) => {
+	    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+	    if (bottom) { 
+	    	console.log("BOTTOM!")
+	    }
+	  }
+
     render() {
         return ( 
 	        <div style={styles.page} pose={this.props.screen}>
@@ -127,7 +135,7 @@ class SearchResults extends Component {
 								</form>
 							</div>
 			        	</div>
-			            <div style={styles.searchResults} className="smoothScroller">
+			            <div style={styles.searchResults} className="smoothScroller" onScroll={this.handleScroll}>
 			            	<div style={styles.searchResultsColumn}>
 								{ this.props.hits.map((hit, i) => {
 									if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
@@ -171,7 +179,7 @@ const SearchResult = (props) => {
 const mapDispatchToProps = dispatch => {
 	return {
 		search: (term) => dispatch(search(term)),
-		openPhoto: (irn) => dispatch(openPhoto(irn))
+		openPhoto: (irn) => dispatch(openPhoto(irn)),
 	}
 }
 

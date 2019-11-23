@@ -1,4 +1,5 @@
 const globalStyles = {
+	cmoaRed: "#bf0d3e",
 	photoTitle: {
         fontFamily: 'Klavika-bold,Helvetica,sans-serif',
         fontSize: '1.5rem',
@@ -43,7 +44,7 @@ const globalStyles = {
 		borderBottom: '1px solid #aaa',
 		marginTop: '5vw',
 		marginBottom: '5vw',
-	}
+	},
 }
 
 export default globalStyles;

@@ -18,7 +18,7 @@ const styles = {
   searchButton: {
   	height: "5vh",
   	width: "5vh",
-  	backgroundColor: '#bf0d3e',
+  	backgroundColor: globalStyles.cmoaRed,
   	display: 'flex',
   	alignItems: 'center',
   	justifyContent: 'center',

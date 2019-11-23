@@ -10,10 +10,13 @@ body {
 input, select {
   border: solid 1px #555;
   font-size: 1rem;
-  height: 5vh;
   padding: 0 1vh;
   background-color: #fff;
   flex: 1;
+}
+
+select {
+  height: 5vh;
 }
 
 input:active, input:focus, select:active, select:focus {

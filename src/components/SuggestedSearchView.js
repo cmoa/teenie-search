@@ -43,62 +43,20 @@ const styles = {
 
 
 const searchTermBank = [
-	{
-		term: "Hill District",
-		photo: 63211,
-	},
-	{
-		term: "1950s",
-		photo: 4512,
-	},
-	{
-		term: "Jazz",
-		photo: 2514,
-	},
-	{
-		term: "Presidents",
-		photo: 59499,
-	},
-	{
-		term: "Civil Rights",
-		photo: 7848,
-	},
-	{
-		term: "Portraits",
-		photo: 60320,
-	},
-	{
-		term: "Baseball",
-		photo: 928,
-	},
-	{
-		term: "1940s",
-		photo: 61475,
-	},
-	{
-		term: "Summer",
-		photo: 47901,
-	},
-	{
-		term: "Cars",
-		photo: 10902,
-	},
-	{
-		term: "Weddings",
-		photo: 39088,
-	},
-	{
-		term: "Children",
-		photo: 39778,
-	},
-	{
-		term: "Children 2",
-		photo: 39778,
-	},
-	{
-		term: "Children 3",
-		photo: 39778,
-	}
+	{ term: "Hill District", photo: 63211 },
+	{ term: "1950s", photo: 4512 },
+	{ term: "Jazz", photo: 2514 },
+	{ term: "Presidents", photo: 59499 },
+	{ term: "Civil Rights", photo: 7848 },
+	{ term: "Portraits", photo: 60320 },
+	{ term: "Baseball", photo: 928 },
+	{ term: "1940s", photo: 61475 },
+	{ term: "Summer", photo: 47901 },
+	{ term: "Cars", photo: 10902 },
+	{ term: "Weddings", photo: 39088 },
+	{ term: "Children", photo: 39778 },
+	{ term: "Children 2", photo: 39778 },
+	{ term: "Children 3", photo: 39778 }
 ]
 
 class SuggestedSearchView extends Component {
@@ -111,7 +69,7 @@ class SuggestedSearchView extends Component {
 		var timeouts = [];
 		var intialSuggestedSearchTerms = _.sampleSize(searchTermBank, this.props.rows * this.props.columns);
 		intialSuggestedSearchTerms.map((suggestion, i) => {
-			timeouts.push(setTimeout(() => { this.getNewSuggestion(i) }, 500 * (i + 1)));
+			timeouts.push(setTimeout(() => { this.getNewSuggestion(i) }, 100 * i + 5000));
 			return suggestion;
 		});
 
@@ -157,10 +115,10 @@ class SuggestedSearchView extends Component {
 						<CSSTransitionGroup 
 							transitionName="example" 
 							transitionAppear={true} 
-							transitionAppearTimeout={2000} 
+							transitionAppearTimeout={1000} 
 							transitionLeave={true} 
-							transitionEnterTimeout={2000}
-							transitionLeaveTimeout={2000}
+							transitionEnterTimeout={1000}
+							transitionLeaveTimeout={1000}
 							key={suggested.term}
 							style={{
 								...styles.sampleSearchContainer, 

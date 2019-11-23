@@ -12,6 +12,9 @@ export default (state = initialState, action) => {
 
   switch(action.type) {
 
+    case "RESET_INTERACTIVE": 
+      return initialState
+
     case "UPDATE_SEARCH":
       newState.term = action.term;
       console.log(newState)

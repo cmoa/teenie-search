@@ -46,6 +46,8 @@ const styles = {
     suggestionsCategory: {
         width: '90vw',
         margin: '0vh 5vw',
+        marginBottom: '2.5vw',
+        fontWeight: 'bold',
     },
     emailContainer: {
         ...globalStyles.body,
@@ -76,10 +78,21 @@ const styles = {
 
 class Photo extends Component {
 
+    constructor(props) {
+        super(props);
+        this.scrollContainer = React.createRef();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.photo.irn !== this.props.photo.irn) {
+            this.scrollContainer.current.scrollTop = 0;
+        }
+    }
+
     render() {
 
         return ( 
-            <div style={styles.page} className="smoothScroller">
+            <div style={styles.page} className="smoothScroller" ref={this.scrollContainer}>
                 <div style={styles.photoContainer}>
                         
                     <div style={{...styles.photoTitle, ...globalStyles.photoTitle}}> { this.props.photo.emuInput.TitMainTitle } </div>
@@ -134,19 +147,33 @@ class Photo extends Component {
                 <div style={{ ...globalStyles.line }} />
 
                 { /* Suggestions */}
+                <div style={{ marginBottom: '5vw' }}>
+                    <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More results for&nbsp;
+                        <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
+                    </div>
+                    <HorizontalPhotoGallery photos={this.props.hits} />
+                </div>
+                <div style={{ marginBottom: '5vw' }}>
+                    <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
+                        <span style={{ color: globalStyles.cmoaRed}}>Pittsburgh, PA</span>
+                    </div>
+                    <HorizontalPhotoGallery photos={this.props.hits} />
+                </div>
                 <div>
-                    <div style={{...globalStyles.title, ...styles.suggestionsCategory}}> More Photos from [Year] </div>
+                    <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
+                        <span style={{ color: globalStyles.cmoaRed}}>1950</span>
+                    </div>
                     <HorizontalPhotoGallery photos={this.props.hits} />
                 </div>
 
                 <div style={{ ...globalStyles.line }} />
 
                 { /* Reach Out */}
-                <div style={{ ...styles.additionalInfo, marginBottom: '5vw',}}> 
+                <div style={{ ...styles.additionalInfo, marginBottom: '5vw' }}> 
                     <div style={{ ...globalStyles.title}}>
                         Record Data
                     </div>
-                     <div style={{ ...globalStyles.body, marginBottom: '5vw',}}>
+                     <div style={{ ...globalStyles.body, marginBottom: '5vw' }}>
                         This record is subject to revision due to ongoing research. 
                         WE CAN ADD MORE ABOUT THE MACHINE LEARNING / COMPUTER VISION WORK HERE. Search powered by Algolia.
                         If you have additional information regarding this object, or have noticed an error, 

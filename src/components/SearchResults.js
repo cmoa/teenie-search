@@ -109,6 +109,17 @@ const styles = {
 
 class SearchResults extends Component {
 
+	constructor(props) {
+        super(props);
+        this.resultsContainer = React.createRef();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.hitsCount !== 0 && prevProps.searchTime !== this.props.searchTime) {
+            this.resultsContainer.current.scrollTop = 0;
+        }
+    }
+
 	handleScroll = (e) => {
 	    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
 	    if (bottom) { 
@@ -145,7 +156,7 @@ class SearchResults extends Component {
 							</div>
 			        	</div>
 
-			            <div style={styles.searchResultsContainer} className="smoothScroller" onScroll={this.handleScroll}>
+			            <div style={styles.searchResultsContainer} className="smoothScroller" onScroll={this.handleScroll} ref={this.resultsContainer}>
 			            	<div style={styles.searchResults}>
 				            	<div style={styles.searchResultsColumn}>
 									{ this.props.hits.map((hit, i) => {
@@ -205,6 +216,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         searchTerm: state.search.term,
+        searchTime: state.search.timestamp,
         hits: state.search.hits,
         hitsCount: state.search.hitsCount,
         screen: state.nav.screen,

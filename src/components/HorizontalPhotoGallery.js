@@ -1,6 +1,8 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
+import { openPhoto } from '../actions/actions'
+
 
 import globalStyles from '../styles'
 
@@ -58,6 +60,7 @@ class HorizontalPhotoGallery extends Component {
         }
     }
 
+
     render() {
 
         var lastImages = _.takeRight(this.props.photos, 5);
@@ -68,19 +71,40 @@ class HorizontalPhotoGallery extends Component {
               
               <div style={{ display: 'flex' }} ref={this.lastImages}>
                 { lastImages.map((photo) => {
-                    return(<img alt="" style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} height="100" />);
+                    return(
+                      <img 
+                        onClick={() => { this.props.openPhoto(photo.irn) }}
+                        alt="" 
+                        style={styles.recommendedImage} 
+                        src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} 
+                        height="100" />
+                    );
                 })}    
               </div>
 
               <div style={{ display: 'flex' }} ref={this.middleImages}>
                 { this.props.photos.map((photo) => {
-                    return(<img alt="" style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} height="100" />);
+                    return(
+                      <img 
+                        onClick={() => { this.props.openPhoto(photo.irn) }}
+                        alt="" 
+                        style={styles.recommendedImage} 
+                        src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} 
+                        height="100" />
+                    );
                 })}
               </div>
               
               <div style={{ display: 'flex' }} ref={this.firstImages}>
                 { firstImages.map((photo) => {
-                    return(<img alt="" style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} height="100" />);
+                    return(
+                      <img 
+                        onClick={() => { this.props.openPhoto(photo.irn) }}
+                        alt="" 
+                        style={styles.recommendedImage} 
+                        src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} 
+                        height="100" />
+                    );
                 })}
               </div>
           </div>
@@ -89,7 +113,9 @@ class HorizontalPhotoGallery extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-	return {}
+	return {
+    openPhoto: (irn) => dispatch(openPhoto(irn)),
+  }
 }
 
 const mapStateToProps = state => {

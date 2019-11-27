@@ -107,6 +107,7 @@ export function search(query) {
           hitsPerPage: res.hitsPerPage,
           term: query,
           searchParameters,
+          timestamp: new Date().getTime(),
         }
       });
     });

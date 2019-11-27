@@ -52,7 +52,7 @@ class Root extends Component {
         	        {true && <SearchBar key="searchBar" /> }
 
         	        {this.props.modal === "PHOTO" && (<Page key="photo"><Photo /></Page>)}
-                    {this.props.EmailAlert !== ""  && (<Page key="emailalert"><EmailAlert /></Page>)}
+                    {this.props.emailAlert !== ""  && (<Page key="emailalert"><EmailAlert /></Page>)}
     	        </PoseGroup>
             </div>
         )
@@ -85,7 +85,7 @@ const mapStateToProps = state => {
         searchTerm: state.search.term,
         screen: state.nav.screen,
         modal: state.nav.modal,
-        EmailAlert: state.nav.emailAlert,
+        emailAlert: state.nav.emailAlert,
     }
 }
 

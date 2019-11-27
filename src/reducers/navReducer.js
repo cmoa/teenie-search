@@ -2,7 +2,7 @@
 var initialState = {
   screen: "HOME",
   modal: "",
-  emailAlert: "" // "" or "sending" or "sent" or "error" or "composing"
+  emailAlert: "" // "" or "sending" or "photoSent" or "messageSent" or "error" or "composing"
 }
 
 export default (state = initialState, action) => {
@@ -30,8 +30,12 @@ export default (state = initialState, action) => {
       newState.emailAlert = "sending"
       return newState
 
-    case "EMAIL_SENT":
-      newState.emailAlert = "sent"
+    case "PHOTO_SENT":
+      newState.emailAlert = "photoSent"
+      return newState
+
+    case "MESSAGE_SENT":
+      newState.emailAlert = "messageSent"
       return newState
 
     case "DISMISS_EMAIL_ALERT":

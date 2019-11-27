@@ -1,7 +1,7 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { search, openPhoto } from '../actions/actions'
+import { search, openPhoto, retrieveMoreHits } from '../actions/actions'
 import globalStyles from '../styles';
 
 import SuggestedSearchView from './SuggestedSearchView';
@@ -23,10 +23,13 @@ const styles = {
 	searchResults: {
 		display: 'flex',
 		flexDirection: 'row',
-		overflow: 'scroll',
-		height: '78vh',
     	width: '95vw',
     	marginLeft: '2.5vw',
+	},
+	searchResultsContainer: {
+		flexDirection: 'row',
+		overflow: 'scroll',
+		height: '78vh',
 	},
 	searchOptions: {
 		height: "10vh",
@@ -37,7 +40,8 @@ const styles = {
 		display: 'flex',
 		flexDirection: 'column',
 		width: '50%',
-		padding: '2.5vw'
+		padding: '2.5vw',
+		minHeight: '78vh',
 	},
 	searchResultContainer: {
 		width: '100%',
@@ -45,6 +49,10 @@ const styles = {
 	},
 	searchResult: {
 		padding: searchResultPadding / 2,
+	},
+	endOfResults: {
+		backgroundColor: 'black',
+    	padding: '200px 0px',
 	},
 	bottomHalf: {
 		display: 'flex',
@@ -104,7 +112,9 @@ class SearchResults extends Component {
 	handleScroll = (e) => {
 	    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
 	    if (bottom) { 
-	    	console.log("BOTTOM!")
+	    	if (this.props.page + 1 < this.props.pageCount) {
+	    		this.props.retrieveMoreHits();
+	    	}
 	    }
 	}
 
@@ -118,7 +128,7 @@ class SearchResults extends Component {
 			        	<div style={{ ...globalStyles.body, ...styles.searchOptions}}> 
 			        		<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 			        			Filtered by&nbsp; 
-			        			<span style={{ display: 'inline-block', backgroundColor: '#bf0d3e', color: 'white', width: '5vh', height: '5vh', textAlign: 'center', lineHeight: '4.5vh' }}onClick={() => { console.log("Add filter") }}>
+			        			<span style={{ display: 'inline-block', backgroundColor: '#bf0d3e', color: 'white', width: '5vh', height: '5vh', textAlign: 'center', lineHeight: '4.5vh' }} onClick={() => { console.log("Add filter") }}>
 			        				+
 		                		</span> 
 		                	</div>
@@ -134,19 +144,28 @@ class SearchResults extends Component {
 								</form>
 							</div>
 			        	</div>
-			            <div style={styles.searchResults} className="smoothScroller" onScroll={this.handleScroll}>
-			            	<div style={styles.searchResultsColumn}>
-								{ this.props.hits.map((hit, i) => {
-									if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
-									return null;
-								})}
+
+			            <div style={styles.searchResultsContainer} className="smoothScroller" onScroll={this.handleScroll}>
+			            	<div style={styles.searchResults}>
+				            	<div style={styles.searchResultsColumn}>
+									{ this.props.hits.map((hit, i) => {
+										if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
+										return null;
+									})}
+								</div>
+								<div style={styles.searchResultsColumn}>
+									{ this.props.hits.map((hit, i) => {
+										if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
+										return null;
+									})}
+								</div>
 							</div>
-							<div style={styles.searchResultsColumn}>
-								{ this.props.hits.map((hit, i) => {
-									if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
-									return null;
-								})}
-							</div>
+							{ /* End of Results */ }
+							{(this.props.page + 1) === this.props.pageCount && 
+					            <div style={{ ...styles.endOfResults }}>
+					            sfasdf
+					            </div> 
+							}
 						</div>
 					</div>
 				}
@@ -179,6 +198,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		search: (term) => dispatch(search(term)),
 		openPhoto: (irn) => dispatch(openPhoto(irn)),
+		retrieveMoreHits: () => dispatch(retrieveMoreHits()),
 	}
 }
 
@@ -188,6 +208,8 @@ const mapStateToProps = state => {
         hits: state.search.hits,
         hitsCount: state.search.hitsCount,
         screen: state.nav.screen,
+        page: state.search.page,
+        pageCount: state.search.pageCount,
     }
 }
 

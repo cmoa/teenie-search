@@ -4,6 +4,8 @@ import { search, closePhoto, sendPhoto, composeEmail } from '../actions/actions'
 
 import globalStyles from '../styles'
 
+import HorizontalPhotoGallery from './HorizontalPhotoGallery'
+
 
 const styles = {
     page: {
@@ -41,16 +43,6 @@ const styles = {
         alignItems: 'center',
         fontWeight: 'bold',
     },
-    photoSuggestions: {
-        overflow: 'scroll',
-        display: 'flex',
-        width:'95vw',
-        paddingLeft: '5vw',
-    },
-    recommendedImage: {
-        height: '20vh',
-        paddingRight: '5vw',
-    },
     suggestionsCategory: {
         width: '90vw',
         margin: '0vh 5vw',
@@ -84,22 +76,6 @@ const styles = {
 
 class Photo extends Component {
 
-    handleScroll = (e) => {
-        console.log("e.target.scrollWidth " + e.target.scrollWidth );
-        console.log("e.target.scrollRight " + e.target.scrollRight );
-        console.log("e.target.clientWidth " + e.target.clientWidth );
-
-        const right = e.target.scrollWidth - e.target.scrollLeft === e.target.clientWidth;
-        const left = e.target.scrollLeft === 0;
-
-        if (right) { 
-            console.log("RIGHT!")
-        } else if (left) {
-            console.log("LEFT!")
-        }
-    }
-
-
     render() {
 
         return ( 
@@ -129,12 +105,12 @@ class Photo extends Component {
                                 Share this photograph:
                             </div>
                             <form 
-                                id="emailform"
+                                id="photoform"
                                 style={{ display: 'flex', width: '100%'}}
                                 onSubmit={(event) => {
                                     event.preventDefault();
                                     this.props.sendPhoto(event, this.props.photo.url)
-                                    document.forms["emailform"].reset();
+                                    document.forms["photoform"].reset();
                                 }}
                             >
                                 <input 
@@ -144,8 +120,9 @@ class Photo extends Component {
                                     onFocus={() => { console.log("show Keyboard") }}
                                     onBlur={() => { console.log("hide Keyboard") }}
                                     onChange={(event) => console.log(event) }
+                                    required
                                 />
-                                <button type="submit" form="emailform" style={{ ...styles.emailButton }}>
+                                <button type="submit" form="photoform" style={{ ...styles.emailButton }}>
                                     <svg style={{ ...styles.emailIcon }} aria-hidden="true" data-prefix="far" data-icon="envelope" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="" focusable="false"><path fill="currentColor" d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm0 48v40.805c-22.422 18.259-58.168 46.651-134.587 106.49-16.841 13.247-50.201 45.072-73.413 44.701-23.208.375-56.579-31.459-73.413-44.701C106.18 199.465 70.425 171.067 48 152.805V112h416zM48 400V214.398c22.914 18.251 55.409 43.862 104.938 82.646 21.857 17.205 60.134 55.186 103.062 54.955 42.717.231 80.509-37.199 103.053-54.947 49.528-38.783 82.032-64.401 104.947-82.653V400H48z"></path></svg>
                                 </button>  
                             </form>  
@@ -159,11 +136,7 @@ class Photo extends Component {
                 { /* Suggestions */}
                 <div>
                     <div style={{...globalStyles.title, ...styles.suggestionsCategory}}> More Photos from [Year] </div>
-                    <div style={styles.photoSuggestions} className="smoothScroller" onScroll={this.handleScroll}> 
-                        { this.props.hits.map((hit) => {
-                            return(<img alt="" style={styles.recommendedImage} src={process.env.PUBLIC_URL + '/images/'+hit.irn+'.jpg'} height="100" />);
-                        })}
-                    </div>
+                    <HorizontalPhotoGallery photos={this.props.hits} />
                 </div>
 
                 <div style={{ ...globalStyles.line }} />
@@ -175,7 +148,7 @@ class Photo extends Component {
                     </div>
                      <div style={{ ...globalStyles.body, marginBottom: '5vw',}}>
                         This record is subject to revision due to ongoing research. 
-                        WE CAN ADD MORE ABOUT THE MACHINE LEARNING / COMPUTER VISION WORK HERE. 
+                        WE CAN ADD MORE ABOUT THE MACHINE LEARNING / COMPUTER VISION WORK HERE. Search powered by Algolia.
                         If you have additional information regarding this object, or have noticed an error, 
                         please send feedback or inquiries 
                         to <a 
@@ -186,7 +159,7 @@ class Photo extends Component {
                     <div style={{ ...globalStyles.title}}>
                         Privacy
                     </div>
-                    <div style={{ ...globalStyles.body}}>
+                    <div style={{ ...globalStyles.body }}> 
                      We won't collect your email to spam you. 
                     </div>
                 </div>

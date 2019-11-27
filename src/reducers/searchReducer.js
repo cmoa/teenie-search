@@ -17,17 +17,14 @@ export default (state = initialState, action) => {
 
     case "UPDATE_SEARCH":
       newState.term = action.term;
-      console.log(newState)
       return newState;
 
     case "SEARCH": 
       newState.term = action.term;
       return newState;
 
-    case "UPDATE_RESULTS": 
-      newState.hits = action.hits;
-      newState.hitsCount = action.hitsCount;
-      return newState;
+    case "UPDATE_RESULTS":
+      return Object.assign(newState, action.updates);;
 
     default:
       return state

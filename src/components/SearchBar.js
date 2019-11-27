@@ -33,7 +33,7 @@ const styles = {
 const SearchContainer = posed.div({
   home: { 
 	top: '25vh',
-	width: '50vw',
+	width: '55vw',
   	opacity: 1,
   	transition: {
     	top: { type: 'spring' },
@@ -72,7 +72,7 @@ class SearchBar extends Component {
 		                <input 
 		                	style={{ ...globalStyles.searchTerm }}
 		                	type="search" 
-		                	placeholder="Search the collection..."
+		                	placeholder="Search the Teenie Harris Archives..."
 		                	value={this.props.searchTerm} 
 		                	onFocus={() => { console.log("show Keyboard") }}
 		                	onBlur={() => { console.log("hide Keyboard") }}

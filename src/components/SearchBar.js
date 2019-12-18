@@ -1,7 +1,7 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { updateSearchTerm, search } from '../actions/actions'
+import { updateSearchTerm, search, resetInteractive } from '../actions/actions'
 
 import globalStyles from '../styles'
 
@@ -27,6 +27,20 @@ const styles = {
   	color: 'white',
   	width: '40%',
   	height: '40%',
+  },
+  backButton: {
+    height: "5vh",
+    width: "5vh",
+    backgroundColor: globalStyles.cmoaRed,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backIcon: {
+    color: 'white',
+    width: '30%',
+    height: '30%',
+    transform: 'rotate(270deg)',
   },
 }
 
@@ -68,7 +82,11 @@ class SearchBar extends Component {
 	        				event.preventDefault();
 	        				this.props.search(this.props.searchTerm)
 	        			}}
-	        		>
+	        		>     { this.props.screen === "SEARCH_RESULTS" &&
+                      <div style={styles.backButton} onClick={() => { this.props.resetInteractive() }}>
+                        <svg style={styles.backIcon} class="svg-inline--fa fa-chevron fa-w-16" aria-hidden="true" data-prefix="cmoa" data-icon="chevron" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" data-fa-i2svg="" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
+                      </div>
+                    }
 		                <input 
 		                	style={{ ...globalStyles.searchTerm }}
 		                	type="search" 
@@ -92,6 +110,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		updateSearchTerm: (term) => dispatch(updateSearchTerm(term)),
 		search: (term) => dispatch(search(term)),
+    resetInteractive: (term) => dispatch(resetInteractive()),
 	}
 }
 

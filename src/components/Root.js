@@ -13,7 +13,6 @@ import IdleTimer from 'react-idle-timer'
 
 import { resetInteractive } from '../actions/actions'
 
-
 const Page = posed.div({
   enter: {
     opacity: 1,

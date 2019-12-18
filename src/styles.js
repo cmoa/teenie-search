@@ -45,6 +45,9 @@ const globalStyles = {
 		marginTop: '5vw',
 		marginBottom: '5vw',
 	},
+	link : {
+		color: "#bf0d3e",
+	}
 }
 
 export default globalStyles;

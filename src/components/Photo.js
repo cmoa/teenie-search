@@ -6,6 +6,7 @@ import globalStyles from '../styles'
 
 import HorizontalPhotoGallery from './HorizontalPhotoGallery'
 
+import {PinchView} from 'react-pinch-zoom-pan'
 
 const styles = {
     page: {
@@ -89,22 +90,39 @@ class Photo extends Component {
         }
     }
 
+    handleScroll = (e) => {
+        const top = e.target.scrollTop <= 0
+        const bottom = e.target.scrollHeight - e.target.scrollTop >= e.target.clientHeight;
+        // if (bottom) { 
+        //     e.preventDefault();
+        //     console.log(e.target.clientHeight)
+        //     e.target.scrollTop = e.target.clientHeight - 1;
+        // }
+
+        // if (top) {
+        //     e.preventDefault();
+        //     e.target.scrollTop = 1;
+        // }
+    }
+
     render() {
 
         return ( 
-            <div style={styles.page} className="smoothScroller" ref={this.scrollContainer}>
+            <div style={styles.page} className="smoothScroller" ref={this.scrollContainer} onScroll={this.handleScroll}>
                 <div style={styles.photoContainer}>
                         
-                    <div style={{...styles.photoTitle, ...globalStyles.photoTitle}}> { this.props.photo.emuInput.TitMainTitle } </div>
+                    <div style={{...styles.photoTitle, ...globalStyles.photoTitle}}> { this.props.photo.TitMainTitle } </div>
                     <div style={{ ...styles.photoSubtitle, ...globalStyles.photoDetail}}> 
-                        { this.props.photo.emuInput.CreDateCreated }
+                        { this.props.photo.CreDateCreated }
                     </div>
 
-                    <img alt="" style={styles.photoImage} src={process.env.PUBLIC_URL + '/images/'+this.props.photo.irn+'.jpg'} width="100%" />
+                    <PinchView>
+                        <img alt="" style={styles.photoImage} src={this.props.photo.image_url} width="100%" />
+                    </PinchView>
 
                     <div style={{marginBottom: '5vw'}}> 
                         <div style={{ ...globalStyles.body }}> 
-                            <div>{ this.props.photo.emuInput.CatDescriptText } </div>
+                            <div>{ this.props.photo.CatDescriptText } </div>
                         </div>
                     </div>   
 

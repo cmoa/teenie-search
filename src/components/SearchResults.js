@@ -28,7 +28,7 @@ const styles = {
 	},
 	searchResultsContainer: {
 		flexDirection: 'row',
-		overflow: 'scroll',
+		overflow: 'auto',
 		height: '78vh',
 	},
 	searchOptions: {
@@ -95,6 +95,7 @@ const styles = {
 		height: '100%',
 	},
 	searchResultImage: {
+		boxShadow: "0px 0px 5px #777",
 		marginBottom: '1rem',
 	},
 	searchResultTitle: {
@@ -121,12 +122,22 @@ class SearchResults extends Component {
     }
 
 	handleScroll = (e) => {
-	    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+		const top = e.target.scrollTop <= 0
+	    const bottom = e.target.scrollHeight - e.target.scrollTop >= e.target.clientHeight;
 	    if (bottom) { 
 	    	if (this.props.page + 1 < this.props.pageCount) {
 	    		this.props.retrieveMoreHits();
 	    	}
 	    }
+        if (bottom) { 
+            e.preventDefault();
+            console.log(e.target.clientHeight)
+          	// e.target.scrollTop = e.target.scrollHeight - e.target.scrollTop - 1;
+        }
+
+        if (top) {
+            e.target.scrollTop = 1;
+        }
 	}
 
     render() {
@@ -160,13 +171,17 @@ class SearchResults extends Component {
 			            	<div style={styles.searchResults}>
 				            	<div style={styles.searchResultsColumn}>
 									{ this.props.hits.map((hit, i) => {
-										if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
+										if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
 										return null;
 									})}
 								</div>
 								<div style={styles.searchResultsColumn}>
 									{ this.props.hits.map((hit, i) => {
-										if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit.irn) }} />;
+										if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { 
+											console.log("Open Photo");
+											this.props.openPhoto(hit) 
+											console.log(hit);
+										}} />;
 										return null;
 									})}
 								</div>
@@ -197,9 +212,9 @@ const SearchResult = (props) => {
 	return(
 		<div style={styles.searchResultContainer} onClick={props.onClick}>
 			<div style={styles.searchResult}>
-				<img style={styles.searchResultImage} alt="" src={process.env.PUBLIC_URL + '/images/'+props.hit.irn+'.jpg'} width="100%" />
-				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.emuInput.TitMainTitle } </div>
-				<div style={{...styles.searchResultDate, ...globalStyles.photoDetail}}> { props.hit.emuInput.CreDateCreated } </div>
+				<img style={styles.searchResultImage} alt="" src={props.hit.image_url.replace('1680.jpg', '840.jpg')} width="100%" />
+				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.TitMainTitle } </div>
+				<div style={{...styles.searchResultDate, ...globalStyles.photoDetail}}> { props.hit.CreDateCreated } </div>
 			</div>
 		</div>
 	)

@@ -11,6 +11,9 @@ export default (state = initialState, action) => {
 
   switch(action.type) {
 
+  	case "RESET_INTERACTIVE": 
+      return initialState
+
     case "OPEN_PHOTO": 
       newState.photo = action.photo
       return newState

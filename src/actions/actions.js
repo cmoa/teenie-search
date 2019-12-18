@@ -2,13 +2,10 @@
 import algoliasearch from 'algoliasearch';
 import _ from 'lodash';
 
-const client = algoliasearch('9HG4DVEE7B', 'a37550f68ea3cd1834893b238971b6d6');
-const index = client.initIndex('teenie-harris-collection');
-
-
+const client = algoliasearch('PAR4VRQ7FL', '54989bad1637769e025e36cb106973b0');
+const index = client.initIndex('irn_record_search');
 
 // Actions
-
 export function resetInteractive() {
   console.log("reset interactive")
   return {
@@ -17,22 +14,18 @@ export function resetInteractive() {
 }
 
 
-export function openPhoto(irn) {
-    return dispatch => {
-        index.findObject(hit => hit.irn === irn, {}, (err, photo) => {
-          console.log(photo);
-          dispatch({
-            type: "OPEN_PHOTO",
-            photo: photo.object,
-          });
-        });
-      }
+export function openPhoto(photo) {
+    console.log(photo);
+    return {
+      type: "OPEN_PHOTO",
+      photo: photo,
+    }
 }
 
 export function composeEmail() {
   return {
         type: "COMPOSE_EMAIL"
-    }
+  }
 }
 
 export function sendPhoto(email, photo) {
@@ -86,7 +79,7 @@ export function search(query) {
 
     var searchObj = { 
       hitsPerPage: 50, 
-      query, 
+      query: query + " ", 
     };
 
     index.search(searchObj).then(res => {

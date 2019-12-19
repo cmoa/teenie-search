@@ -21,9 +21,11 @@ export default (state = initialState, action) => {
 
     case "SEARCH": 
       newState.term = action.term;
+      newState.loading = true;
       return newState;
 
     case "UPDATE_RESULTS":
+      newState.loading = false;
       return Object.assign(newState, action.updates);;
 
     default:

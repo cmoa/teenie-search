@@ -1,7 +1,7 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { updateSearchTerm, search, resetInteractive } from '../actions/actions'
+import { updateSearchTerm, search, resetInteractive, openSearchSettings } from '../actions/actions'
 
 import globalStyles from '../styles'
 
@@ -31,13 +31,13 @@ const styles = {
   backButton: {
     height: "5vh",
     width: "5vh",
-    backgroundColor: globalStyles.cmoaRed,
+    backgroundColor: 'white',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   backIcon: {
-    color: 'white',
+    color: globalStyles.cmoaRed,
     width: '30%',
     height: '30%',
     transform: 'rotate(270deg)',
@@ -63,6 +63,7 @@ const SearchContainer = posed.div({
 
 
 class SearchBar extends Component {
+
     render() {
     	console.log(this.props.screen);
 
@@ -96,7 +97,10 @@ class SearchBar extends Component {
 		                	onBlur={() => { console.log("hide Keyboard") }}
 		                	onChange={(event) => this.props.updateSearchTerm(event.currentTarget.value) }
 		                />
-		                <div style={styles.searchButton} onClick={() => { this.props.search(this.props.searchTerm) }}>
+                    { this.props.searchTerm !== "" && 
+                      <span id="searchclear" onClick={ (event) => this.props.updateSearchTerm("") }></span>
+		                }
+                    <div style={styles.searchButton} onClick={() => { this.props.search(this.props.searchTerm) }}>
 		                	<svg style={styles.searchIcon} viewBox="0 0 16 16"><path fill="currentColor" d="M15.6 13.1l-3-3c.6-.9.9-2 .9-3.2 0-3.6-3-6.6-6.6-6.6C3.3.3.3 3.3.3 6.9c0 3.6 3 6.6 6.6 6.6 1.4 0 2.7-.4 3.8-1.2l2.9 2.8c.4.4 1 .4 1.4 0l.6-.6c.4-.4.4-1 0-1.4zM6.9 9.6c-1.5 0-2.7-1.2-2.7-2.7s1.2-2.7 2.7-2.7 2.7 1.2 2.7 2.7c.1 1.5-1.2 2.7-2.7 2.7z"></path></svg>
 		                </div>
 		            </form>
@@ -111,6 +115,7 @@ const mapDispatchToProps = dispatch => {
 		updateSearchTerm: (term) => dispatch(updateSearchTerm(term)),
 		search: (term) => dispatch(search(term)),
     resetInteractive: (term) => dispatch(resetInteractive()),
+    openSearchSettings: () => dispatch(openSearchSettings()),
 	}
 }
 

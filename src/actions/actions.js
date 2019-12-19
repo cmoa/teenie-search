@@ -22,6 +22,25 @@ export function openPhoto(photo) {
     }
 }
 
+export function openSearchSettings(){
+  return {
+      type: "OPEN_SEARCH_SETTINGS"
+  }
+}
+
+export function dismissSearchSettings(){
+  return {
+      type: "DISMISS_SEARCH_SETTINGS"
+  }
+}
+
+export function updateSearchSettings(){
+  return {
+      type: "DISMISS_SEARCH_SETTINGS"
+  }
+}
+
+
 export function composeEmail() {
   return {
         type: "COMPOSE_EMAIL"
@@ -73,7 +92,7 @@ export function updateSearchTerm(term){
 export function search(query) {
   return dispatch => {
 
-    dispatch({ type: "SEARCH", term: query});
+    dispatch({ type: "SEARCH", term: query });
 
     var searchParameters = {};
 
@@ -93,7 +112,13 @@ export function search(query) {
       dispatch({
         type: "UPDATE_RESULTS",
         updates: {
-          hits: res.hits,
+          hits: res.hits.filter((hit) => {
+            if (hit["AdmPublishWebNoPassword"] === "Yes") {
+              return true;
+            } else {
+              return false;
+            }
+          }),
           page: res.page,
           hitsCount: res.nbHits,
           pageCount: res.nbPages,

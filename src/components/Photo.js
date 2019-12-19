@@ -6,7 +6,8 @@ import globalStyles from '../styles'
 
 import HorizontalPhotoGallery from './HorizontalPhotoGallery'
 
-import {PinchView} from 'react-pinch-zoom-pan'
+import ImageZoom from 'react-medium-image-zoom'
+
 
 const styles = {
     page: {
@@ -116,9 +117,16 @@ class Photo extends Component {
                         { this.props.photo.CreDateCreated }
                     </div>
 
-                    <PinchView>
-                        <img alt="" style={styles.photoImage} src={this.props.photo.image_url} width="100%" />
-                    </PinchView>
+                    <ImageZoom
+                        image={{
+                          src: this.props.photo.image_url,
+                          className: 'img',
+                          style:styles.photoImage
+                        }}
+                        zoomImage={{
+                          src: this.props.photo.image_url,
+                        }}
+                    />
 
                     <div style={{marginBottom: '5vw'}}> 
                         <div style={{ ...globalStyles.body }}> 

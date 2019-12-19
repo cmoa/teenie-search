@@ -145,7 +145,7 @@ class SearchResults extends Component {
 	        <div style={styles.page} pose={this.props.screen}>
 
 	        	{ /* Results */ }
-	        	{this.props.hitsCount > 0 && 
+	        	{!this.props.loading && this.props.hitsCount > 0 && 
 	        		<div>
 			        	<div style={{ ...globalStyles.body, ...styles.searchOptions}}> 
 			        		<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
@@ -156,14 +156,8 @@ class SearchResults extends Component {
 		                	</div>
 
 		                	<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
-				        		{ this.props.hitsCount } Results sorted by &nbsp;
-				        		<form>
-					        		<select name="sort" style={{ ...globalStyles.bodySmall }}>
-										<option value="date">Date</option>
-										<option value="accession">Accession Number</option>
-										<option value="relevance">Relevance</option>
-									</select>
-								</form>
+				        		{ this.props.hitsCount } Results sorted by &nbsp; DATE. ACCESSION NUMBER. RELEVANCE
+				        		
 							</div>
 			        	</div>
 
@@ -178,9 +172,7 @@ class SearchResults extends Component {
 								<div style={styles.searchResultsColumn}>
 									{ this.props.hits.map((hit, i) => {
 										if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { 
-											console.log("Open Photo");
 											this.props.openPhoto(hit) 
-											console.log(hit);
 										}} />;
 										return null;
 									})}
@@ -189,7 +181,6 @@ class SearchResults extends Component {
 							{ /* End of Results */ }
 							{(this.props.page + 1) === this.props.pageCount && 
 					            <div style={{ ...styles.endOfResults }}>
-					            sfasdf
 					            </div> 
 							}
 						</div>
@@ -197,10 +188,26 @@ class SearchResults extends Component {
 				}
 
 				{ /* No Results */ }
-				{this.props.hitsCount === 0 && 
-		            <div style={{ ...styles.bottomHalf, paddingTop: 0 }}> 
-		            	<SuggestedSearchView rows={4} columns={3} />
-		            </div> 
+				{!this.props.loading && this.props.hitsCount === 0 && 
+						
+			            <div style={{ ...styles.bottomHalf, paddingTop: 0 }}>
+				            <div style={{ ...globalStyles.body, margin: 5 }}> 
+				        		No results, try one of these topics:
+				        	</div> 
+			            	<SuggestedSearchView rows={4} columns={3} />
+			            </div>
+				}
+
+			{ /* Loading Results */ }
+				{this.props.loading &&
+		          	<div style={{ ...styles.bottomHalf, flex: 1, display: 'flex', alignItems:'center' }}> 
+		              <div class="lds-ellipsis">
+		                <div></div>
+		                <div></div>
+		                <div></div>
+		                <div></div>
+		              </div>
+		            </div>
 				}
 	        </div>
         )
@@ -212,7 +219,7 @@ const SearchResult = (props) => {
 	return(
 		<div style={styles.searchResultContainer} onClick={props.onClick}>
 			<div style={styles.searchResult}>
-				<img style={styles.searchResultImage} alt="" src={props.hit.image_url.replace('1680.jpg', '840.jpg')} width="100%" />
+				<img style={styles.searchResultImage} alt="" src={props.hit.image_url.replace('1680.jpg', '420.jpg')} width="100%" />
 				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.TitMainTitle } </div>
 				<div style={{...styles.searchResultDate, ...globalStyles.photoDetail}}> { props.hit.CreDateCreated } </div>
 			</div>
@@ -230,6 +237,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
+    	loading: state.search.loading,
         searchTerm: state.search.term,
         searchTime: state.search.timestamp,
         hits: state.search.hits,

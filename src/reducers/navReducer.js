@@ -18,6 +18,10 @@ export default (state = initialState, action) => {
       newState.screen = "SEARCH_RESULTS"
       return newState
 
+    case "OPEN_SEARCH_SETTINGS":
+      newState.modal = "SEARCH_SETTINGS"
+      return newState
+
     case "OPEN_PHOTO": 
       newState.modal = "PHOTO"
       return newState

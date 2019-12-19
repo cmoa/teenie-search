@@ -16,6 +16,7 @@ const globalStyles = {
 		fontFamily: 'Franklin Gothic FS,Helvetica,sans-serif',
 		fontSize: '1.2rem',
 		color: '#333',
+		paddingRight: '3vh',
 	},
 	sampleSearchTerm: {
 		fontFamily: 'Franklin Gothic FS,Helvetica,sans-serif',

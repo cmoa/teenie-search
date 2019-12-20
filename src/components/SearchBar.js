@@ -75,6 +75,11 @@ const SearchContainer = posed.div({
 
 class SearchBar extends Component {
 
+    constructor(props) {
+      super(props)
+      this.input = React.createRef();
+    }
+
     render() {
     	console.log(this.props.screen);
 
@@ -102,6 +107,7 @@ class SearchBar extends Component {
 		                <input 
 		                	style={{ ...globalStyles.searchTerm }}
 		                	type="search" 
+                      ref={this.input}
 		                	placeholder="Search the Teenie Harris Archives..."
 		                	value={this.props.searchTerm} 
 		                	onFocus={() => { console.log("show Keyboard") }}
@@ -109,7 +115,10 @@ class SearchBar extends Component {
 		                	onChange={(event) => this.props.updateSearchTerm(event.currentTarget.value) }
 		                />
                     { this.props.searchTerm !== "" && 
-                      <div style={styles.clearButton} onClick={ (event) => { this.props.updateSearchTerm("") }}>
+                      <div style={styles.clearButton} onClick={ (event) => { 
+                        this.props.updateSearchTerm("") 
+                        this.input.current.focus();
+                      }}>
                         <span id="searchclear"></span>
                       </div>
 		                }

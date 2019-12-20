@@ -40,7 +40,6 @@ const styles = {
 	},
 	searchResultsContainer: {
 		flexDirection: 'row',
-		overflow: 'auto',
 		height: '90vh',
 		overflow: 'visible',
 	},
@@ -54,7 +53,7 @@ const styles = {
 		flexDirection: 'column',
 		width: '50%',
 		padding: '2.5vw',
-		minHeight: '78vh',
+		minHeight: '90vh',
 	},
 	searchResultContainer: {
 		width: '100%',
@@ -65,7 +64,7 @@ const styles = {
 	},
 	endOfResults: {
 		backgroundColor: 'black',
-    	padding: '200px 0px',
+    	height: '20vh',
 	},
 	bottomHalf: {
 		display: 'flex',
@@ -129,61 +128,61 @@ class SearchResults extends Component {
 
 	constructor(props) {
         super(props);
-        this.resultsContainer = React.createRef();
+
+        this.results = React.createRef();
+        this.page = React.createRef();
+
+        this.handleScroll = this.handleScroll.bind(this);
 
         this.state = { scrollY: 0 }
     }
 
-  // // Bind it to a component
-  // return <animated.div {...bind()} style={{ x, y }} />
+    componentDidUpdate(prevProps, prevState, snapshot) {
+    	if (this.props.searchTime !== prevProps.searchTime && this.props.searchTime !== "") {
+	    	this.setState({ scrollY: 0 })
+	  	}
+    }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.props.hitsCount !== 0 && prevProps.searchTime !== this.props.searchTime) {
-    //         this.resultsContainer.current.scrollTop = 0;
-    //     }
-    // }
+    handleScroll(event) {
 
-	// handleScroll = (e) => {
-	// 	const top = e.target.scrollTop <= 0
-	//     const bottom = e.target.scrollHeight - e.target.scrollTop >= e.target.clientHeight;
-	//     if (bottom) { 
-	//     	if (this.props.page + 1 < this.props.pageCount) {
-	//     		this.props.retrieveMoreHits();
-	//     	}
-	//     }
- //        if (bottom) { 
- //            e.preventDefault();
- //            console.log(e.target.clientHeight)
- //          	// e.target.scrollTop = e.target.scrollHeight - e.target.scrollTop - 1;
- //        }
+        var resultsHeight;
+        this.results.current !== null ? resultsHeight = this.results.current.clientHeight : console.log("scroll container not rendered")
+        console.log(resultsHeight)
+        var pageHeight;
+        this.page.current !== null ? pageHeight = this.page.current.clientHeight : console.log("page not rendered")
+        console.log(pageHeight)
+        var newY = this.state.scrollY + event.direction[1]*(100*event.velocity);
 
- //        if (top) {
- //            e.target.scrollTop = 1;
- //        }
-	// }
+        if (newY > 0) {
+            newY = 0;
+        } else if (newY <= pageHeight - resultsHeight) {
+            newY = pageHeight - resultsHeight;
+            // hit bottom
+            console.log("BOTTOM")
+            // load more hits
+            if ((this.props.page + 1) < this.props.pageCount) {
+            	this.props.retrieveMoreHits();
+        	}
+            console.log("retrieveing more hits...")
+        }
+
+        this.setState({ scrollY: newY })
+    }
 
     render() {
-
-    	let x = 0;
-    	let y = -100;
-
+    	var resultsHeight
+    	this.results.current !== null ? resultsHeight = this.results.current.clientHeight : console.log("scroll container not rendered")
+        console.log(resultsHeight)
+    	console.log((this.props.page + 1) === this.props.pageCount)
         return ( 
-	        <div style={styles.page} pose={this.props.screen}>
-	        	<div style={styles.searchBarBackground}>
-	        	</div>
+	        <div style={styles.page} ref={this.page} pose={this.props.screen}>
 
+	        	<div style={styles.searchBarBackground} />
 
 	        	{ /* Results */ }
 	        	{!this.props.loading && this.props.hitsCount > 0 && 
 	        		<Gesture
-	        			onMove={(event) => {
-	        				console.log("up");
-	        				console.log(this.state.scrollY)
-	        				var newY = this.state.scrollY + event.direction[1]*(100*event.velocity);
-	        				if (newY > 0) newY = 0
-	        				this.setState({ scrollY: newY })
-
-	        			}}
+	        			onMove={this.handleScroll}
 	        		>
 			            {event => <motion.div 
 			            	style={{
@@ -191,32 +190,33 @@ class SearchResults extends Component {
 			            	}} 
 			            	animate={{ x: 0, y: this.state.scrollY }}
 			            	transition={{ duration: 1, ease: "easeOut",}}
-			            	ref={this.resultsContainer}
 			            >
-			            	<div style={{ ...globalStyles.body, margin: 5, marginLeft: '5vw', opacity: 0.5 }}> 
-				        		{this.props.hitsCount} results
-				        	</div> 
-			            	<div style={styles.searchResults}>
-				            	<div style={styles.searchResultsColumn}>
-									{ this.props.hits.map((hit, i) => {
-										if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
-										return null;
-									})}
+			            	<div ref={this.results}>
+				            	<div style={{ ...globalStyles.body, margin: 5, marginLeft: '5vw', opacity: 0.5 }}> 
+					        		{this.props.hitsCount === 1 ? "1 result" : this.props.hitsCount + " results" }
+					        	</div> 
+				            	<div style={styles.searchResults}>
+					            	<div style={styles.searchResultsColumn}>
+										{ this.props.hits.map((hit, i) => {
+											if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
+											return null;
+										})}
+									</div>
+									<div style={styles.searchResultsColumn}>
+										{ this.props.hits.map((hit, i) => {
+											if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { 
+												this.props.openPhoto(hit) 
+											}} />;
+											return null;
+										})}
+									</div>
 								</div>
-								<div style={styles.searchResultsColumn}>
-									{ this.props.hits.map((hit, i) => {
-										if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { 
-											this.props.openPhoto(hit) 
-										}} />;
-										return null;
-									})}
-								</div>
+								{ /* End of Results */ }
+								{(this.props.page + 1) === this.props.pageCount && 
+						            <div style={{ ...styles.endOfResults }}>
+						            </div> 
+								}
 							</div>
-							{ /* End of Results */ }
-							{(this.props.page + 1) === this.props.pageCount && 
-					            <div style={{ ...styles.endOfResults }}>
-					            </div> 
-							}
 						</motion.div>
 						}
 					</Gesture>
@@ -224,13 +224,12 @@ class SearchResults extends Component {
 
 				{ /* No Results */ }
 				{!this.props.loading && this.props.hitsCount === 0 && 
-						
-			            <div style={{ ...styles.bottomHalf, paddingTop: 0 }}>
-				            <div style={{ ...globalStyles.body, margin: 5 }}> 
-				        		No results, try one of these topics:
-				        	</div> 
-			            	<SuggestedSearchView rows={4} columns={3} />
-			            </div>
+		            <div style={{ ...styles.bottomHalf, paddingTop: 0 }}>
+			            <div style={{ ...globalStyles.body, margin: 5 }}> 
+			        		No results, try one of these topics
+			        	</div> 
+		            	<SuggestedSearchView rows={4} columns={3} />
+		            </div>
 				}
 
 			{ /* Loading Results */ }
@@ -254,7 +253,7 @@ const SearchResult = (props) => {
 	return(
 		<div style={styles.searchResultContainer} onClick={props.onClick}>
 			<div style={styles.searchResult}>
-				<img style={styles.searchResultImage} alt="" src={props.hit.image_url.replace('1680.jpg', '420.jpg')} width="100%" />
+				<img style={styles.searchResultImage} alt="" src={props.hit.image_url_small} width="100%" />
 				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.TitMainTitle } </div>
 				<div style={{...styles.searchResultDate, ...globalStyles.photoDetail}}> { props.hit.CreDateCreated } </div>
 			</div>
@@ -274,7 +273,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
     	loading: state.search.loading,
-        searchTerm: state.search.term,
+        searchTime: state.search.searchTime,
         searchTime: state.search.timestamp,
         hits: state.search.hits,
         hitsCount: state.search.hitsCount,

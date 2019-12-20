@@ -1,6 +1,7 @@
 
 var initialState = {
   term: "",
+  searchTime: Date.now(),
   hits: [],
   hitsCount: 0,
 }
@@ -21,6 +22,7 @@ export default (state = initialState, action) => {
 
     case "SEARCH": 
       newState.term = action.term;
+      newState.searchTime = Date.now();;
       newState.loading = true;
       return newState;
 

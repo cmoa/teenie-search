@@ -23,6 +23,17 @@ const styles = {
   	alignItems: 'center',
   	justifyContent: 'center',
   },
+  clearButton: {
+    height: "3vh",
+    width: "3vh",
+    right: "6vh",
+    top: "1vh",
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   searchIcon: {
   	color: 'white',
   	width: '40%',
@@ -98,7 +109,9 @@ class SearchBar extends Component {
 		                	onChange={(event) => this.props.updateSearchTerm(event.currentTarget.value) }
 		                />
                     { this.props.searchTerm !== "" && 
-                      <span id="searchclear" onClick={ (event) => this.props.updateSearchTerm("") }></span>
+                      <div style={styles.clearButton} onClick={ (event) => { this.props.updateSearchTerm("") }}>
+                        <span id="searchclear"></span>
+                      </div>
 		                }
                     <div style={styles.searchButton} onClick={() => { this.props.search(this.props.searchTerm) }}>
 		                	<svg style={styles.searchIcon} viewBox="0 0 16 16"><path fill="currentColor" d="M15.6 13.1l-3-3c.6-.9.9-2 .9-3.2 0-3.6-3-6.6-6.6-6.6C3.3.3.3 3.3.3 6.9c0 3.6 3 6.6 6.6 6.6 1.4 0 2.7-.4 3.8-1.2l2.9 2.8c.4.4 1 .4 1.4 0l.6-.6c.4-.4.4-1 0-1.4zM6.9 9.6c-1.5 0-2.7-1.2-2.7-2.7s1.2-2.7 2.7-2.7 2.7 1.2 2.7 2.7c.1 1.5-1.2 2.7-2.7 2.7z"></path></svg>

@@ -3,7 +3,7 @@ import algoliasearch from 'algoliasearch';
 import _ from 'lodash';
 
 const client = algoliasearch('PAR4VRQ7FL', '54989bad1637769e025e36cb106973b0');
-const index = client.initIndex('irn_record_search');
+const index = client.initIndex('teenie-search');
 
 // Actions
 export function resetInteractive() {

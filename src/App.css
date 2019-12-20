@@ -29,20 +29,6 @@ input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance:none;
 }
 
-#searchclear {
-    position: absolute;
-    right: 6.5vh;
-    top: 0;
-    bottom: 0;
-    height: 25px;
-    margin: auto;
-    font-size: 25px;
-    cursor: pointer;
-    color: #ccc;
-    background: transparent !important;
-    -webkit-tap-highlight-color:transparent;
-}
-
 #searchclear:before {
     content: "\00d7";
     color: #000;
@@ -111,7 +97,11 @@ button {
 }
 
 .smoothScroller {
-  
+  overflow: hidden;
+  -webkit-overflow-scrolling: hidden;
+  overscroll-behavior: none;
+  backface-visibility: hidden;
+  position: fixed;
 }
 
 .smoothScroller > * {

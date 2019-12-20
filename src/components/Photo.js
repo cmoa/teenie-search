@@ -48,6 +48,14 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         fontWeight: 'bold',
+        
+    },
+    backIcon: {
+        color: globalStyles.cmoaRed,
+        transform: 'rotate(270deg)',
+        width: '1.5vh',
+        height: '5vh',
+        marginRight: '1.5vh'
     },
     suggestionsCategory: {
         width: '90vw',
@@ -143,7 +151,9 @@ class Photo extends Component {
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
                             <span style={{...globalStyles.body, ...styles.backButton}} onClick={() => { this.props.closePhoto() }}>
-                                <svg style={{ height: '1.2rem', marginRight: '.5rem' }} aria-hidden="true" data-prefix="far" data-icon="angle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M4.2 247.5L151 99.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17L69.3 256l118.5 119.7c4.7 4.7 4.7 12.3 0 17L168 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 264.5c-4.7-4.7-4.7-12.3 0-17z"></path></svg>                        
+                                <div style={styles.backButton}>
+                                    <svg style={styles.backIcon} class="svg-inline--fa fa-chevron fa-w-16" aria-hidden="true" data-prefix="cmoa" data-icon="chevron" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" data-fa-i2svg="" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
+                                </div>                                
                                 Back to search results
                             </span>  
                             <div style={styles.emailContainer}>

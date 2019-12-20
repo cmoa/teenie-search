@@ -4,39 +4,13 @@ import { connect } from 'react-redux'
 import { search, openPhoto, retrieveMoreHits, openSearchSettings } from '../actions/actions'
 import globalStyles from '../styles';
 
+import { useGesture, withGesture, Gesture } from 'react-with-gesture'
+import { motion } from "framer-motion"
 
 import SuggestedSearchView from './SuggestedSearchView';
 
-import { useGesture, withGesture, Gesture } from 'react-with-gesture'
-import { useSwipeable, Swipeable } from 'react-swipeable'
-
-
-import posed from 'react-pose';
-import { motion } from "framer-motion"
-
 const searchSuggestionPadding = 20;
 const searchResultPadding = 0;
-
-
-/*
-type: 'decay',
-  modifyTarget: v => Math.ceil(v / 100) * 100
-  */
-
-// const SearchResultsContainer = posed.div({
-//   draggable: true,
-//   dragBounds: { left: 0, right: 0 },
-//   dragEnd: {
-//     transition: {
-// 	  type: 'decay',
-
-// 	 //  modifyTarget: v => Math.ceil(v / 100) * 100 // Snap to nearest 100px
-// 	}
-//   },
-//   onChange: {
-//     y: y => console.log(y)
-//   }
-// });
 
 const styles = {
 	page: {
@@ -183,7 +157,6 @@ class SearchResults extends Component {
 
     	let x = 0;
     	let y = -100;
-
 
         return ( 
 	        <div style={styles.page} pose={this.props.screen}>

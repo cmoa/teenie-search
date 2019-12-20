@@ -23,6 +23,15 @@ const styles = {
 		flex: 1,
 		flexDirection: 'column',
 	},
+	searchBarBackground: {
+		height: '12.5vh',
+	    background: 'white',
+	    position: 'fixed',
+	    top: 0,
+	    left: 0,
+	    right: 0,
+	    zIndex: 100,
+	},
 	searchResults: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -160,6 +169,8 @@ class SearchResults extends Component {
 
         return ( 
 	        <div style={styles.page} pose={this.props.screen}>
+	        	<div style={styles.searchBarBackground}>
+	        	</div>
 
 
 	        	{ /* Results */ }

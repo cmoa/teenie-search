@@ -104,7 +104,6 @@ class SearchSettings extends Component {
             </div>
           </div>
         )
-      // PHOTO SENT
       } else {
         return null;
       }

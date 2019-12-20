@@ -158,7 +158,7 @@ class Photo extends Component {
                             </span>  
                             <div style={styles.emailContainer}>
                                 <div style={styles.emailLabel}>
-                                    Share this photograph:
+                                    Share this photograph
                                 </div>
                                 <form 
                                     id="photoform"

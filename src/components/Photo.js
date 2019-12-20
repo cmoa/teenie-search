@@ -215,19 +215,19 @@ class Photo extends Component {
                                 <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More results for&nbsp;
                                     <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
                                 </div>
-                                <HorizontalPhotoGallery photos={this.props.hits} />
+                                { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
                             </div>
                             <div style={{ marginBottom: '5vw' }}>
                                 <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
                                     <span style={{ color: globalStyles.cmoaRed}}>Pittsburgh, PA</span>
                                 </div>
-                                <HorizontalPhotoGallery photos={this.props.hits} />
+                                 { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
                             </div>
                             <div>
                                 <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
                                     <span style={{ color: globalStyles.cmoaRed}}>1950</span>
                                 </div>
-                                <HorizontalPhotoGallery photos={this.props.hits} />
+                                 { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
                             </div>
 
                             <div style={{ ...globalStyles.line }} />

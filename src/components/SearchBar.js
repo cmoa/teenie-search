@@ -42,7 +42,6 @@ const styles = {
   backButton: {
     height: "5vh",
     width: "5vh",
-    backgroundColor: 'white',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -98,6 +97,7 @@ class SearchBar extends Component {
 	        			onSubmit={(event) => {
 	        				event.preventDefault();
 	        				this.props.search(this.props.searchTerm)
+                  this.input.current.blur();
 	        			}}
 	        		>     { this.props.screen === "SEARCH_RESULTS" &&
                       <div style={styles.backButton} onClick={() => { this.props.resetInteractive() }}>

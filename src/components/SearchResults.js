@@ -25,7 +25,7 @@ const styles = {
 	},
 	searchBarBackground: {
 		height: '12.5vh',
-	    background: 'white',
+	    background: '#ffffffef',
 	    position: 'fixed',
 	    top: 0,
 	    left: 0,
@@ -157,12 +157,15 @@ class SearchResults extends Component {
             newY = 0;
         } else if (newY <= pageHeight - resultsHeight) {
             newY = pageHeight - resultsHeight;
-            // hit bottom
-            console.log("BOTTOM")
+            
+        }
+
+        // getting close to bottom...
+        if (((this.props.page + 1) < this.props.pageCount) && newY - 1000 <= pageHeight - resultsHeight) {
+        	// hit bottom
+            console.log("Getting close to BOTTOM... load more...")
             // load more hits
-            if ((this.props.page + 1) < this.props.pageCount) {
-            	this.props.retrieveMoreHits();
-        	}
+           	this.props.retrieveMoreHits();
             console.log("retrieveing more hits...")
         }
 
@@ -177,7 +180,7 @@ class SearchResults extends Component {
         return ( 
 	        <div style={styles.page} ref={this.page} pose={this.props.screen}>
 
-	        	<div style={styles.searchBarBackground} />
+	        	<div style={styles.searchBarBackground} id="searchBarBackground" />
 
 	        	{ /* Results */ }
 	        	{!this.props.loading && this.props.hitsCount > 0 && 

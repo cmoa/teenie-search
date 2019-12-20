@@ -1,13 +1,42 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { search, openPhoto, retrieveMoreHits } from '../actions/actions'
+import { search, openPhoto, retrieveMoreHits, openSearchSettings } from '../actions/actions'
 import globalStyles from '../styles';
+
 
 import SuggestedSearchView from './SuggestedSearchView';
 
+import { useGesture, withGesture, Gesture } from 'react-with-gesture'
+import { useSwipeable, Swipeable } from 'react-swipeable'
+
+
+import posed from 'react-pose';
+import { motion } from "framer-motion"
+
 const searchSuggestionPadding = 20;
 const searchResultPadding = 0;
+
+
+/*
+type: 'decay',
+  modifyTarget: v => Math.ceil(v / 100) * 100
+  */
+
+// const SearchResultsContainer = posed.div({
+//   draggable: true,
+//   dragBounds: { left: 0, right: 0 },
+//   dragEnd: {
+//     transition: {
+// 	  type: 'decay',
+
+// 	 //  modifyTarget: v => Math.ceil(v / 100) * 100 // Snap to nearest 100px
+// 	}
+//   },
+//   onChange: {
+//     y: y => console.log(y)
+//   }
+// });
 
 const styles = {
 	page: {
@@ -29,7 +58,8 @@ const styles = {
 	searchResultsContainer: {
 		flexDirection: 'row',
 		overflow: 'auto',
-		height: '78vh',
+		height: '90vh',
+		overflow: 'visible',
 	},
 	searchOptions: {
 		height: "10vh",
@@ -105,6 +135,10 @@ const styles = {
 		fontSize: '1.1em',
 		color: '#333',
 		fontFamily: 'Franklin Gothic FS,Helvetica,sans-serif',
+	},
+	sortOption: {
+		borderBottom: 3,
+		borderColor: 'black',
 	}
 }
 
@@ -113,55 +147,71 @@ class SearchResults extends Component {
 	constructor(props) {
         super(props);
         this.resultsContainer = React.createRef();
+
+        this.state = { scrollY: 0 }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.hitsCount !== 0 && prevProps.searchTime !== this.props.searchTime) {
-            this.resultsContainer.current.scrollTop = 0;
-        }
-    }
+  // // Bind it to a component
+  // return <animated.div {...bind()} style={{ x, y }} />
 
-	handleScroll = (e) => {
-		const top = e.target.scrollTop <= 0
-	    const bottom = e.target.scrollHeight - e.target.scrollTop >= e.target.clientHeight;
-	    if (bottom) { 
-	    	if (this.props.page + 1 < this.props.pageCount) {
-	    		this.props.retrieveMoreHits();
-	    	}
-	    }
-        if (bottom) { 
-            e.preventDefault();
-            console.log(e.target.clientHeight)
-          	// e.target.scrollTop = e.target.scrollHeight - e.target.scrollTop - 1;
-        }
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.props.hitsCount !== 0 && prevProps.searchTime !== this.props.searchTime) {
+    //         this.resultsContainer.current.scrollTop = 0;
+    //     }
+    // }
 
-        if (top) {
-            e.target.scrollTop = 1;
-        }
-	}
+	// handleScroll = (e) => {
+	// 	const top = e.target.scrollTop <= 0
+	//     const bottom = e.target.scrollHeight - e.target.scrollTop >= e.target.clientHeight;
+	//     if (bottom) { 
+	//     	if (this.props.page + 1 < this.props.pageCount) {
+	//     		this.props.retrieveMoreHits();
+	//     	}
+	//     }
+ //        if (bottom) { 
+ //            e.preventDefault();
+ //            console.log(e.target.clientHeight)
+ //          	// e.target.scrollTop = e.target.scrollHeight - e.target.scrollTop - 1;
+ //        }
+
+ //        if (top) {
+ //            e.target.scrollTop = 1;
+ //        }
+	// }
 
     render() {
+
+    	let x = 0;
+    	let y = -100;
+
+
         return ( 
 	        <div style={styles.page} pose={this.props.screen}>
 
+
 	        	{ /* Results */ }
 	        	{!this.props.loading && this.props.hitsCount > 0 && 
-	        		<div>
-			        	<div style={{ ...globalStyles.body, ...styles.searchOptions}}> 
-			        		<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-			        			Filtered by&nbsp; 
-			        			<span style={{ display: 'inline-block', backgroundColor: '#bf0d3e', color: 'white', width: '5vh', height: '5vh', textAlign: 'center', lineHeight: '4.5vh' }} onClick={() => { console.log("Add filter") }}>
-			        				+
-		                		</span> 
-		                	</div>
+	        		<Gesture
+	        			onMove={(event) => {
+	        				console.log("up");
+	        				console.log(this.state.scrollY)
+	        				var newY = this.state.scrollY + event.direction[1]*(100*event.velocity);
+	        				if (newY > 0) newY = 0
+	        				this.setState({ scrollY: newY })
 
-		                	<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
-				        		{ this.props.hitsCount } Results sorted by &nbsp; DATE. ACCESSION NUMBER. RELEVANCE
-				        		
-							</div>
-			        	</div>
-
-			            <div style={styles.searchResultsContainer} className="smoothScroller" onScroll={this.handleScroll} ref={this.resultsContainer}>
+	        			}}
+	        		>
+			            {event => <motion.div 
+			            	style={{
+			            		...styles.searchResultsContainer
+			            	}} 
+			            	animate={{ x: 0, y: this.state.scrollY }}
+			            	transition={{ duration: 1, ease: "easeOut",}}
+			            	ref={this.resultsContainer}
+			            >
+			            	<div style={{ ...globalStyles.body, margin: 5, marginLeft: '5vw', opacity: 0.5 }}> 
+				        		{this.props.hitsCount} results
+				        	</div> 
 			            	<div style={styles.searchResults}>
 				            	<div style={styles.searchResultsColumn}>
 									{ this.props.hits.map((hit, i) => {
@@ -183,8 +233,9 @@ class SearchResults extends Component {
 					            <div style={{ ...styles.endOfResults }}>
 					            </div> 
 							}
-						</div>
-					</div>
+						</motion.div>
+						}
+					</Gesture>
 				}
 
 				{ /* No Results */ }
@@ -232,6 +283,7 @@ const mapDispatchToProps = dispatch => {
 		search: (term) => dispatch(search(term)),
 		openPhoto: (irn) => dispatch(openPhoto(irn)),
 		retrieveMoreHits: () => dispatch(retrieveMoreHits()),
+		openSearchSettings: () => dispatch(openSearchSettings()),
 	}
 }
 

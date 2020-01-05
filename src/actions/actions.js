@@ -89,10 +89,15 @@ export function updateSearchTerm(term){
 }
 
 
-export function search(query) {
+export function search(query, options = {}) {
+ 
   return dispatch => {
 
-    dispatch({ type: "SEARCH", term: query });
+    var sortBy = options.sortBy || "relevance";
+    var startDate = options.startDate || "1908";
+    var endDate = options.endDate || "1998";
+
+    dispatch({ type: "SEARCH", term: query, sortBy, startDate, endDate });
 
     var searchParameters = {};
 

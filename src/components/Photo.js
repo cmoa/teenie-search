@@ -62,8 +62,7 @@ const styles = {
         color: globalStyles.cmoaRed,
         display: 'flex',
         alignItems: 'center',
-        fontWeight: 'bold',
-        
+        fontWeight: 'bold'
     },
     backIcon: {
         color: globalStyles.cmoaRed,
@@ -238,14 +237,7 @@ class Photo extends Component {
                                     Record Data
                                 </div>
                                  <div style={{ ...globalStyles.body, marginBottom: '5vw' }}>
-                                    This record is subject to revision due to ongoing research. 
-                                    WE CAN ADD MORE ABOUT THE MACHINE LEARNING / COMPUTER VISION WORK HERE. Search powered by Algolia.
-                                    If you have additional information regarding this object, or have noticed an error, 
-                                    please send feedback or inquiries 
-                                    to <a 
-                                        style={{ color: globalStyles.cmoaRed }}
-                                        onClick={() => this.props.composeEmail() }
-                                    >collection@cmoa.org</a>
+                                    This record is subject to revision due to ongoing research. If you have additional information regarding this image, or have noticed an error, please reach out to the Teenie Harris Archive staff at <a style={{ color: globalStyles.cmoaRed }} onClick={() => this.props.composeEmail() }>teenie@cmoa.org</a>. Development for this tool has been generously supported by the Collections as Data granting initiative. Search powered by Algolia.
                                 </div>
                                 <div style={{ ...globalStyles.title}}>
                                     Privacy
@@ -261,6 +253,7 @@ class Photo extends Component {
         )
     }
 }
+
 
 const mapDispatchToProps = dispatch => {
     return {

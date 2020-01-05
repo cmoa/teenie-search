@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import SearchBar from './SearchBar';
 import Home from './Home';
 import SearchResults from './SearchResults';
-import SearchSettings from './SearchSettings';
 import Photo from './Photo';
 import EmailAlert from './EmailAlert';
 
@@ -52,7 +51,6 @@ class Root extends Component {
                     {this.props.screen === "SEARCH_RESULTS" && (<Page key="searchResults"><SearchResults /></Page>)}
         	        {true && <SearchBar key="searchBar" /> }
 
-                  {this.props.modal === "SEARCH_SETTINGS" && (<Page key="searchSettings"><SearchSettings /></Page>)}
         	        {this.props.modal === "PHOTO" && (<Page key="photo"><Photo /></Page>)}
                   {this.props.emailAlert !== ""  && (<Page key="emailalert"><EmailAlert /></Page>)}
     	        </PoseGroup>

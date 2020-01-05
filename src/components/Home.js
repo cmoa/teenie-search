@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import SuggestedSearchView from './SuggestedSearchView';
 
+import TeenieHeroImage from './../images/4965-1680.jpg';
+
 const styles = {
 	page: {
 		display: 'flex',
@@ -18,6 +20,9 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: 'black',
+		backgroundImage: `url(${TeenieHeroImage})`,
+		backgroundPosition: '65% 33%',
+		backgroundSize: '300%',
 	},
 	bottomHalf: {
 		display: 'flex',

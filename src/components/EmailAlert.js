@@ -124,7 +124,7 @@ class EmailAlert extends Component {
             this.props.dismissEmailAlert() 
           }}>
             <div style={{...styles.alert, ...globalStyles.body}}>
-              Thanks for reaching out! We'll do our best to address your feedback. 
+              Thanks for reaching out! We'll be in contact soon. 
             </div>
           </div>
         )
@@ -149,7 +149,7 @@ class EmailAlert extends Component {
                   }}
               >
                   <label className="required" style={{ ...globalStyles.body, ...styles.label}} >
-                    To Teenie Harris Archives:
+                    To Teenie Harris Archive:
                   </label>
                   <textarea 
                       style={{...globalStyles.searchTerm, ...styles.textarea }}

@@ -6,6 +6,8 @@ import { search } from '../actions/actions';
 import globalStyles from '../styles';
 import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
+import TeenieHeroImage from './../images/4965-1680.jpg';
+
 const searchSuggestionPadding = 10;
 
 const styles = {
@@ -37,26 +39,47 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		display: 'flex',
-		height: '100%',
+		height: '100%'
 	}
 }
 
 
 const searchTermBank = [
 	{ term: "Hill District", photo: 63211 },
-	{ term: "1950s", photo: 4512 },
-	{ term: "Jazz", photo: 2514 },
-	{ term: "Presidents", photo: 59499 },
-	{ term: "Civil Rights", photo: 7848 },
-	{ term: "Portraits", photo: 60320 },
-	{ term: "Baseball", photo: 928 },
-	{ term: "1940s", photo: 61475 },
-	{ term: "Summer", photo: 47901 },
+	{ term: "Homewood", photo: 63211 },
+	{ term: "Women's Groups", photo: 59499 },
+	{ term: "Men's Groups", photo: 7848 },
+	{ term: "Housing", photo: 60320 },
+	
+	{ term: "Civil Rights", photo: 928 },
+	{ term: "Schools", photo: 61475 },
+	{ term: "Baseball", photo: 47901 },
 	{ term: "Cars", photo: 10902 },
-	{ term: "Weddings", photo: 39088 },
-	{ term: "Children", photo: 39778 },
-	{ term: "Children 2", photo: 39778 },
-	{ term: "Children 3", photo: 39778 }
+	{ term: "Jazz", photo: 39088 },
+	
+	{ term: "Boxing", photo: 39088 },
+	{ term: "Fashion", photo: 39088 },
+	{ term: "Pittsburgh Views", photo: 39088 },
+	{ term: "Crawford Grill", photo: 39088 },
+	{ term: "Forbes Field", photo: 39778 },
+	
+	{ term: "Steel Mills", photo: 39778 },
+	{ term: "University of Pittsburgh", photo: 39088 },
+	{ term: "Pittsburgh Technical College", photo: 39088 },
+	{ term: "Churches", photo: 39778 },
+	{ term: "Barbershops", photo: 39778 },
+
+	{ term: "1940s", photo: 2514 },
+	{ term: "1950s", photo: 4512 },
+	{ term: "1960s", photo: 4512 },
+	{ term: "Pittsburgh Courier", photo: 39778 },
+	{ term: "National Negro Opera", photo: 2514 },
+
+	{ term: "Harris Studio", photo: 4512 },
+	{ term: "Soldier's Portraits", photo: 4512 },
+	{ term: "Children's Portraits", photo: 39778 },
+	{ term: "Graduation", photo: 4512 },
+	{ term: "Weddings", photo: 39778 }
 ]
 
 class SuggestedSearchView extends Component {
@@ -127,12 +150,12 @@ class SuggestedSearchView extends Component {
 							onClick={() => { this.props.search(suggested.term) }}
 						>
 								<div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, 
-									backgroundImage: 'url('+photoURL+')',
+									backgroundImage: `url(${TeenieHeroImage})`,
 									backgroundSize: '200%',
 			    					backgroundPosition: 'center',
 			    					backgroundRepeat: 'noRepeat', }} />
-								<div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#000000aa" }} />
-								<div style={{...globalStyles.photoDetail, color: 'white', fontSize: '1.5rem', position: 'absolute'}}> { suggested.term } </div>
+								<div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#000000dd" }} />
+								<div style={{...globalStyles.photoDetail, color: 'white', fontSize: '1.5rem', width: '80%', textAlign: 'center', position: 'absolute'}}> { suggested.term } </div>
 						</CSSTransitionGroup>
 					)
 				}

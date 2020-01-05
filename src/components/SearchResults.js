@@ -8,6 +8,10 @@ import { useGesture, withGesture, Gesture } from 'react-with-gesture'
 import { motion } from "framer-motion"
 
 import SuggestedSearchView from './SuggestedSearchView';
+import DateFilter from './DateFilter';
+import SearchOptions from './SearchOptions';
+
+import Masonry from 'react-masonry-component';
 
 const searchSuggestionPadding = 20;
 const searchResultPadding = 0;
@@ -25,7 +29,7 @@ const styles = {
 	},
 	searchBarBackground: {
 		height: '12.5vh',
-	    background: '#ffffffef',
+	    background: '#ffffff',
 	    position: 'fixed',
 	    top: 0,
 	    left: 0,
@@ -48,16 +52,9 @@ const styles = {
 		width: '90vw',
     	marginLeft: '5vw',
 	},
-	searchResultsColumn: {
-		display: 'flex',
-		flexDirection: 'column',
-		width: '50%',
-		padding: '2.5vw',
-		minHeight: '90vh',
-	},
 	searchResultContainer: {
-		width: '100%',
-		paddingBottom: '2rem',
+		width: '50%',
+		paddingBottom: '1rem',
 	},
 	searchResult: {
 		padding: searchResultPadding / 2,
@@ -121,6 +118,17 @@ const styles = {
 	sortOption: {
 		borderBottom: 3,
 		borderColor: 'black',
+	},
+	searchOptionsContainer: {
+		paddingLeft: '5vw',
+		zIndex: 100,
+		backgroundColor: 'white',
+		paddingBottom: '2.5vw',
+	},
+	fade : {
+		width: '100vw',
+		height: '5vh',
+		backgroundImage: 'linear-gradient(white, #ffffff00)'
 	}
 }
 
@@ -175,8 +183,7 @@ class SearchResults extends Component {
     render() {
     	var resultsHeight
     	this.results.current !== null ? resultsHeight = this.results.current.clientHeight : console.log("scroll container not rendered")
-        console.log(resultsHeight)
-    	console.log((this.props.page + 1) === this.props.pageCount)
+
         return ( 
 	        <div style={styles.page} ref={this.page} pose={this.props.screen}>
 
@@ -184,61 +191,74 @@ class SearchResults extends Component {
 
 	        	{ /* Results */ }
 	        	{!this.props.loading && this.props.hitsCount > 0 && 
-	        		<Gesture
-	        			onMove={this.handleScroll}
-	        		>
-			            {event => <motion.div 
-			            	style={{
-			            		...styles.searchResultsContainer
-			            	}} 
-			            	animate={{ x: 0, y: this.state.scrollY }}
-			            	transition={{ duration: 1, ease: "easeOut",}}
-			            >
-			            	<div ref={this.results}>
-				            	<div style={{ ...globalStyles.body, margin: 5, marginLeft: '5vw', opacity: 0.5 }}> 
-					        		{this.props.hitsCount === 1 ? "1 result" : this.props.hitsCount + " results" }
-					        	</div> 
-				            	<div style={styles.searchResults}>
-					            	<div style={styles.searchResultsColumn}>
-										{ this.props.hits.map((hit, i) => {
-											if (i % 2 === 0)  return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
-											return null;
+	        		<React.Fragment>
+		        		<div style={{ ...globalStyles.body, ...styles.searchOptionsContainer }}> 
+			        		{this.props.hitsCount === 1 && 
+			        			"1 result"
+			        		}
+			        		{this.props.hitsCount > 1 &&
+
+			        			<React.Fragment>
+			        				<SearchOptions />
+			        				<div>
+			        					<div>{this.props.hitsCount + " results" }</div>
+			        				</div>
+			        			</React.Fragment>
+			        		}
+			        	</div> 
+			        	<div style={{...styles.fade }} />
+		        		<Gesture
+		        			onMove={this.handleScroll}
+		        		>
+				            {event => <motion.div 
+				            	style={{
+				            		...styles.searchResultsContainer
+				            	}} 
+				            	animate={{ x: 0, y: this.state.scrollY }}
+				            	transition={{ duration: 1, ease: "easeOut",}}
+				            >
+				            	<div ref={this.results}>
+					            	<div style={styles.searchResults}>
+					            	<Masonry
+						                options={{ horizontalOrder: true, fitWidth: true, transitionDuration: 0 }} // default {}
+						                disableImagesLoaded={false} // default false
+						                updateOnEachImageLoad={true} // default false and works only if disableImagesLoaded is false
+						         		style={{ width: '95vw', minWidth: '95vw'}}
+						            >
+						               { this.props.hits.map((hit, i) => {
+											return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
 										})}
+						            </Masonry>
 									</div>
-									<div style={styles.searchResultsColumn}>
-										{ this.props.hits.map((hit, i) => {
-											if (i % 2 === 1)  return <SearchResult hit={hit} i={i} onClick={() => { 
-												this.props.openPhoto(hit) 
-											}} />;
-											return null;
-										})}
-									</div>
+									{ /* End of Results */ }
+									{(this.props.page + 1) === this.props.pageCount && 
+							            <div style={{ ...styles.endOfResults }}>
+							            </div> 
+									}
 								</div>
-								{ /* End of Results */ }
-								{(this.props.page + 1) === this.props.pageCount && 
-						            <div style={{ ...styles.endOfResults }}>
-						            </div> 
-								}
-							</div>
-						</motion.div>
-						}
-					</Gesture>
+							</motion.div>
+							}
+						</Gesture>
+					</React.Fragment>
 				}
 
 				{ /* No Results */ }
 				{!this.props.loading && this.props.hitsCount === 0 && 
-		            <div style={{ ...styles.bottomHalf, paddingTop: 0 }}>
-			            <div style={{ ...globalStyles.body, margin: 5 }}> 
-			        		No results, try one of these topics
-			        	</div> 
-		            	<SuggestedSearchView rows={4} columns={3} />
-		            </div>
+		            <React.Fragment>
+			            <div style={{ ...globalStyles.body, padding: '2.5vh', textAlign: 'center' }}> 
+			        		<div style={{ fontWeight: 'bold' }}>NO RESULTS</div> 
+			        		Please try another search.
+			        	</div>
+			        	<div style={{ padding: '2.5vh', display: 'flex', flex: 1 }}>
+		            		<SuggestedSearchView rows={4} columns={3} />
+		            	</div>
+		            </React.Fragment>
 				}
 
 			{ /* Loading Results */ }
 				{this.props.loading &&
 		          	<div style={{ ...styles.bottomHalf, flex: 1, display: 'flex', alignItems:'center' }}> 
-		              <div class="lds-ellipsis">
+		              <div className="lds-ellipsis">
 		                <div></div>
 		                <div></div>
 		                <div></div>
@@ -255,7 +275,7 @@ class SearchResults extends Component {
 const SearchResult = (props) => {
 	return(
 		<div style={styles.searchResultContainer} onClick={props.onClick}>
-			<div style={styles.searchResult}>
+			<div style={{ ...styles.searchResult, padding: '2.5vw'}}>
 				<img style={styles.searchResultImage} alt="" src={props.hit.image_url_small} width="100%" />
 				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.TitMainTitle } </div>
 				<div style={{...styles.searchResultDate, ...globalStyles.photoDetail}}> { props.hit.CreDateCreated } </div>
@@ -266,7 +286,6 @@ const SearchResult = (props) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		search: (term) => dispatch(search(term)),
 		openPhoto: (irn) => dispatch(openPhoto(irn)),
 		retrieveMoreHits: () => dispatch(retrieveMoreHits()),
 		openSearchSettings: () => dispatch(openSearchSettings()),
@@ -275,6 +294,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
+    	term: state.search.term,
     	loading: state.search.loading,
         searchTime: state.search.searchTime,
         searchTime: state.search.timestamp,

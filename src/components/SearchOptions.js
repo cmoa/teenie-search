@@ -24,12 +24,14 @@ const styles = {
   sortOptionContainer: {
     height: '5vh',
     position: 'relative',
+    display: 'flex',
   },
   sortOption: {
     color: globalStyles.cmoaRed,
     fontWeight: 'bold',
     cursor: 'pointer',
-    display: 'inline-block'
+    display: 'inline-block',
+    backgroundColor: 'white !important',
   },
   directionIconContainer: {
     alignItems: 'center',
@@ -44,6 +46,8 @@ const styles = {
   underline: {
     height: '4px',
     backgroundColor: globalStyles.cmoaRed,
+    bottom: '15px',
+    position: 'absolute'
   },
   dateRangeContainer: {
     display: 'inline-block',
@@ -112,23 +116,53 @@ class SearchOptions extends Component {
       console.log(this.props.sortBy)
 
       var marks = {};
-      marks[this.state.startDate] = (<div style={{...globalStyles.photoDetail, fontSize: '16px' }}>{this.state.startDate}</div>);
-      marks[this.state.endDate] = (<div style={{...globalStyles.photoDetail, fontSize: '16px', transform: 'translateY(-40px)' }}>{this.state.endDate}</div>);
+      marks[this.state.startDate] = (<div style={{...globalStyles.photoDetail, fontSize: '16px', paddingTop: '10px' }}>{this.state.startDate}</div>);
+      marks[this.state.endDate] = (<div style={{...globalStyles.photoDetail, fontSize: '16px', transform: 'translateY(-29px)' }}>{this.state.endDate}</div>);
+
+      var handleStyle = {
+        backgroundColor: globalStyles.cmoaRed, 
+        borderColor: globalStyles.cmoaRed,
+      }
 
       return ( 
         <React.Fragment>
+          <div style={styles.sortOptionContainer}>
+            <span style={{ ...styles.optionLabel, marginRight: '4vw' }}>Date range</span>
+            <div style={styles.dateRangeContainer}>
+              <Range 
+                min={1908}
+                max={1998}
+                handleStyle={[handleStyle, handleStyle]}
+                trackStyle={[{ backgroundColor: globalStyles.cmoaRed }]}
+                railStyle={{ backgroundColor: '#ccc' }}
+                marks={marks}
+               // {number: { style, label }}
+                value={[this.state.startDate, this.state.endDate]}
+                onChange={(event) => {
+                  this.setState({
+                    startDate: event[0],
+                    endDate: event[1]
+                  })
+                }}
+                onAfterChange={(event) => {
+                  this.searchWithOptions({ startDate: event[0], endDate: event[1] })
+                }}
+              />
+            </div>
+          </div>
+
           <div style={{ ...styles.sortOptionContainer }}>
             <span style={{ ...styles.optionLabel, width: '11vw' }}>Sort by</span>
-            <span 
-              style={{ ...globalStyles.body, ...styles.sortOption, marginRight: '20px' }}  
-              onClick={() => {
-                if (this.props.sortBy !== "relevance") {
-                  this.searchWithOptions({ sortBy: "relevance" })
-                }
-              }}
-            >
-              relevance
-            </span>
+              <span 
+                style={{ ...globalStyles.body, ...styles.sortOption, marginRight: '20px' }}  
+                onClick={() => {
+                  if (this.props.sortBy !== "relevance") {
+                    this.searchWithOptions({ sortBy: "relevance" })
+                  }
+                }}
+              >
+                relevance
+              </span>
             <span 
               style={{ ...globalStyles.body, ...styles.sortOption }}  
               onClick={() => {
@@ -149,30 +183,7 @@ class SearchOptions extends Component {
             <SelectionUnderline pose={this.props.sortBy} style={{ ...styles.underline }} />
           </div>
 
-          <div style={styles.sortOptionContainer}>
-            <span style={{ ...styles.optionLabel, marginRight: '4vw' }}>Date range</span>
-            <div style={styles.dateRangeContainer}>
-              <Range 
-                min={1908}
-                max={1998}
-                handleStyle={[{ backgroundColor: globalStyles.cmoaRed, borderColor: globalStyles.cmoaRed }, { backgroundColor: globalStyles.cmoaRed, borderColor: globalStyles.cmoaRed }]}
-                trackStyle={[{ backgroundColor: globalStyles.cmoaRed }]}
-                railStyle={{ backgroundColor: '#ccc' }}
-                marks={marks}
-               // {number: { style, label }}
-                value={[this.state.startDate, this.state.endDate]}
-                onChange={(event) => {
-                  this.setState({
-                    startDate: event[0],
-                    endDate: event[1]
-                  })
-                }}
-                onAfterChange={(event) => {
-                  this.searchWithOptions({ startDate: event[0], endDate: event[1] })
-                }}
-              />
-            </div>
-          </div>
+          
 
         </React.Fragment>
       )

@@ -24,12 +24,12 @@ export default (state = initialState, action) => {
       return newState;
 
     case "SEARCH": 
+      if (newState.term !== action.term) { newState.loading = true; }
       newState.term = action.term;
       newState.sortBy = action.sortBy;
       newState.startDate = action.startDate;
       newState.endDate = action.endDate;
       newState.searchTime = Date.now();
-      newState.loading = true;
       return newState;
 
     case "UPDATE_RESULTS":

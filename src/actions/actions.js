@@ -124,7 +124,7 @@ export function search(query, options = {}) {
     var searchObj = { 
       hitsPerPage: 50, 
       query: query + " ", 
-      filters: 'datetime_unix:'+start_datetime.getTime()+' TO '+end_datetime.getTime(),
+      filters: `date_timestamp:${start_datetime.getTime()} TO ${end_datetime.getTime()}`
     };
 
     var indexName = "teenie-search";

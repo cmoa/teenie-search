@@ -3,7 +3,7 @@ import algoliasearch from 'algoliasearch';
 import _ from 'lodash';
 
 const client = algoliasearch('PAR4VRQ7FL', '54989bad1637769e025e36cb106973b0');
-const index = client.initIndex('teenie-search');
+var index = client.initIndex("teenie-search");
 
 // Actions
 export function resetInteractive() {
@@ -12,7 +12,6 @@ export function resetInteractive() {
     type: "RESET_INTERACTIVE",
   }
 }
-
 
 export function openPhoto(photo) {
     console.log(photo);
@@ -90,6 +89,14 @@ export function updateSearchTerm(term){
 
 
 export function search(query, options = {}) {
+
+  /*
+  # 2. Get the index name based on sort_by_price
+  index_name = "products_price_desc" if sort_by_price else "products"
+
+  # 3. Search on dynamic index name (primary or replica)
+  client.init_index(index_name).search('phone');
+*/
  
   return dispatch => {
 
@@ -101,10 +108,29 @@ export function search(query, options = {}) {
 
     var searchParameters = {};
 
+    //date = datetime.datetime.now() - datetime.timedelta(weeks=1)
+    //date_timestamp = int(time.mktime(date.timetuple()))
+
+    // results = index.search('query', {
+    //     'filters': 'datetime_unix > ' + str(date_timestamp)
+    // })// .getTime();
+
+    var start_datetime = new Date(startDate, 0, 0, 0, 0, 0, 0);
+    var end_datetime = new Date(endDate+1, 0, 0, 0, 0, 0, 0);
+
+    console.log(start_datetime);
+    console.log(end_datetime)
+
     var searchObj = { 
       hitsPerPage: 50, 
       query: query + " ", 
+      filters: 'datetime_unix:'+start_datetime.getTime()+' TO '+end_datetime.getTime(),
     };
+
+    var indexName = "teenie-search";
+    if (sortBy === "dateAscending") indexName = "date_ascending";
+    else if (sortBy === "dateDescending") indexName = "date_descending";
+    index = client.initIndex(indexName);
 
     index.search(searchObj).then(res => {
       console.log(res);

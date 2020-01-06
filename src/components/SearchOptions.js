@@ -41,12 +41,6 @@ const styles = {
     color: globalStyles.cmoaRed,
     width: '1.25vh',
   },
-  down: {
-    transform: 'rotate(180deg)'
-  },
-  up: {
-    transform: 'rotate(0deg)'
-  },
   underline: {
     height: '4px',
     backgroundColor: globalStyles.cmoaRed,
@@ -61,39 +55,35 @@ const SelectionUnderline = posed.div({
   relevance: { 
     x: '11vw',
     width: '90px',
-    transition: {
-      x: { type: 'spring', duration: 2000 },
-    }
+    ease: 'linear'
   },
   dateAscending: {
     x: '25vw',
     width: '63px',
+    ease: 'linear'
   },
   dateDescending: {
     x: '25vw',
     width: '63px',
+    ease: 'linear'
   },
 });
 
 const DirectionIcon = posed.div({
   relevance: { 
     opacity: 0,
+    rotate: '0deg',
+    ease: 'linear'
   },
   dateAscending: {
     opacity: 1,
-    transform: 'rotate(0deg)',
-    transition: {
-      transform: { type: 'spring' },
-      opacity: { type: 'spring' }
-    } 
+    rotate: '180deg',
+    ease: 'linear'
   },
-  dateAscending: {
+  dateDescending: {
     opacity: 1,
-    transform: 'rotate(180deg)',
-    transition: {
-      transform: { type: 'spring' },
-      opacity: { type: 'spring' }
-    } 
+    rotate: '0deg',
+    ease: 'linear'
   },
 });
 

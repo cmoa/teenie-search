@@ -1,14 +1,13 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { search, openPhoto, retrieveMoreHits, openSearchSettings } from '../actions/actions'
+import { openPhoto, retrieveMoreHits, openSearchSettings } from '../actions/actions'
 import globalStyles from '../styles';
 
 import { useGesture, withGesture, Gesture } from 'react-with-gesture'
 import { motion } from "framer-motion"
 
 import SuggestedSearchView from './SuggestedSearchView';
-import DateFilter from './DateFilter';
 import SearchOptions from './SearchOptions';
 
 import Masonry from 'react-masonry-component';
@@ -189,24 +188,21 @@ class SearchResults extends Component {
 
 	        	<div style={styles.searchBarBackground} id="searchBarBackground" />
 
+	        	<div style={{ ...globalStyles.body, ...styles.searchOptionsContainer }}> 
+
+        			<React.Fragment>
+        				<SearchOptions />
+        				<div>
+        					{ this.props.hitsCount === 1 && <div>{"1 result" }</div> }
+        					{ this.props.hitsCount > 1 && <div>{this.props.hitsCount + " results" }</div> }
+        				</div>
+        			</React.Fragment>
+	        	</div> 
+
 	        	{ /* Results */ }
 	        	{!this.props.loading && this.props.hitsCount > 0 && 
 	        		<React.Fragment>
-		        		<div style={{ ...globalStyles.body, ...styles.searchOptionsContainer }}> 
-			        		{this.props.hitsCount === 1 && 
-			        			"1 result"
-			        		}
-			        		{this.props.hitsCount > 1 &&
 
-			        			<React.Fragment>
-			        				<SearchOptions />
-			        				<div>
-			        					<div>{this.props.hitsCount + " results" }</div>
-			        				</div>
-			        			</React.Fragment>
-			        		}
-			        	</div> 
-			        	<div style={{...styles.fade }} />
 		        		<Gesture
 		        			onMove={this.handleScroll}
 		        		>
@@ -250,12 +246,12 @@ class SearchResults extends Component {
 			        		Please try another search.
 			        	</div>
 			        	<div style={{ padding: '2.5vh', display: 'flex', flex: 1 }}>
-		            		<SuggestedSearchView rows={4} columns={3} />
+		            		<SuggestedSearchView rows={3} columns={3} />
 		            	</div>
 		            </React.Fragment>
 				}
 
-			{ /* Loading Results */ }
+				{ /* Loading Results */ }
 				{this.props.loading &&
 		          	<div style={{ ...styles.bottomHalf, flex: 1, display: 'flex', alignItems:'center' }}> 
 		              <div className="lds-ellipsis">

@@ -174,7 +174,7 @@ class Photo extends Component {
                                         <div style={styles.backButton}>
                                             <svg style={styles.backIcon} class="svg-inline--fa fa-chevron fa-w-16" aria-hidden="true" data-prefix="cmoa" data-icon="chevron" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" data-fa-i2svg="" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
                                         </div>                                
-                                        Back to search results
+                                        Return to search results
                                     </span>  
                                     <div style={styles.emailContainer}>
                                         <div style={styles.emailLabel}>
@@ -192,7 +192,7 @@ class Photo extends Component {
                                             <input 
                                                 style={{...globalStyles.searchTerm, display: 'block' }}
                                                 type="email" 
-                                                placeholder="Enter an email"
+                                                placeholder="Enter an email address"
                                                 onFocus={() => { console.log("show Keyboard") }}
                                                 onBlur={() => { console.log("hide Keyboard") }}
                                                 onChange={(event) => console.log(event) }
@@ -237,13 +237,13 @@ class Photo extends Component {
                                     Record Data
                                 </div>
                                  <div style={{ ...globalStyles.body, marginBottom: '5vw' }}>
-                                    This record is subject to revision due to ongoing research. If you have additional information regarding this image, or have noticed an error, please reach out to the Teenie Harris Archive staff at <a style={{ color: globalStyles.cmoaRed }} onClick={() => this.props.composeEmail() }>teenie@cmoa.org</a>. Development for this tool has been generously supported by the Collections as Data granting initiative. Search powered by Algolia.
+                                    This record has been reviewed by the curatorial staff but may be incomplete. Our records are frequently revised and enhanced. If you have additional information regarding this image, or have noticed an error, please reach out to the Teenie Harris Archive staff at <a style={{ color: globalStyles.cmoaRed }} onClick={() => this.props.composeEmail() }>CMOATeenie@cmoa.org</a>. Development for this tool has been generously supported by the Collections as Data granting initiative. Search powered by Algolia.
                                 </div>
                                 <div style={{ ...globalStyles.title}}>
                                     Privacy
                                 </div>
                                 <div style={{ ...globalStyles.body }}> 
-                                 We won't collect your email to spam you. 
+                                 We won't collect or share your email address. 
                                 </div>
                             </div>
                         </motion.div>

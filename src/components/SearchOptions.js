@@ -25,6 +25,7 @@ const styles = {
     height: '5vh',
     position: 'relative',
     display: 'flex',
+    marginBottom: '1vw',
   },
   sortOption: {
     color: globalStyles.cmoaRed,
@@ -46,7 +47,7 @@ const styles = {
   underline: {
     height: '4px',
     backgroundColor: globalStyles.cmoaRed,
-    bottom: '15px',
+    bottom: '18px',
     position: 'absolute'
   },
   dateRangeContainer: {

@@ -183,6 +183,19 @@ class SearchResults extends Component {
     	var resultsHeight
     	this.results.current !== null ? resultsHeight = this.results.current.clientHeight : console.log("scroll container not rendered")
 
+
+    	var resultsString;
+    	if (this.props.hitsCount === 0) {
+    		resultsString = ""
+    	} else if (this.props.hitsCount === 1) {
+    		resultsString = "1 result"
+    	} else if (this.props.hitsCount > 10000) {
+    		resultsString = "10000+ results"
+    	} else {
+    		resultsString = `${this.props.hitsCount} results`
+    	}
+
+
         return ( 
 	        <div style={styles.page} ref={this.page} pose={this.props.screen}>
 
@@ -193,8 +206,7 @@ class SearchResults extends Component {
         			<React.Fragment>
         				<SearchOptions />
         				<div>
-        					{ this.props.hitsCount === 1 && <div>{"1 result" }</div> }
-        					{ this.props.hitsCount > 1 && <div>{this.props.hitsCount + " results" }</div> }
+        					{resultsString}
         				</div>
         			</React.Fragment>
 	        	</div> 
@@ -202,6 +214,7 @@ class SearchResults extends Component {
 	        	{ /* Results */ }
 	        	{!this.props.loading && this.props.hitsCount > 0 && 
 	        		<React.Fragment>
+
 
 		        		<Gesture
 		        			onMove={this.handleScroll}
@@ -243,7 +256,7 @@ class SearchResults extends Component {
 		            <React.Fragment>
 			            <div style={{ ...globalStyles.body, padding: '2.5vh', textAlign: 'center' }}> 
 			        		<div style={{ fontWeight: 'bold' }}>NO RESULTS</div> 
-			        		Please try another search.
+			        		Try one of these topics:
 			        	</div>
 			        	<div style={{ padding: '2.5vh', display: 'flex', flex: 1 }}>
 		            		<SuggestedSearchView rows={3} columns={3} />

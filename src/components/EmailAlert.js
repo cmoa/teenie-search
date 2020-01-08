@@ -124,7 +124,7 @@ class EmailAlert extends Component {
             this.props.dismissEmailAlert() 
           }}>
             <div style={{...styles.alert, ...globalStyles.body}}>
-              Thanks for reaching out! We'll be in contact soon. 
+              Thanks for reaching out! We'll be in contact soon.
             </div>
           </div>
         )
@@ -180,7 +180,7 @@ class EmailAlert extends Component {
                   <input 
                       type="text"
                       style={{...globalStyles.searchTerm, ...styles.input }}
-                      placeholder="Your email or phone #"
+                      placeholder="Contact phone number or email address..."
                       onFocus={() => { console.log("show Keyboard") }}
                       onBlur={() => { console.log("hide Keyboard") }}
                       onChange={(event) => console.log(event) }

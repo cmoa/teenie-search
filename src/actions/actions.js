@@ -33,6 +33,13 @@ export function composeEmail() {
   }
 }
 
+
+export function resultsLoaded() {
+  return {
+        type: "RESULTS_LOADED"
+  }
+}
+
 export function sendPhoto(email, photo) {
   return dispatch => {
     dispatch({ type: "SEND_EMAIL" });

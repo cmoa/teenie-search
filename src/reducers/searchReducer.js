@@ -1,7 +1,7 @@
 
 var initialState = {
   term: "",
-  searchTime: Date.now(),
+  searchTimestamp: Date.now(),
   hits: [],
   hitsCount: 0,
   sortBy: "relevance",
@@ -12,7 +12,6 @@ var initialState = {
 export default (state = initialState, action) => {
 
   var newState = Object.assign({}, state)
-  console.log(action);
 
   switch(action.type) {
 
@@ -24,17 +23,20 @@ export default (state = initialState, action) => {
       return newState;
 
     case "SEARCH": 
-      if (newState.term !== action.term) { newState.loading = true; }
+      newState.loading = true;
       newState.term = action.term;
       newState.sortBy = action.sortBy;
       newState.startDate = action.startDate;
       newState.endDate = action.endDate;
-      newState.searchTime = Date.now();
+      newState.searchTimestamp = Date.now();
       return newState;
 
     case "UPDATE_RESULTS":
-      newState.loading = false;
       return Object.assign(newState, action.updates);
+
+    case "RESULTS_LOADED": 
+      newState.loading = false;
+      return newState;
 
     default:
       return state

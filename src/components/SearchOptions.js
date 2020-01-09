@@ -16,6 +16,13 @@ import posed from 'react-pose';
 import _ from 'lodash';
 
 const styles = {
+  searchOptionContainer: {
+    background: "linear-gradient(to bottom, rgba(255,255,255, 1) 0%, rgba(255,255,255,0.9) 100%)",
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '2.5vw 5vw',
+    zIndex: 100,
+  },
   optionLabel: {
     width: '13vw',
     display: 'inline-block',
@@ -26,6 +33,7 @@ const styles = {
     position: 'relative',
     display: 'flex',
     marginBottom: '1vw',
+    alignItems: 'center',
   },
   sortOption: {
     color: globalStyles.cmoaRed,
@@ -33,6 +41,10 @@ const styles = {
     cursor: 'pointer',
     display: 'inline-block',
     backgroundColor: 'white !important',
+    MozUserSelect:'none',
+    WebkitUserSelect:'none',
+    msUserSelect:'none',
+    width: '15vw'
   },
   directionIconContainer: {
     alignItems: 'center',
@@ -48,7 +60,8 @@ const styles = {
     height: '4px',
     backgroundColor: globalStyles.cmoaRed,
     bottom: '18px',
-    position: 'absolute'
+    position: 'absolute',
+    top: 40
   },
   dateRangeContainer: {
     display: 'inline-block',
@@ -63,12 +76,12 @@ const SelectionUnderline = posed.div({
     ease: 'linear'
   },
   dateAscending: {
-    x: '25vw',
+    x: '26vw',
     width: '63px',
     ease: 'linear'
   },
   dateDescending: {
-    x: '25vw',
+    x: '26vw',
     width: '63px',
     ease: 'linear'
   },
@@ -92,6 +105,8 @@ const DirectionIcon = posed.div({
   },
 });
 
+
+
 class SearchOptions extends Component {
 
     constructor(props) {
@@ -114,7 +129,6 @@ class SearchOptions extends Component {
     }
 
     render() {
-      console.log(this.props.sortBy)
 
       var marks = {};
       marks[this.state.startDate] = (<div style={{...globalStyles.photoDetail, fontSize: '16px', paddingTop: '10px' }}>{this.state.startDate}</div>);
@@ -126,7 +140,7 @@ class SearchOptions extends Component {
       }
 
       return ( 
-        <React.Fragment>
+        <div style={{...styles.searchOptionContainer}}>
           <div style={styles.sortOptionContainer}>
             <span style={{ ...styles.optionLabel, marginRight: '4vw' }}>Date range</span>
             <div style={styles.dateRangeContainer}>
@@ -155,7 +169,7 @@ class SearchOptions extends Component {
           <div style={{ ...styles.sortOptionContainer }}>
             <span style={{ ...styles.optionLabel, width: '11vw' }}>Sort by</span>
               <span 
-                style={{ ...globalStyles.body, ...styles.sortOption, marginRight: '20px' }}  
+                style={{ ...globalStyles.body, ...styles.sortOption}}  
                 onClick={() => {
                   if (this.props.sortBy !== "relevance") {
                     this.searchWithOptions({ sortBy: "relevance" })
@@ -184,9 +198,11 @@ class SearchOptions extends Component {
             <SelectionUnderline pose={this.props.sortBy} style={{ ...styles.underline }} />
           </div>
 
-          
+            <div style={{ ...globalStyles.body, display: this.props.loading ? 'none' : 'block'}}>
+              {this.props.resultsString}
+            </div>  
 
-        </React.Fragment>
+        </div>
       )
     }
 }

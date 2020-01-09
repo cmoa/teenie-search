@@ -1,7 +1,7 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { openPhoto, retrieveMoreHits, openSearchSettings } from '../actions/actions'
+import { openPhoto, retrieveMoreHits } from '../actions/actions'
 import globalStyles from '../styles';
 
 import { useGesture, withGesture, Gesture } from 'react-with-gesture'
@@ -296,8 +296,7 @@ const SearchResult = (props) => {
 const mapDispatchToProps = dispatch => {
 	return {
 		openPhoto: (irn) => dispatch(openPhoto(irn)),
-		retrieveMoreHits: () => dispatch(retrieveMoreHits()),
-		openSearchSettings: () => dispatch(openSearchSettings()),
+		retrieveMoreHits: () => dispatch(retrieveMoreHits())
 	}
 }
 

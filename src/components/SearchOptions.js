@@ -131,8 +131,8 @@ class SearchOptions extends Component {
             <span style={{ ...styles.optionLabel, marginRight: '4vw' }}>Date range</span>
             <div style={styles.dateRangeContainer}>
               <Range 
-                min={1908}
-                max={1998}
+                min={1915}
+                max={1980}
                 handleStyle={[handleStyle, handleStyle]}
                 trackStyle={[{ backgroundColor: globalStyles.cmoaRed }]}
                 railStyle={{ backgroundColor: '#ccc' }}

@@ -1,7 +1,7 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { updateSearchTerm, search, resetInteractive, openSearchSettings } from '../actions/actions'
+import { updateSearchTerm, search, resetInteractive } from '../actions/actions'
 
 import globalStyles from '../styles'
 
@@ -135,8 +135,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		updateSearchTerm: (term) => dispatch(updateSearchTerm(term)),
 		search: (term) => dispatch(search(term)),
-    resetInteractive: (term) => dispatch(resetInteractive()),
-    openSearchSettings: () => dispatch(openSearchSettings()),
+    resetInteractive: (term) => dispatch(resetInteractive())
 	}
 }
 

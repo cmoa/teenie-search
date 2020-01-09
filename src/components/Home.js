@@ -11,7 +11,9 @@ const styles = {
 		flex: 1,
 		flexDirection: 'column',
 		height: '100vh',
-    	width: '100vw'
+    	width: '100vw',
+		WebkitOverflowScrolling: 'touch',
+		overflow:'auto',
 	},
 	topHalf: {
 		display: 'flex',

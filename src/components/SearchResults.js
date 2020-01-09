@@ -1,14 +1,12 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { openPhoto, retrieveMoreHits } from '../actions/actions'
+import { openPhoto, retrieveMoreHits, resultsLoaded } from '../actions/actions'
 import globalStyles from '../styles';
-
-import { useGesture, withGesture, Gesture } from 'react-with-gesture'
-import { motion } from "framer-motion"
 
 import SuggestedSearchView from './SuggestedSearchView';
 import SearchOptions from './SearchOptions';
+import SafariScroller from './SafariScroller';
 
 import Masonry from 'react-masonry-component';
 
@@ -36,15 +34,8 @@ const styles = {
 	    zIndex: 100,
 	},
 	searchResults: {
-		display: 'flex',
-		flexDirection: 'row',
-    	width: '95vw',
-    	marginLeft: '2.5vw',
-	},
-	searchResultsContainer: {
-		flexDirection: 'row',
-		height: '90vh',
-		overflow: 'visible',
+    	padding: '30vh 2.5vw 0 2.5vw',
+    	minHeight: '70vh',
 	},
 	searchOptions: {
 		height: "10vh",
@@ -119,15 +110,8 @@ const styles = {
 		borderColor: 'black',
 	},
 	searchOptionsContainer: {
-		paddingLeft: '5vw',
 		zIndex: 100,
-		backgroundColor: 'white',
-		paddingBottom: '2.5vw',
-	},
-	fade : {
-		width: '100vw',
-		height: '5vh',
-		backgroundImage: 'linear-gradient(white, #ffffff00)'
+		position: 'absolute',
 	}
 }
 
@@ -138,15 +122,17 @@ class SearchResults extends Component {
 
         this.results = React.createRef();
         this.page = React.createRef();
+        this.scroller = React.createRef();
 
-        this.handleScroll = this.handleScroll.bind(this);
 
         this.state = { scrollY: 0 }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-    	if (this.props.searchTime !== prevProps.searchTime && this.props.searchTime !== "") {
-	    	this.setState({ scrollY: 0 })
+    	if (this.scroller.current !== null && this.props.searchTimestamp !== prevProps.searchTimestamp && this.props.searchTimestamp !== "") {
+	    	this.scroller.current.scrollToTop();
+	  	} else if (this.props.hitsCount === 0) {
+	  		this.props.resultsLoaded();
 	  	}
     }
 
@@ -160,11 +146,9 @@ class SearchResults extends Component {
         console.log(pageHeight)
         var newY = this.state.scrollY + event.direction[1]*(100*event.velocity);
 
-        if (newY > 0) {
-            newY = 0;
+        if (newY > 0) { newY = 0;
         } else if (newY <= pageHeight - resultsHeight) {
             newY = pageHeight - resultsHeight;
-            
         }
 
         // getting close to bottom...
@@ -195,60 +179,41 @@ class SearchResults extends Component {
     		resultsString = `${this.props.hitsCount} results`
     	}
 
+    	// this.props.resultsLoaded()
+
 
         return ( 
 	        <div style={styles.page} ref={this.page} pose={this.props.screen}>
 
 	        	<div style={styles.searchBarBackground} id="searchBarBackground" />
 
-	        	<div style={{ ...globalStyles.body, ...styles.searchOptionsContainer }}> 
-
-        			<React.Fragment>
-        				<SearchOptions />
-        				<div>
-        					{resultsString}
-        				</div>
-        			</React.Fragment>
-	        	</div> 
+        		<SearchOptions resultsString={resultsString} loading={this.props.loading}/>
 
 	        	{ /* Results */ }
-	        	{!this.props.loading && this.props.hitsCount > 0 && 
-	        		<React.Fragment>
+	        	{this.props.hitsCount > 0 && 
 
-
-		        		<Gesture
-		        			onMove={this.handleScroll}
-		        		>
-				            {event => <motion.div 
-				            	style={{
-				            		...styles.searchResultsContainer
-				            	}} 
-				            	animate={{ x: 0, y: this.state.scrollY }}
-				            	transition={{ duration: 1, ease: "easeOut",}}
-				            >
-				            	<div ref={this.results}>
-					            	<div style={styles.searchResults}>
-					            	<Masonry
-						                options={{ horizontalOrder: true, fitWidth: true, transitionDuration: 0 }} // default {}
-						                disableImagesLoaded={false} // default false
-						                updateOnEachImageLoad={true} // default false and works only if disableImagesLoaded is false
-						         		style={{ width: '95vw', minWidth: '95vw'}}
-						            >
-						               { this.props.hits.map((hit, i) => {
-											return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
-										})}
-						            </Masonry>
-									</div>
-									{ /* End of Results */ }
-									{(this.props.page + 1) === this.props.pageCount && 
-							            <div style={{ ...styles.endOfResults }}>
-							            </div> 
-									}
-								</div>
-							</motion.div>
+	        		<div style={{ position: 'fixed', top: 0, opacity: this.props.loading ? 0 : 1}}>
+		        		<SafariScroller className="safariScroller" scrollHeight='100vh' scrollWidth='100vw' ref={this.scroller}>
+			            	<div style={styles.searchResults} >
+				            	<Masonry
+					         		style={{ width: '95vw', minWidth: '95vw'}}
+					         		onLayoutComplete={() => {
+					         			console.log("results LOFAEFEFE")
+					         			this.props.resultsLoaded();
+					         		}}
+					            >
+					               { this.props.hits.map((hit, i) => {
+										return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
+									})}
+					            </Masonry>
+							</div>
+							{ /* End of Results */ }
+							{(this.props.page + 1) === this.props.pageCount && 
+					            <div style={{ ...styles.endOfResults }}>
+					            </div> 
 							}
-						</Gesture>
-					</React.Fragment>
+						</SafariScroller>
+					</div>
 				}
 
 				{ /* No Results */ }
@@ -296,7 +261,8 @@ const SearchResult = (props) => {
 const mapDispatchToProps = dispatch => {
 	return {
 		openPhoto: (irn) => dispatch(openPhoto(irn)),
-		retrieveMoreHits: () => dispatch(retrieveMoreHits())
+		retrieveMoreHits: () => dispatch(retrieveMoreHits()),
+		resultsLoaded: () => dispatch(resultsLoaded())
 	}
 }
 
@@ -304,8 +270,7 @@ const mapStateToProps = state => {
     return {
     	term: state.search.term,
     	loading: state.search.loading,
-        searchTime: state.search.searchTime,
-        searchTime: state.search.timestamp,
+        searchTimestamp: state.search.searchTimestamp,
         hits: state.search.hits,
         hitsCount: state.search.hitsCount,
         screen: state.nav.screen,

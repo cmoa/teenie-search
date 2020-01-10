@@ -4,6 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import TagManager from 'react-gtm-module'
+
+const tagManagerArgs = {
+    gtmId: process.env.REACT_APP_GTM_ID
+}
+
+TagManager.initialize(tagManagerArgs)
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 document.addEventListener('gesturestart', function(e) {

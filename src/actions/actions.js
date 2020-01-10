@@ -43,22 +43,36 @@ export function resultsLoaded() {
 export function sendPhoto(email, photo) {
   return dispatch => {
     dispatch({ type: "SEND_EMAIL" });
+    
+    // console.log(photo);
 
-    // Send the email via mail chimp or whatever here
-    setTimeout(() => {
-        dispatch({ type: "PHOTO_SENT" });
-    }, 2000);
+    // const data = {
+    //   from: "Mailgun Sandbox <postmaster@sandbox1f8a0605ffa94e749e35b298621acd19.mailgun.org>",
+    //   to: email,
+    //   subject: "NEEDS COPY - Here's a photograph!",
+    //   template: "share_photograph",
+    //   'h:X-Mailgun-Variables': {test: "test"}
+    // };
+    // mg.messages().send(data, function (error, body) {
+    //   dispatch({ type: "PHOTO_SENT" });
+    // });
+
   }
 }
 
-export function sendMessage(message, name, contact, photo) {
+export function sendMessage(message, sender, contact, photo) {
+  console.log(message)
+  console.log(sender);
+  console.log(contact)
   return dispatch => {
     dispatch({ type: "SEND_EMAIL" });
+    console.log(photo);
 
-    // Send the email via mail chimp or whatever here
-    setTimeout(() => {
-        dispatch({ type: "MESSAGE_SENT" });
-    }, 2000);
+    fetch(`/api/mail/share_photo?message=${encodeURIComponent(message)}&sender=${encodeURIComponent(sender)}&contact=${encodeURIComponent(contact)}`)
+      .then(response => {
+        console.log(response.json())
+        dispatch({ type: "PHOTO_SENT" });
+      })
   }
 }
 

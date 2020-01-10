@@ -123,8 +123,9 @@ class EmailAlert extends Component {
           <div style={styles.page} onClick={ () => {
             this.props.dismissEmailAlert() 
           }}>
-            <div style={{...styles.alert, ...globalStyles.body}}>
-              Thanks for reaching out! We'll be in contact soon.
+             <div style={{...styles.alert, ...globalStyles.body}}>
+              <div>Thanks for reaching out! </div>
+              <div>We'll be in contact soon. </div>
             </div>
           </div>
         )

@@ -13,7 +13,7 @@ const styles = {
 		height: '100vh',
     	width: '100vw',
 		WebkitOverflowScrolling: 'touch',
-		overflow:'auto',
+		overflow:'auto'
 	},
 	topHalf: {
 		display: 'flex',

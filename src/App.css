@@ -1,0 +1,324 @@
+*:focus {
+  outline: 0;
+  outline: none;
+  
+}
+
+* {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color:transparent !important;
+  -moz-tap-highlight-color:transparent !important;
+  -o-tap-highlight-color:transparent !important;
+  tap-highlight-color:transparent !important;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  cursor:'pointer';
+}
+
+input {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0 !important;
+  padding: 0px;
+  margin: 0px;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+  caret-color: #bf0d3e;
+  caret-width: 1px;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+
+.smoothScroller {
+  overflow: hidden;
+  -webkit-overflow-scrolling: hidden;
+  overscroll-behavior: none;
+  backface-visibility: hidden;
+  position: fixed;
+}
+
+.smoothScroller > * {
+  -webkit-transform: translate3d(0,0,0)
+}
+
+.smoothScroller::-webkit-scrollbar {
+  display: none;
+}
+
+#searchclear:before {
+    content: "\00d7";
+    color: #000;
+    font-weight: 300;
+    font-family: Arial, sans-serif;
+}
+
+.App {
+  text-align: center;
+  
+}
+
+.rc-slider {
+  padding: 15px 0px !important;
+}
+
+.rc-slider-mark {
+  pointer-events: none !important;
+}
+
+.rc-slider-handle:active {
+  box-shadow: none !important;
+}
+
+#searchBarBackground {
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,0) 0%,  rgba(255,255,255,.05) 5%, rgba(255,255,255,1) 30%, rgba(255,255,255,1) 100%);
+}
+
+#root {
+  background: white;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.page {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: papayawhip;
+}
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+ 
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+  margin-bottom: 30px;
+}
+
+
+button {
+  outline: none !important;
+}
+
+.example-appear,
+.example-enter {
+  transition: opacity 1s;
+  opacity: 0;
+}
+
+.example-appear.example-appear-active,
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #000;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+
+input, select, textarea {
+  border: solid 1px #555;
+  font-size: 1rem;
+  padding: 0 1vh;
+  background-color: #fff;
+  flex: 1;
+}
+
+textarea {
+  padding: 1vh;
+  resize: none;
+}
+
+
+select {
+  height: 5vh;
+}
+
+input:active, input:focus, select:active, select:focus, textarea:active, textarea:focus {
+  box-shadow: none !important;
+  border: 1px solid #bf0d3e !important;
+  outline: none !important;
+}
+
+
+.required:after {
+    color: #e32;
+    content: ' *';
+    display:inline;
+}
+
+select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+div::-webkit-scrollbar { 
+  width: 0 !important;
+  height: 0 !important; 
+}
+
+@font-face {
+  font-family: 'Klavika-bold';
+  src: url(fonts/klavika/klavika-bold.otf) format('otf'),
+       url(fonts/klavika/klavika-bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Klavika-bold-italic';
+  src: url(fonts/klavika/klavika-bold-italic.otf) format('otf'),
+       url(fonts/klavika/klavika-bold-italic.ttf) format('truetype');
+
+}
+
+@font-face {
+  font-family: 'Klavika-light';
+  src: url(fonts/klavika/klavika-light.otf) format('otf'),
+       url(fonts/klavika/klavika-light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Klavika-light-italic';
+  src: url(fonts/klavika/klavika-light-italic.otf) format('otf'),
+       url(fonts/klavika/klavika-light-italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Klavika-medium';
+  src: url(fonts/klavika/klavika-medium.otf) format('otf'),
+       url(fonts/klavika/klavika-medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Klavika-medium-italic';
+  src: url(fonts/klavika/klavika-medium-italic.otf) format('otf'),
+       url(fonts/klavika/klavika-medium-italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Klavika-regular';
+  src: url(fonts/klavika/klavika-regular.otf) format('otf'),
+       url(fonts/klavika/klavika-regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Klavika-regular-italic';
+  src: url(fonts/klavika/klavika-regular-italic.otf) format('otf'),
+       url(fonts/klavika/klavika-regular-italic.ttf) format('truetype');
+}

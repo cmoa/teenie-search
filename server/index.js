@@ -34,10 +34,31 @@ app.get('/api/mail/collection_inquiry', (req, res) => {
     });
 });
 
-app.get('/api/mail/share_photo', (req, res) => {
-  const name = req.query.name || 'Inquiry';
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+app.get('/api/mail/share_photograph', (req, res) => {
+
+	if (!req.query.to) res.end();
+	const accession = req.query.accession || '';
+	const image = req.query.image || '';
+	const title = req.query.title || '';
+	const date = req.query.date || '';
+	const description = req.query.description || '';
+
+	const data = {
+		from: "Mailgun Sandbox <postmaster@sandbox1f8a0605ffa94e749e35b298621acd19.mailgun.org>",
+		to: req.query.to,
+		subject: "Here is the image you requested from the Teenie Harris Archive.",
+		template: "share_photograph",
+		'v:title' : title,
+		'v:image' : image,
+		'v:date' : date,
+		'v:title' : title,
+		'v:description' : description,
+		'v:query' : `https://collection.cmoa.org/?page=1&perPage=10&q=%22${accession}%22&view=grid`
+	};
+
+    mg.messages().send(data, function (error, body) {
+  		res.end()
+    });
 });
 
 app.listen(3001, () =>

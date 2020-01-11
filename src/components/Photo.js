@@ -100,6 +100,7 @@ class Photo extends Component {
         this.scrollContainer = React.createRef();
         this.photo = React.createRef();
         this.page = React.createRef();
+        this.email = React.createRef();
 
         this.handleScroll = this.handleScroll.bind(this);
     }
@@ -163,11 +164,12 @@ class Photo extends Component {
                                     style={{ display: 'flex', width: '100%'}}
                                     onSubmit={(event) => {
                                         event.preventDefault();
-                                        this.props.sendPhoto(event, this.props.photo.url)
+                                        this.props.sendPhoto(this.email.current.value, this.props.photo)
                                         document.forms["photoform"].reset();
                                     }}
                                 >
                                     <input 
+                                        ref={this.email}
                                         style={{...globalStyles.searchTerm, display: 'block' }}
                                         type="email" 
                                         placeholder="Enter an email address"

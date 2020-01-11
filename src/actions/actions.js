@@ -44,18 +44,18 @@ export function sendPhoto(email, photo) {
   return dispatch => {
     dispatch({ type: "SEND_EMAIL" });
 
-    // console.log(photo);
-
-    // const data = {
-    //   from: "Mailgun Sandbox <postmaster@sandbox1f8a0605ffa94e749e35b298621acd19.mailgun.org>",
-    //   to: email,
-    //   subject: "NEEDS COPY - Here's a photograph!",
-    //   template: "share_photograph",
-    //   'h:X-Mailgun-Variables': {test: "test"}
-    // };
-    // mg.messages().send(data, function (error, body) {
-    //   dispatch({ type: "PHOTO_SENT" });
-    // });
+    var args = [
+      `accession=${encodeURIComponent(photo.TitAccessionNo)}&`,
+      `image=${encodeURIComponent(photo.image_url)}&`,
+      `to=${encodeURIComponent(email)}&`,
+      `title=${encodeURIComponent(photo.TitMainTitle)}&`,
+      `date=${encodeURIComponent(photo.CreDateCreated)}&`,
+      `description=${encodeURIComponent(photo.CatDescriptText)}`,
+    ]
+    fetch(`/api/mail/share_photograph?${args.join("")}`)
+      .then(response => {
+        dispatch({ type: "PHOTO_SENT" });
+    })
 
   }
 }
@@ -63,11 +63,10 @@ export function sendPhoto(email, photo) {
 export function sendMessage(message, sender, contact, photo) {
   return dispatch => {
     dispatch({ type: "SEND_EMAIL" });
-    console.log(photo);
 
     var args = [
-      `accession=${photo.TitAccessionNo}&`,
-      `image=${photo.image_url}&`,
+      `accession=${encodeURIComponent(photo.TitAccessionNo)}&`,
+      `image=${encodeURIComponent(photo.image_url)}&`,
       `message=${encodeURIComponent(message)}&`,
       `sender=${encodeURIComponent(sender)}&`,
       `contact=${encodeURIComponent(contact)}`

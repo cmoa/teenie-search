@@ -1,8 +1,9 @@
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
 
-const mailgun = require("mailgun-js");  
+const mailgun = require("mailgun-js"); 
 const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
 
 const app = express();

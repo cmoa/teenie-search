@@ -43,7 +43,7 @@ export function resultsLoaded() {
 export function sendPhoto(email, photo) {
   return dispatch => {
     dispatch({ type: "SEND_EMAIL" });
-    
+
     // console.log(photo);
 
     // const data = {
@@ -61,18 +61,21 @@ export function sendPhoto(email, photo) {
 }
 
 export function sendMessage(message, sender, contact, photo) {
-  console.log(message)
-  console.log(sender);
-  console.log(contact)
   return dispatch => {
     dispatch({ type: "SEND_EMAIL" });
     console.log(photo);
 
-    fetch(`/api/mail/share_photo?message=${encodeURIComponent(message)}&sender=${encodeURIComponent(sender)}&contact=${encodeURIComponent(contact)}`)
+    var args = [
+      `accession=${photo.TitAccessionNo}&`,
+      `image=${photo.image_url}&`,
+      `message=${encodeURIComponent(message)}&`,
+      `sender=${encodeURIComponent(sender)}&`,
+      `contact=${encodeURIComponent(contact)}`
+    ]
+    fetch(`/api/mail/collection_inquiry?${args.join("")}`)
       .then(response => {
-        console.log(response.json())
         dispatch({ type: "PHOTO_SENT" });
-      })
+    })
   }
 }
 
@@ -97,6 +100,8 @@ export function updateSearchTerm(term){
 
 
 export function search(query, options = {}) {
+
+  window.ga('send', 'pageview', `/?s=${query}`);
 
   return dispatch => {
 

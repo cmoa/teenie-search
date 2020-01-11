@@ -84,6 +84,13 @@ var timeout;
 
 class EmailAlert extends Component {
 
+    constructor(props) {
+      super(props);
+      this.message_sender = React.createRef();
+      this.message_contact = React.createRef();
+      this.message_content = React.createRef();
+    }
+
     componentWillUnmount() {
       clearTimeout(timeout);
     }
@@ -133,32 +140,31 @@ class EmailAlert extends Component {
       } else if (this.props.emailAlert === "composing") {
         return ( 
           <div>
-            <div style={styles.page} onClick={ () => { 
-              console.log("should this dismissEmailAlert?")
-              //this.props.dismissEmailAlert() 
-            }} />
+            <div style={styles.page} />
             <div style={{ ...styles.largeAlert}}>
               <img/>
               <form 
+
                   id="messageform"
                   style={{ display: 'flex', flex: 1, flexDirection: 'column', width: '100%'}}
                   onSubmit={(event) => {
                       event.preventDefault();
-                      // TO DO : reset forms ?
-                      // document.forms["emailform"].reset();
-                      this.props.sendMessage("message", "name", "email", {});
+                      this.props.sendMessage(
+                        this.message_content.current.value, 
+                        this.message_sender.current.value, 
+                        this.message_contact.current.value, 
+                        this.props.photo
+                      );
                   }}
               >
                   <label className="required" style={{ ...globalStyles.body, ...styles.label}} >
                     To Teenie Harris Archive:
                   </label>
                   <textarea 
+                      ref={this.message_content}
                       style={{...globalStyles.searchTerm, ...styles.textarea }}
                       rows="4" cols="50"
                       placeholder="Write your message..."
-                      onFocus={() => { console.log("show Keyboard") }}
-                      onBlur={() => { console.log("hide Keyboard") }}
-                      onChange={(event) => console.log(event) }
                       required
                   />
 
@@ -166,12 +172,10 @@ class EmailAlert extends Component {
                     From:
                   </label>
                   <input 
+                      ref={this.message_sender}
                       style={{...globalStyles.searchTerm, ...styles.input }}
                       type="text" 
                       placeholder="Your name"
-                      onFocus={() => { console.log("show Keyboard") }}
-                      onBlur={() => { console.log("hide Keyboard") }}
-                      onChange={(event) => console.log(event) }
                       required
                   />
 
@@ -179,12 +183,10 @@ class EmailAlert extends Component {
                     Best way to reach you:
                   </label>
                   <input 
+                      ref={this.message_contact}
                       type="text"
                       style={{...globalStyles.searchTerm, ...styles.input }}
                       placeholder="Contact phone number or email address..."
-                      onFocus={() => { console.log("show Keyboard") }}
-                      onBlur={() => { console.log("hide Keyboard") }}
-                      onChange={(event) => console.log(event) }
                   />
                   <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto', alignItems: 'center'}}>
                     <div style={{ ...styles.cancelButton, ...globalStyles.body, color: globalStyles.cmoaRed }} onClick={() => this.props.dismissEmailAlert()}>
@@ -213,6 +215,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
+        photo: state.photo.photo,
         emailAlert: state.nav.emailAlert,
     }
 }

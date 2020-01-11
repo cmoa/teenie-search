@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { openPhoto } from '../actions/actions'
 import { search } from '../actions/actions'
 
-
-
 import Range from 'rc-slider/lib/Range';
 import 'rc-slider/assets/index.css';
 
@@ -20,7 +18,7 @@ const styles = {
     background: "linear-gradient(to bottom, rgba(255,255,255, 1) 0%, rgba(255,255,255,0.9) 100%)",
     display: 'flex',
     flexDirection: 'column',
-    padding: '2.5vw 5vw',
+    padding: '0 5vw 2.5vw 5vw',
     zIndex: 100,
   },
   optionLabel: {

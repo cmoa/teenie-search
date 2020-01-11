@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "server",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "node server | pino-colada",
-    "build": "cd react-ui && npm install && npm run build"
+    "build": "cd client/ && npm install && npm run build"
   },
   "cacheDirectories": [
     "node_modules",

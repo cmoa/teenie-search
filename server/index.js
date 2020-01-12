@@ -10,6 +10,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+
 app.get('/api/mail/collection_inquiry', (req, res) => {
 	const sender = req.query.sender || 'ERROR';
 	const message = req.query.message || 'ERROR';
@@ -62,6 +65,12 @@ app.get('/api/mail/share_photograph', (req, res) => {
     });
 });
 
-app.listen(3001, () =>
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', function(request, response) {
+	response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+});
+
+
+app.listen((process.env.PORT || 5000), () =>
   console.log('Express server is running on localhost:3001')
 );

@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
+var path = require("path");
 
 const mailgun = require("mailgun-js"); 
 const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
@@ -72,5 +73,5 @@ app.get('*', function(request, response) {
 
 
 app.listen((process.env.PORT || 5000), () =>
-  console.log('Express server is running on localhost:3001')
+  console.log('Express server is running on localhost:5000')
 );

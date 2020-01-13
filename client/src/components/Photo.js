@@ -245,7 +245,6 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         searchTerm: state.search.term,
-        screen: state.nav.screen,
         photo: state.photo.photo,
         hits: state.search.hits
     }

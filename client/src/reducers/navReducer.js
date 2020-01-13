@@ -1,7 +1,6 @@
 
 var initialState = {
   screen: "HOME",
-  modal: "",
   emailAlert: "" // "" or "sending" or "photoSent" or "messageSent" or "error" or "composing"
 }
 
@@ -19,11 +18,11 @@ export default (state = initialState, action) => {
       return newState
 
     case "OPEN_PHOTO": 
-      newState.modal = "PHOTO"
+      newState.screen = "PHOTO"
       return newState
 
     case "CLOSE_PHOTO": 
-      newState.modal = ""
+      newState.screen = "SEARCH_RESULTS"
       return newState
 
     case "SEND_EMAIL":

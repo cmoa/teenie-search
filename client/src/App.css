@@ -53,7 +53,6 @@ input[type="search"]::-webkit-search-results-decoration {
   -webkit-overflow-scrolling: hidden;
   overscroll-behavior: none;
   backface-visibility: hidden;
-  position: fixed;
 }
 
 .smoothScroller > * {

@@ -10,7 +10,6 @@ class SafariScroller extends Component {
     }
 
     componentDidMount() {
-
       // Following code prevents safari from freezing up the scroll for 3 sec. scroll bug
       var elem = this.safariScroller.current;
       elem.addEventListener('touchstart', function(event){
@@ -21,15 +20,17 @@ class SafariScroller extends Component {
           this.lastY = event.targetTouches[0].pageY;
       });
       elem.addEventListener('touchmove', function(event){
-          var up = (event.targetTouches[0].pageY > this.lastY), 
-              down = !up;
+          if (event.targetTouches.length > 0) {
+            var up = (event.targetTouches[0].pageY > this.lastY), 
+                down = !up;
 
-          this.lastY = event.targetTouches[0].pageY;
+            this.lastY = event.targetTouches[0].pageY;
 
-          if ((up && this.allowUp) || (down && this.allowDown)) 
-              event.stopPropagation();
-          else 
-              event.preventDefault();
+            if ((up && this.allowUp) || (down && this.allowDown)) 
+                event.stopPropagation();
+            else 
+                event.preventDefault();
+          }
       });
 
     }
@@ -39,7 +40,6 @@ class SafariScroller extends Component {
     }
 
     scrollToTop() {
-      console.log("scroll to top")
       var elem = this.safariScroller.current;
       elem.scrollTop = 0;
     }

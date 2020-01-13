@@ -68,7 +68,7 @@ const SearchContainer = posed.div({
   	top: '5vw',
   	width: '90vw',
   },
-  none: { display: 'none' }
+  hidden: { opacity: 0 }
 });
 
 
@@ -80,13 +80,14 @@ class SearchBar extends Component {
     }
 
     render() {
-
-    	var pose = "none";
+      var pose;
     	if (this.props.screen === "HOME") {
     		pose = "home";
     	} else if (this.props.screen === "SEARCH_RESULTS") {
     		pose = "results";
-    	}
+    	} else {
+        pose = "hidden";
+      }
 
       return ( 
       	<div style={styles.searchContainer}>
@@ -108,9 +109,7 @@ class SearchBar extends Component {
 	                	type="search" 
                     ref={this.input}
 	                	placeholder="Search the Teenie Harris Archive..."
-	                	value={this.props.searchTerm} 
-	                	onFocus={() => { console.log("show Keyboard") }}
-	                	onBlur={() => { console.log("hide Keyboard") }}
+	                	value={this.props.searchTerm}
 	                	onChange={(event) => this.props.updateSearchTerm(event.currentTarget.value) }
 	                />
                   { this.props.searchTerm !== "" && 

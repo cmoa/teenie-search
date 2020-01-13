@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import SuggestedSearchView from './SuggestedSearchView';
-
 import TeenieHeroImage from './../images/4965-1680.jpg';
 
 const styles = {
@@ -34,7 +33,6 @@ const styles = {
 		padding: 5,
 	},
 }
-
 
 class Home extends Component {
     render() {

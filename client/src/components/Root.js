@@ -6,6 +6,7 @@ import Home from './Home';
 import SearchResults from './SearchResults';
 import Photo from './Photo';
 import EmailAlert from './EmailAlert';
+import SafariScroller from './SafariScroller';
 
 
 import posed, { PoseGroup } from 'react-pose';
@@ -37,7 +38,7 @@ class Root extends Component {
 
     render() {
         return ( 
-            <div>
+            <SafariScroller className="safariScroller" scrollHeight='100vh' scrollWidth='100vw'>
                 <IdleTimer
                   ref={ref => { this.idleTimer = ref }}
                   element={document}
@@ -47,14 +48,13 @@ class Root extends Component {
                   debounce={250}
                   timeout={1000 /* ms */ * 60 /* sec */ * 3 /* min */} /> 
              	<PoseGroup style={{position: 'absolute'}}>
-                    {this.props.screen === "HOME" && (<Page key="home"><Home /></Page>)}
-                    {this.props.screen === "SEARCH_RESULTS" && (<Page key="searchResults"><SearchResults /></Page>)}
-        	        {true && <SearchBar key="searchBar" /> }
-
-        	        {this.props.modal === "PHOTO" && (<Page key="photo"><Photo /></Page>)}
+                  {this.props.screen === "HOME" && (<Page key="home"><Home /></Page>)}
+                  {(this.props.screen === "SEARCH_RESULTS" || this.props.screen === "PHOTO") && (<Page key="searchResults"><SearchResults /></Page>)}
+                  <SearchBar key="searchBar" />
+        	        {this.props.screen === "PHOTO" && <Page key="photo"><Photo /></Page>}
                   {this.props.emailAlert !== ""  && (<Page key="emailalert"><EmailAlert /></Page>)}
     	        </PoseGroup>
-            </div>
+            </SafariScroller>
         )
     }
 
@@ -84,7 +84,6 @@ const mapStateToProps = state => {
     return {
         searchTerm: state.search.term,
         screen: state.nav.screen,
-        modal: state.nav.modal,
         emailAlert: state.nav.emailAlert,
     }
 }

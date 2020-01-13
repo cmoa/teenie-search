@@ -16,10 +16,8 @@ import _ from 'lodash';
 const styles = {
   searchOptionContainer: {
     background: "linear-gradient(to bottom, rgba(255,255,255, 1) 0%, rgba(255,255,255,0.9) 100%)",
-    display: 'flex',
-    flexDirection: 'column',
     padding: '0 5vw 2.5vw 5vw',
-    zIndex: 100,
+    zIndex: 100
   },
   optionLabel: {
     width: '13vw',
@@ -59,7 +57,7 @@ const styles = {
     backgroundColor: globalStyles.cmoaRed,
     bottom: '18px',
     position: 'absolute',
-    top: 40
+    top: '75%'
   },
   dateRangeContainer: {
     display: 'inline-block',

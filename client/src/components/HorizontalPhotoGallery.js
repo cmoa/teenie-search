@@ -73,10 +73,10 @@ class HorizontalPhotoGallery extends Component {
                 { lastImages.map((photo) => {
                     return(
                       <img 
-                        onClick={() => { this.props.openPhoto(photo.irn) }}
+                        onClick={() => { this.props.openPhoto(photo) }}
                         alt="" 
                         style={styles.recommendedImage} 
-                        src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} 
+                        src={photo.image_url_thumb} 
                         height="100" />
                     );
                 })}    
@@ -86,10 +86,10 @@ class HorizontalPhotoGallery extends Component {
                 { this.props.photos.map((photo) => {
                     return(
                       <img 
-                        onClick={() => { this.props.openPhoto(photo.irn) }}
+                        onClick={() => { this.props.openPhoto(photo) }}
                         alt="" 
                         style={styles.recommendedImage} 
-                        src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} 
+                        src={photo.image_url_thumb} 
                         height="100" />
                     );
                 })}
@@ -99,10 +99,10 @@ class HorizontalPhotoGallery extends Component {
                 { firstImages.map((photo) => {
                     return(
                       <img 
-                        onClick={() => { this.props.openPhoto(photo.irn) }}
+                        onClick={() => { this.props.openPhoto(photo) }}
                         alt="" 
                         style={styles.recommendedImage} 
-                        src={process.env.PUBLIC_URL + '/images/'+photo.irn+'.jpg'} 
+                        src={photo.image_url_thumb} 
                         height="100" />
                     );
                 })}

@@ -100,13 +100,18 @@ class Photo extends Component {
         this.photo = React.createRef();
         this.page = React.createRef();
         this.email = React.createRef();
+        this.scroller = React.createRef();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.scroller.current !== null && this.props.photo && prevProps.photo && this.props.photo.irn !== prevProps.photo.irn) {
+            window.setTimeout(() => { this.scroller.current.scrollToTop() }, 300); 
+        }
+    }
 
     render() {  
-
         return (  
-            <SafariScroller scrollHeight={'100vh'} scrollWidth={'100vw'}>
+            <SafariScroller scrollHeight={'100vh'} scrollWidth={'100vw'} ref={this.scroller}>
                 <div style={{ flex: 1, backgroundColor: 'white' }}>
                     <div style={styles.photoContainer}>
                         <div style={{...styles.photoTitle, ...globalStyles.photoTitle}}> { this.props.photo.TitMainTitle } </div>
@@ -167,39 +172,43 @@ class Photo extends Component {
                     <div style={{ ...globalStyles.line }} />
 
                     { /* Suggestions */}
-                    { this.props.relatedStatus === "LOADED" && 
-                        <div>
-                            <div style={{ marginBottom: '5vw' }}>
-                                <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More results for&nbsp;
-                                    <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
-                                </div>
-                                { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
+                    
+                    <div>
+                        <div style={{ marginBottom: '5vw' }}>
+                            <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More results for&nbsp;
+                                <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
                             </div>
-                            <div style={{ marginBottom: '5vw' }}>
-                                <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
-                                    <span style={{ color: globalStyles.cmoaRed}}>Pittsburgh, PA</span>
-                                </div>
-                                 { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
-                            </div>
-                            <div>
-                                <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
-                                    <span style={{ color: globalStyles.cmoaRed}}>1950</span>
-                                </div>
-                                 { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
-                            </div>
+                            <HorizontalPhotoGallery photos={this.props.hits} />
                         </div>
-                    }
+                        { this.props.relatedStatus === "LOADED" && 
+                            <React.Fragment>
+                                <div style={{ marginBottom: '5vw' }}>
+                                    <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
+                                        <span style={{ color: globalStyles.cmoaRed}}>Pittsburgh, PA</span>
+                                    </div>
+                                     { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
+                                </div>
+                                <div>
+                                    <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
+                                        <span style={{ color: globalStyles.cmoaRed}}>1950</span>
+                                    </div>
+                                     { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
+                                </div>
+                            </React.Fragment>
+                        }
+                        { this.props.relatedStatus === "LOADING" && 
+                            <div style={{ flex: 1, display: 'flex', alignItems:'center', justifyContent: 'center' }}> 
+                              <div className="lds-ellipsis">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                              </div>
+                            </div>
+                        }
+                    </div>
 
-                    { this.props.relatedStatus === "LOADING" && 
-                        <div style={{ flex: 1, display: 'flex', alignItems:'center', justifyContent: 'center' }}> 
-                          <div className="lds-ellipsis">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                          </div>
-                        </div>
-                    }
+                    
 
                     <div style={{ ...globalStyles.line }} />
 

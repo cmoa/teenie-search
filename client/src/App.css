@@ -149,15 +149,19 @@ button {
 
 .example-appear,
 .example-enter {
-  transition: opacity 1s;
+  transition: opacity 2s;
   opacity: 0;
+  transition-timing-function: ease-in;
 }
+
 
 .example-appear.example-appear-active,
 .example-enter.example-enter-active {
   opacity: 1;
-  transition: opacity 1s;
+  transition: opacity 2s;
+  transition-timing-function: ease-out;
 }
+
 
 .lds-ellipsis {
   display: inline-block;

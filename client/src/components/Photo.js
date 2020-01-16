@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import { search, closePhoto, sendPhoto, composeEmail } from '../actions/actions'
+import _ from 'lodash';
 
 import globalStyles from '../styles'
 
@@ -178,7 +179,7 @@ class Photo extends Component {
                             <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More results for&nbsp;
                                 <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
                             </div>
-                            <HorizontalPhotoGallery photos={this.props.hits} />
+                            <HorizontalPhotoGallery photos={_.differenceBy(this.props.hits, [this.props.photo], 'irn')} />
                         </div>
                         { this.props.relatedStatus === "LOADED" && 
                             <React.Fragment>

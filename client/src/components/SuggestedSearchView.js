@@ -6,8 +6,6 @@ import { search } from '../actions/actions';
 import globalStyles from '../styles';
 import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
-import TeenieHeroImage from './../images/4965-1680.jpg';
-
 const searchSuggestionPadding = 10;
 
 const styles = {
@@ -45,41 +43,40 @@ const styles = {
 
 
 const searchTermBank = [
-	{ term: "Hill District", photo: 63211 },
-	{ term: "Homewood", photo: 63211 },
-	{ term: "Women's Groups", photo: 59499 },
-	{ term: "Men's Groups", photo: 7848 },
-	{ term: "Housing", photo: 60320 },
+	{ term: "Hill District", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/15060/sizes/945-420.jpg" },
+	{ term: "Homewood", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/23182/sizes/14314-420.jpg" },
+	{ term: "Women's Groups", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/27709/sizes/21352-420.jpg" },
+	{ term: "Men's Groups", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/18140/sizes/1926-420.jpg" },
+	{ term: "Housing", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/23086/sizes/14092-420.jpg" },
 	
-	{ term: "Civil Rights", photo: 928 },
-	{ term: "Schools", photo: 61475 },
-	{ term: "Baseball", photo: 47901 },
-	{ term: "Cars", photo: 10902 },
-	{ term: "Jazz", photo: 39088 },
+	{ term: "Civil Rights", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/22290/sizes/13161-420.jpg" },
+	{ term: "Schools", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/17308/sizes/4597-420.jpg" },
+	{ term: "Baseball", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/22148/sizes/12820-420.jpg" },
+	{ term: "Cars", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/36105/sizes/30399-420.jpg" },
+	{ term: "Jazz", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/20803/sizes/9761-420.jpg" },
 	
-	{ term: "Boxing", photo: 39088 },
-	{ term: "Fashion", photo: 39088 },
-	{ term: "Pittsburgh Views", photo: 39088 },
-	{ term: "Crawford Grill", photo: 39088 },
-	{ term: "Forbes Field", photo: 39778 },
+	{ term: "Boxing", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/15157/sizes/1775-420.jpg" },
+	{ term: "Fashion", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/46662/sizes/40287-420.jpg" },
+	{ term: "Pittsburgh Views", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/30471/sizes/24094-420.jpg" },
+	{ term: "Crawford Grill", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/16520/sizes/4105-840.jpg" },
+	{ term: "Forbes Field", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/18447/sizes/6082-420.jpg" },
 	
-	{ term: "Steel Mills", photo: 39778 },
-	{ term: "University of Pittsburgh", photo: 39088 },
-	{ term: "Pittsburgh Technical College", photo: 39088 },
-	{ term: "Churches", photo: 39778 },
-	{ term: "Barbershops", photo: 39778 },
+	{ term: "Steel Mills", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/23510/sizes/9825-420.jpg" },
+	{ term: "University of Pittsburgh", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/19600/sizes/7647-420.jpg" },
+	{ term: "Churches", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/19718/sizes/6669-420.jpg" },
+	{ term: "Barbershops", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/17067/sizes/3831-420.jpg" },
 
-	{ term: "1940s", photo: 2514 },
-	{ term: "1950s", photo: 4512 },
-	{ term: "1960s", photo: 4512 },
-	{ term: "Pittsburgh Courier", photo: 39778 },
-	{ term: "National Negro Opera", photo: 2514 },
+	{ term: "1940s", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/23500/sizes/9705-420.jpg" },
+	{ term: "1950s", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/20809/sizes/9844-420.jpg" },
+	{ term: "1960s", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/19360/sizes/7521-420.jpg" },
+	{ term: "Pittsburgh Courier", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/17926/sizes/5182-420.jpg" },
+	{ term: "National Negro Opera", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/14875/sizes/2776-420.jpg" },
 
-	{ term: "Harris Studio", photo: 4512 },
-	{ term: "Soldier's Portraits", photo: 4512 },
-	{ term: "Children's Portraits", photo: 39778 },
-	{ term: "Graduation", photo: 4512 },
-	{ term: "Weddings", photo: 39778 }
+	{ term: "Harris Studio", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/30396/sizes/24077-420.jpg" },
+	{ term: "Soldier's Portraits", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/46946/sizes/40653-420.jpg" },
+	{ term: "Children's Portraits", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/60168/sizes/52669-420.jpg" },
+	{ term: "Graduation", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/42074/sizes/35899-840.jpg" },
+	{ term: "Weddings", photo: "https://cmoa-collection-images.s3.amazonaws.com/teenie/30140/sizes/23256-420.jpg" }
 ]
 
 class SuggestedSearchView extends Component {
@@ -92,7 +89,7 @@ class SuggestedSearchView extends Component {
 		var timeouts = [];
 		var intialSuggestedSearchTerms = _.sampleSize(searchTermBank, this.props.rows * this.props.columns);
 		intialSuggestedSearchTerms.map((suggestion, i) => {
-			timeouts.push(setTimeout(() => { this.getNewSuggestion(i) }, 100 * i + 5000));
+			timeouts.push(setTimeout(() => { this.getNewSuggestion(i) }, 80 * i + 5000));
 			return suggestion;
 		});
 
@@ -138,10 +135,10 @@ class SuggestedSearchView extends Component {
 						<CSSTransitionGroup 
 							transitionName="example" 
 							transitionAppear={true} 
-							transitionAppearTimeout={1000} 
+							transitionAppearTimeout={3000} 
 							transitionLeave={true} 
-							transitionEnterTimeout={1000}
-							transitionLeaveTimeout={1000}
+							transitionEnterTimeout={3000}
+							transitionLeaveTimeout={3000}
 							key={suggested.term}
 							style={{
 								...styles.sampleSearchContainer, 
@@ -150,11 +147,11 @@ class SuggestedSearchView extends Component {
 							onClick={() => { this.props.search(suggested.term) }}
 						>
 								<div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, 
-									backgroundImage: `url(${TeenieHeroImage})`,
-									backgroundSize: '200%',
-			    					backgroundPosition: 'center',
+									backgroundImage: `url(${suggested.photo})`,
+									backgroundSize: '150%',
+			    					backgroundPosition: '50% 30%',
 			    					backgroundRepeat: 'noRepeat', }} />
-								<div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#000000dd" }} />
+								<div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "#000000bb" }} />
 								<div style={{...globalStyles.photoDetail, color: 'white', fontSize: '1.5rem', width: '80%', textAlign: 'center', position: 'absolute'}}> { suggested.term } </div>
 						</CSSTransitionGroup>
 					)

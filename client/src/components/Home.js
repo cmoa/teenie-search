@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import SuggestedSearchView from './SuggestedSearchView';
-import TeenieHeroImage from './../images/4965-1680.jpg';
 
 const styles = {
 	page: {
@@ -12,7 +11,8 @@ const styles = {
 		height: '100vh',
     	width: '100vw',
 		WebkitOverflowScrolling: 'touch',
-		overflow:'auto'
+		overflow:'auto',
+		backgroundColor: 'black',
 	},
 	topHalf: {
 		display: 'flex',
@@ -20,10 +20,10 @@ const styles = {
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'black',
-		backgroundImage: `url(${TeenieHeroImage})`,
-		backgroundPosition: '65% 33%',
-		backgroundSize: '300%',
+		backgroundImage: `url(${"https://cmoa-collection-images.s3.amazonaws.com/teenie/29814/sizes/23349-1680.jpg"})`,
+		backgroundPosition: '50% 50%',
+		backgroundSize: '120%',
+		opacity: 0.5,
 	},
 	bottomHalf: {
 		display: 'flex',

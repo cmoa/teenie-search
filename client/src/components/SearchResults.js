@@ -142,6 +142,13 @@ class SearchResults extends Component {
 	  	}
     }
 
+    handleScroll = (ref) => {
+        const bottom = ref.current.scrollHeight - ref.current.clientHeight === ref.current.scrollTop;
+        if (bottom && this.props.hits.length < this.props.hitsCount) { 
+            this.props.retrieveMoreHits();
+        } 
+    }
+
     render() {
     	var resultsHeight
 
@@ -172,7 +179,14 @@ class SearchResults extends Component {
 	        	{ /* Results */ }
 	        	{this.props.hitsCount > 0 && 
 	        		<div style={{ position: 'fixed', top: 0, opacity: this.props.loading ? 0 : 1}}>
-		        		<SafariScroller className="safariScroller" scrollHeight='100vh' scrollWidth='100vw' ref={this.scroller}>
+		        		<SafariScroller 
+		        			scrollHeight='100vh' 
+		        			scrollWidth='100vw' 
+		        			ref={this.scroller}
+		        			handleScroll={(ref) => {
+		        				this.handleScroll(ref)
+		        			}}
+		        		>
 			            	<div style={styles.searchResults} >
 				            	<Masonry
 					         		style={{ width: '95vw', minWidth: '95vw'}}
@@ -186,7 +200,7 @@ class SearchResults extends Component {
 					            </Masonry>
 							</div>
 							{ /* End of Results */ }
-							{(this.props.page + 1) === this.props.pageCount && 
+							{(this.props.hits.length === 1000 || ((this.props.page + 1) === this.props.pageCount)) && 
 					            <div style={{ ...styles.endOfResults }}>
 					            </div> 
 							}
@@ -195,7 +209,7 @@ class SearchResults extends Component {
 				}
 
 				{ /* No Results */ }
-				{!this.props.loading && this.props.hitsCount === 0 && 
+				{!this.props.loading && this.props.hitsCount === 0 && this.props.screen === "SEARCH_RESULTS" &&
 		            <React.Fragment>
 			            <div style={{ ...globalStyles.body, padding: '0 2.5vh 2.5vh 2.5vh', textAlign: 'center' }}> 
 			        		<div style={{ fontWeight: 'bold' }}>NO RESULTS</div> 

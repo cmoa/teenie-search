@@ -38,7 +38,7 @@ class Root extends Component {
 
     render() {
         return ( 
-            <SafariScroller className="safariScroller" scrollHeight='100vh' scrollWidth='100vw'>
+            <SafariScroller scrollHeight={'100vh'} scrollWidth={'100vw'}>
                 <IdleTimer
                   ref={ref => { this.idleTimer = ref }}
                   element={document}

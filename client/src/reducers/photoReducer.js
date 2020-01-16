@@ -3,11 +3,14 @@
 
 var initialState = {
   photo: {},
+  related: {},
+  relatedStatus: "NOT_LOADED"
 }
 
 export default (state = initialState, action) => {
 
   var newState = Object.assign({}, state)
+  console.log(action)
 
   switch(action.type) {
 
@@ -17,6 +20,21 @@ export default (state = initialState, action) => {
     case "OPEN_PHOTO": 
       newState.photo = action.photo
       return newState
+
+    case "LOADING_RELATED":
+      newState.related = {};
+      newState.relatedStatus = "LOADING";
+      return newState;
+
+    case "RELATED_LOADED":
+      newState.related = action.related;
+      newState.relatedStatus = "LOADED";
+      return newState;
+
+    case "NO_RELATED":
+      newState.related = {};
+      newState.relatedStatus = "NONE";
+      return newState;
 
     default:
       return state

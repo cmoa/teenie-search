@@ -97,32 +97,9 @@ class Photo extends Component {
         super(props);
         this.state = { scrollY: 0 }
 
-        this.scrollContainer = React.createRef();
         this.photo = React.createRef();
         this.page = React.createRef();
         this.email = React.createRef();
-
-        this.handleScroll = this.handleScroll.bind(this);
-    }
-
-    handleScroll(event) {
-
-        var scrollContainerHeight;
-        this.scrollContainer.current !== null ? scrollContainerHeight = this.scrollContainer.current.clientHeight : console.log("scroll container not rendered")
-
-        var pageHeight;
-        this.page.current !== null ? pageHeight = this.page.current.clientHeight : console.log("page not rendered")
-
-        var newY = this.state.scrollY + event.direction[1]*(100*event.velocity);
-
-        if (newY > 0) {
-            newY = 0;
-        } else if (newY <= pageHeight - scrollContainerHeight) {
-            newY = pageHeight - scrollContainerHeight;
-            // hit bottom
-        }
-
-        this.setState({ scrollY: newY })
     }
 
 
@@ -151,7 +128,7 @@ class Photo extends Component {
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <span style={{...globalStyles.body, ...styles.backButton}} onClick={() => { this.props.closePhoto() }}>
                                 <div style={styles.backButton}>
-                                    <svg style={styles.backIcon} class="svg-inline--fa fa-chevron fa-w-16" aria-hidden="true" data-prefix="cmoa" data-icon="chevron" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" data-fa-i2svg="" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
+                                    <svg style={styles.backIcon} className="svg-inline--fa fa-chevron fa-w-16"  role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
                                 </div>                                
                                 Return to search results
                             </span>  
@@ -190,24 +167,39 @@ class Photo extends Component {
                     <div style={{ ...globalStyles.line }} />
 
                     { /* Suggestions */}
-                    <div style={{ marginBottom: '5vw' }}>
-                        <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More results for&nbsp;
-                            <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
+                    { this.props.relatedStatus === "LOADED" && 
+                        <div>
+                            <div style={{ marginBottom: '5vw' }}>
+                                <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More results for&nbsp;
+                                    <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
+                                </div>
+                                { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
+                            </div>
+                            <div style={{ marginBottom: '5vw' }}>
+                                <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
+                                    <span style={{ color: globalStyles.cmoaRed}}>Pittsburgh, PA</span>
+                                </div>
+                                 { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
+                            </div>
+                            <div>
+                                <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
+                                    <span style={{ color: globalStyles.cmoaRed}}>1950</span>
+                                </div>
+                                 { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
+                            </div>
                         </div>
-                        { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
-                    </div>
-                    <div style={{ marginBottom: '5vw' }}>
-                        <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
-                            <span style={{ color: globalStyles.cmoaRed}}>Pittsburgh, PA</span>
+                    }
+
+                    { this.props.relatedStatus === "LOADING" && 
+                        <div style={{ flex: 1, display: 'flex', alignItems:'center', justifyContent: 'center' }}> 
+                          <div className="lds-ellipsis">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                          </div>
                         </div>
-                         { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
-                    </div>
-                    <div>
-                        <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
-                            <span style={{ color: globalStyles.cmoaRed}}>1950</span>
-                        </div>
-                         { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
-                    </div>
+                    }
 
                     <div style={{ ...globalStyles.line }} />
 
@@ -246,7 +238,9 @@ const mapStateToProps = state => {
     return {
         searchTerm: state.search.term,
         photo: state.photo.photo,
-        hits: state.search.hits
+        hits: state.search.hits,
+        realted: state.photo.related,
+        relatedStatus: state.photo.relatedStatus
     }
 }
 

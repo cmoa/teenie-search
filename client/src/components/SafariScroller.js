@@ -29,14 +29,9 @@ class SafariScroller extends Component {
             if ((up && this.allowUp) || (down && this.allowDown)) 
                 event.stopPropagation();
             else 
-                event.preventDefault();
+                event.preventDefault();                
           }
       });
-
-    }
-
-    logIt(arg) {
-      console.log(arg)
     }
 
     scrollToTop() {
@@ -50,6 +45,7 @@ class SafariScroller extends Component {
       	<div 
           className="smoothScroller"
           ref={this.safariScroller}
+          onScroll={this.props.handleScroll ? () => this.props.handleScroll(this.safariScroller) : null}
           style={{
             overflow:'scroll', 
             height:this.props.scrollHeight, 

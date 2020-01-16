@@ -149,7 +149,7 @@ button {
 
 .example-appear,
 .example-enter {
-  transition: opacity 2s;
+  transition: opacity 3s;
   opacity: 0;
   transition-timing-function: ease-in;
 }
@@ -158,8 +158,7 @@ button {
 .example-appear.example-appear-active,
 .example-enter.example-enter-active {
   opacity: 1;
-  transition: opacity 2s;
-  transition-timing-function: ease-out;
+  transition: opacity 3s;
 }
 
 

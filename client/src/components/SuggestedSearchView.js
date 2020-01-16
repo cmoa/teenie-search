@@ -89,7 +89,7 @@ class SuggestedSearchView extends Component {
 		var timeouts = [];
 		var intialSuggestedSearchTerms = _.sampleSize(searchTermBank, this.props.rows * this.props.columns);
 		intialSuggestedSearchTerms.map((suggestion, i) => {
-			timeouts.push(setTimeout(() => { this.getNewSuggestion(i) }, 80 * i + 5000));
+			timeouts.push(setTimeout(() => { this.getNewSuggestion(i) }, 100 * i + 10000));
 			return suggestion;
 		});
 
@@ -117,7 +117,7 @@ class SuggestedSearchView extends Component {
 
     	// Build new state from old
 		this.state.suggestedSearchTerms[index] = newSuggestion;
-		this.state.timeouts.push(setTimeout(() => { this.getNewSuggestion(index) }, 5000))
+		this.state.timeouts.push(setTimeout(() => { this.getNewSuggestion(index) }, 10000))
 
 		this.setState({ 
 			suggestedSearchTerms: this.state.suggestedSearchTerms,

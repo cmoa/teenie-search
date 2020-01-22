@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import { search, closePhoto, sendPhoto, composeEmail } from '../actions/actions'
-import _ from 'lodash';
 
 import globalStyles from '../styles'
 
@@ -219,7 +218,7 @@ class Photo extends Component {
                             Record Data
                         </div>
                          <div style={{ ...globalStyles.body, marginBottom: '5vw' }}>
-                            This record has been reviewed by the curatorial staff but may be incomplete. Our records are frequently revised and enhanced. If you have additional information regarding this image, or have noticed an error, please reach out to the Teenie Harris Archive staff at <a className="touchTarget" style={{ color: globalStyles.cmoaRed }} onClick={() => this.props.composeEmail() }>CMOATeenie@cmoa.org</a>. Development for this tool has been generously supported by the Collections as Data granting initiative. Search powered by Algolia.
+                            This record has been reviewed by the curatorial staff but may be incomplete. Our records are frequently revised and enhanced. If you have additional information regarding this image, or have noticed an error, please reach out to the Teenie Harris Archive staff at <span className="touchTarget" style={{ color: globalStyles.cmoaRed }} onClick={() => this.props.composeEmail() }>CMOATeenie@cmoa.org</span>. Development for this tool has been generously supported by the Collections as Data granting initiative. Search powered by Algolia.
                         </div>
                         <div style={{ ...globalStyles.title}}>
                             Privacy

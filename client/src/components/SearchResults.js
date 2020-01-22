@@ -32,7 +32,6 @@ const styles = {
 		height: '12.5vh',
 	    background: '#ffffff',
 	    position: 'fixed',
-	    zIndex:200,
 	    top: 0,
 	    left: 0,
 	    right: 0,
@@ -150,7 +149,6 @@ class SearchResults extends Component {
     }
 
     render() {
-    	var resultsHeight
 
     	var pose = "default";
 	    if (this.props.screen === "PHOTO") {

@@ -130,7 +130,6 @@ class SuggestedSearchView extends Component {
 			return _.times(this.props.columns, null).map((n, j) => {
 				var suggested = this.state.suggestedSearchTerms[i * this.props.columns + j];
 				if (suggested) {
-					var photoURL = process.env.PUBLIC_URL + '/images/'+suggested.photo+'.jpg'
 					return (
 						<CSSTransitionGroup 
 							transitionName="example" 

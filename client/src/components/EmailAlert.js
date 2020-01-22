@@ -8,7 +8,6 @@ import globalStyles from '../styles'
 const styles = {
 	page: {
 		position: 'fixed',
-		width: '100%',
 		display: 'flex',
 		justifyContent: 'center',
     alignItems: 'center',
@@ -147,7 +146,6 @@ class EmailAlert extends Component {
           <div>
             <div style={styles.page} />
             <div style={{ ...styles.largeAlert}}>
-              <img/>
               <form 
 
                   id="messageform"

@@ -1,7 +1,6 @@
 import React, {Component}
 from 'react';
 import { connect } from 'react-redux'
-import { openPhoto } from '../actions/actions'
 import { search } from '../actions/actions'
 
 import Range from 'rc-slider/lib/Range';
@@ -11,7 +10,6 @@ import globalStyles from '../styles'
 
 import posed from 'react-pose';
 
-import _ from 'lodash';
 
 const styles = {
   searchOptionContainer: {
@@ -210,12 +208,6 @@ class SearchOptions extends Component {
       )
     }
 }
-
-/*
-changeOption={(options) => {
-                          this.props.search(this.props.term, options);
-                        }}
-                        */
 
 const mapDispatchToProps = dispatch => {
 	return {

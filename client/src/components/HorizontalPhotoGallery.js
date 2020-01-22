@@ -3,11 +3,6 @@ from 'react';
 import { connect } from 'react-redux'
 import { openPhoto } from '../actions/actions'
 
-import globalStyles from '../styles'
-
-import _ from 'lodash';
-
-
 const styles = {
     photoSuggestions: {
         overflowX: 'scroll',

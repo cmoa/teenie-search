@@ -16,7 +16,6 @@ var indexToSearch = relevanceIndex;
 
 // Actions
 export function resetInteractive() {
-  console.log("reset interactive")
   return {
     type: "RESET_INTERACTIVE",
   }
@@ -76,13 +75,11 @@ function getRelated(photo, dispatch) {
   });
 }
 
+
 export function openPhoto(photo) {
   return dispatch => {
-    
     dispatch({ type: "OPEN_PHOTO", photo });
-
     getRelated(photo, dispatch);
-  
   }
 }
 
@@ -157,10 +154,9 @@ export function updateSearchTerm(term){
   }
 }
 
-
 export function search(query, options = {}) {
 
-  // window.ga('send', 'pageview', `/?s=${query}`);
+  window.ga('send', 'pageview', `/?s=${query}`);
 
   return dispatch => {
 
@@ -200,8 +196,6 @@ export function search(query, options = {}) {
 }
 
 export function retrieveMoreHits() {
-
-  console.log("RETRIEVING MORE HITS")
 
   return (dispatch, getState) => {
     const searchState = getState().search;

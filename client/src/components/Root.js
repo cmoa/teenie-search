@@ -38,23 +38,25 @@ class Root extends Component {
 
     render() {
         return ( 
-            <SafariScroller scrollHeight={'100vh'} scrollWidth={'100vw'}>
-                <IdleTimer
-                  ref={ref => { this.idleTimer = ref }}
-                  element={document}
-                  onActive={this.onActive}
-                  onIdle={this.onIdle}
-                  onAction={this.onAction}
-                  debounce={250}
-                  timeout={1000 /* ms */ * 60 /* sec */ * 3 /* min */} /> 
-             	<PoseGroup style={{position: 'absolute'}}>
-                  {this.props.screen === "HOME" && (<Page key="home"><Home /></Page>)}
-                  {(this.props.screen === "SEARCH_RESULTS" || this.props.screen === "PHOTO") && (<Page key="searchResults"><SearchResults /></Page>)}
-                  <SearchBar key="searchBar" />
-        	        {this.props.screen === "PHOTO" && <Page key="photo"><Photo /></Page>}
-                  {this.props.emailAlert !== ""  && (<Page key="emailalert"><EmailAlert /></Page>)}
-    	        </PoseGroup>
-            </SafariScroller>
+            <React.Fragment>
+              <SafariScroller scrollHeight='100vh' scrollWidth='100vw'>
+                  <IdleTimer
+                    ref={ref => { this.idleTimer = ref }}
+                    element={document}
+                    onActive={this.onActive}
+                    onIdle={this.onIdle}
+                    onAction={this.onAction}
+                    debounce={250}
+                    timeout={1000 /* ms */ * 60 /* sec */ * 3 /* min */} /> 
+               	<PoseGroup style={{position: 'absolute'}}>
+                    {this.props.screen === "HOME" && (<Page key="home"><Home /></Page>)}
+                    {(this.props.screen === "SEARCH_RESULTS" || this.props.screen === "PHOTO") && (<Page key="searchResults"><SearchResults /></Page>)}
+                    <SearchBar key="searchBar" />
+          	        {this.props.screen === "PHOTO" && <Page key="photo"><Photo /></Page>}
+      	        </PoseGroup>
+              </SafariScroller>
+              {this.props.emailAlert !== "" ? (<Page key="emailalert"><EmailAlert /></Page>) : null}
+            </React.Fragment>
         )
     }
 

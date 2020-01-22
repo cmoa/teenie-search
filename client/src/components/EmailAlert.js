@@ -14,7 +14,12 @@ const styles = {
     alignItems: 'center',
 		height: '100vh',
     width: '100vw',
+    top: 0,
+    bottom: 0,
+    left: 0, 
+    right: 0,
     backgroundColor: '#000000aa',
+    overflow: 'scroll'
 	},
   alert: {
     position: 'fixed',

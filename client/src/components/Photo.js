@@ -50,7 +50,10 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         fontWeight: 'bold',
-        height: '1.75rem'
+        height: '1.75rem',
+        width: '33vw',
+        flex: 1,
+        justifyContent: 'flexStart'
     },
     backIcon: {
         color: globalStyles.cmoaRed,
@@ -69,6 +72,7 @@ const styles = {
         ...globalStyles.body,
         display: 'flex',
         flexDirection: 'column',
+        width: '40vw'
     },
     emailButton: {
         height: "5vh",
@@ -133,9 +137,7 @@ class Photo extends Component {
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <span  className="touchTarget" style={{...globalStyles.body, ...styles.backButton}} onClick={() => { this.props.closePhoto() }}>
-                                <div style={styles.backButton}>
-                                    <svg style={styles.backIcon} className="svg-inline--fa fa-chevron fa-w-16"  role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
-                                </div>                                
+                                <svg style={styles.backIcon} className="svg-inline--fa fa-chevron fa-w-16"  role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
                                 Return to search results
                             </span>  
                             <div style={styles.emailContainer}>
@@ -210,7 +212,6 @@ class Photo extends Component {
                     </div>
 
                     
-
                     <div style={{ ...globalStyles.line }} />
 
                     { /* Reach Out */}
@@ -250,7 +251,7 @@ const mapStateToProps = state => {
         photo: state.photo.photo,
         hits: state.search.hits,
         realted: state.photo.related,
-        relatedStatus: state.photo.relatedStatus
+        relatedStatus: state.photo.relatedStatus,
     }
 }
 

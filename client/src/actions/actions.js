@@ -56,7 +56,7 @@ function getRelated(photo, dispatch) {
     if (peopleAdded < 2 && !relatedTerms.includes(name)) {
       relatedTerms.push({
         term: name,
-        label: "More about",
+        label: "More that mention",
       })
       peopleAdded++;
     }

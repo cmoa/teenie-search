@@ -13,9 +13,11 @@ const styles = {
     },
     recommendedImage: {
         height: '20vh',
+        minHeight: '20vh',
         display: 'inlineBlock',
         paddingRight: '5vw',
         width: 'auto',
+        objectFit: 'contain'
     },
 }
 
@@ -25,8 +27,6 @@ class HorizontalPhotoGallery extends Component {
 
         return ( 
           <div style={styles.photoSuggestions} className="smoothScroller"> 
-                <div style={{ width: '5vh'}} />
-
                 { this.props.photos.map((photo, index) => {
                     return(
                       <img 
@@ -34,7 +34,7 @@ class HorizontalPhotoGallery extends Component {
                         onClick={() => { this.props.openPhoto(photo) }}
                         alt="" 
                         style={styles.recommendedImage} 
-                        src={photo.image_url_thumb} 
+                        src={photo.image_url_small} 
                       />
                     );
                 })}              

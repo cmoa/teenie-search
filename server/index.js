@@ -31,7 +31,7 @@ app.get('/api/mail/collection_inquiry', (req, res) => {
  		'v:sender' : sender,
 		'v:contact' : contact,
 		'v:accession' : accession,
-		'v:query' : `https://collection.cmoa.org/?page=1&perPage=10&q=%22${accession}%22&view=grid`
+		'v:query' : `https://collection.cmoa.org/?page=1&perPage=10&q=%22${accession}%22&view=grid&utm_source=cmoa&utm_medium=email&utm_campaign=teenie-search&utm_content=teenie-image`
 	};
 
     mg.messages().send(data, function (error, body) {

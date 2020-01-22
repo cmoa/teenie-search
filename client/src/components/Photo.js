@@ -106,13 +106,7 @@ class Photo extends Component {
         this.email = React.createRef();
         this.scroller = React.createRef();
     }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.scroller.current !== null && this.props.photo && prevProps.photo && this.props.photo.irn !== prevProps.photo.irn) {
-            window.setTimeout(() => { this.scroller.current.scrollToTop() }, 300); 
-        }
-    }
-
+    
     render() {  
         return (  
             <SafariScroller scrollHeight={'100vh'} scrollWidth={'100vw'} ref={this.scroller}>

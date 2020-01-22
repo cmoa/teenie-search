@@ -52,7 +52,7 @@ class Root extends Component {
                     {this.props.screen === "HOME" && (<Page key="home"><Home /></Page>)}
                     {(this.props.screen === "SEARCH_RESULTS" || this.props.screen === "PHOTO") && (<Page key="searchResults"><SearchResults /></Page>)}
                     <SearchBar key="searchBar" />
-          	        {this.props.screen === "PHOTO" && <Page key="photo"><Photo /></Page>}
+          	        {this.props.screen === "PHOTO" && <Page key="photo"><Photo key={this.props.photo.irn} /></Page>}
       	        </PoseGroup>
               </SafariScroller>
               {this.props.emailAlert !== "" ? (<Page key="emailalert"><EmailAlert /></Page>) : null}
@@ -88,6 +88,7 @@ const mapStateToProps = state => {
         searchTerm: state.search.term,
         screen: state.nav.screen,
         emailAlert: state.nav.emailAlert,
+        photo: state.photo.photo,
     }
 }
 

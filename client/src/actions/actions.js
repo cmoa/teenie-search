@@ -256,7 +256,7 @@ export function updateSearchTerm(term){
 
 export function search(query, options = {}) {
 
-  window.ga('send', 'pageview', `/?s=${query}`);
+  // window.ga('send', 'pageview', `/?s=${query}`);
 
   return dispatch => {
 

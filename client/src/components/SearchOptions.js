@@ -147,7 +147,6 @@ class SearchOptions extends Component {
                 trackStyle={[{ backgroundColor: globalStyles.cmoaRed }]}
                 railStyle={{ backgroundColor: '#ccc' }}
                 marks={marks}
-               // {number: { style, label }}
                 value={[this.state.startDate, this.state.endDate]}
                 onChange={(event) => {
                   this.setState({
@@ -165,6 +164,7 @@ class SearchOptions extends Component {
           <div style={{ ...styles.sortOptionContainer }}>
             <span style={{ ...styles.optionLabel, width: '11vw' }}>Sort by</span>
               <span 
+                className="touchTarget" 
                 style={{ ...globalStyles.body, ...styles.sortOption}}  
                 onClick={() => {
                   if (this.props.sortBy !== "relevance") {
@@ -175,6 +175,7 @@ class SearchOptions extends Component {
                 relevance
               </span>
             <span 
+              className="touchTarget"
               style={{ ...globalStyles.body, ...styles.sortOption }}  
               onClick={() => {
                 if (this.props.sortBy === "dateAscending") {

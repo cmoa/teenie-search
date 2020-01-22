@@ -76,7 +76,26 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .rc-slider {
+  position: relative;
   padding: 15px 0px !important;
+}
+
+.rc-slider:after {
+    content:'';
+    position:absolute;
+    top:-10px; bottom:-10px; 
+    left:-10px; right:-10px;
+}
+
+.touchTarget {
+  position: relative;
+}
+
+.touchTarget:after {
+    content:'';
+    position:absolute;
+    top:-10px; bottom:-10px; 
+    left:-10px; right:-10px;
 }
 
 .rc-slider-mark {

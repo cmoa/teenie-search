@@ -47,6 +47,7 @@ class SafariScroller extends Component {
           ref={this.safariScroller}
           onScroll={this.props.handleScroll ? () => this.props.handleScroll(this.safariScroller) : null}
           style={{
+            position: 'fixed',
             overflow:'scroll', 
             height:this.props.scrollHeight, 
             width:this.props.scrollWidth,

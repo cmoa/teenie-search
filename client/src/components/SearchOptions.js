@@ -109,7 +109,6 @@ class SearchOptions extends Component {
       super(props);
 
       // find initial start and end dates ....
-
       this.state = { startDate: this.props.startDate, endDate: this.props.endDate };
     }
 
@@ -123,6 +122,14 @@ class SearchOptions extends Component {
 
       this.props.search(this.props.term, Object.assign(options, updatedOptions));
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      if (this.props.searchTimestamp !== prevProps.searchTimestamp && this.props.searchTimestamp !== "") {
+        // find initial start and end dates ....
+        this.setState({ startDate: this.props.startDate, endDate: this.props.endDate });
+      }
+    }
+
 
     render() {
 
@@ -218,6 +225,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
     return {
+      searchTimestamp: state.search.searchTimestamp,
       term: state.search.term,
       startDate: state.search.startDate,
       endDate: state.search.endDate,

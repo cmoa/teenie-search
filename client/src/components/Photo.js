@@ -179,11 +179,11 @@ class Photo extends Component {
                     <div>
                         { this.props.relatedStatus === "LOADED" && 
                             <React.Fragment>
-                                { this.props.related.map(({ term, photos }) => {
+                                { this.props.related.map(({ term, label, photos }, index) => {
                                     return (
-                                        <div style={{ marginBottom: '5vw' }}>
-                                            <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> Related to&nbsp;
-                                                <span style={{ color: globalStyles.cmoaRed}}>{term}</span>
+                                        <div style={{ marginBottom: '5vw' }} key={"suggestions_"+index}>
+                                            <div style={{...globalStyles.body, ...styles.suggestionsCategory}}>
+                                                {label}&nbsp;<span style={{ color: globalStyles.cmoaRed}}>{term}</span>
                                             </div>
                                              <HorizontalPhotoGallery photos={photos} />
                                         </div>
@@ -195,7 +195,7 @@ class Photo extends Component {
                             <div style={{...globalStyles.body, ...styles.suggestionsCategory}}>More results for&nbsp;
                                 <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
                             </div>
-                            <HorizontalPhotoGallery photos={_.differenceBy(this.props.hits, [this.props.photo], 'irn')} />
+                            <HorizontalPhotoGallery photos={this.props.hits} />
                         </div>
                         
                         { this.props.relatedStatus === "LOADING" && 

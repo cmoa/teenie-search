@@ -21,34 +21,53 @@ export function resetInteractive() {
   }
 }
 
-
 function getRelated(photo, dispatch) {
   dispatch({ type: "LOADING_RELATED" });
 
   var relatedTerms = [];
 
   var date = photo["CreDateCreated"]
-  if (date && !relatedTerms.includes(date)) relatedTerms.push(date);
-
-  for (var i in photo["people"]) {
-    var name = photo["people"][i];
-    if (!relatedTerms.includes(name)) relatedTerms.push(name)
+  if (date && !relatedTerms.includes(date)) {
+      relatedTerms.push({
+        term: date,
+        label: "More from",
+      });
   }
 
-  for (var i in photo["places"]) {
-    var place = photo["places"][i];
+  var places = _.shuffle(photo["places"])
+  var placesAdded = 0;
+  for (var i in places) {
+    var place = places[i];
     if ((['establishment', 'place', 'neighborhood', 'route']).includes(place.type)) {
-      if (place.short_name && !relatedTerms.includes(place.short_name)) relatedTerms.push(place.short_name);
-      if (place.long_name && !relatedTerms.includes(place.long_name)) relatedTerms.push(place.long_name);
+      if (placesAdded < 2 && place.long_name && !relatedTerms.includes(place.long_name)) {
+        relatedTerms.push({
+          term: place.long_name,
+          label: "More near",
+        });
+        placesAdded++;
+      }
     } 
   }
 
-  var relatedirns = _.map(relatedTerms, (term) => { return relatedMap[term]; });
+  var people = _.shuffle(photo["people"])
+  var peopleAdded = 0;
+  for (var i in people) {
+    var name = people[i];
+    if (peopleAdded < 2 && !relatedTerms.includes(name)) {
+      relatedTerms.push({
+        term: name,
+        label: "More about",
+      })
+      peopleAdded++;
+    }
+  }
+
+  var relatedirns = _.map(relatedTerms, ({term, label}) => { return relatedMap[term]; });
 
   var getRelatedPromises = []
   for (var i=0; i<relatedTerms.length; i++) {
     if (relatedirns[i]) {
-      var objectIds = _.shuffle(_.take(_.map(relatedirns[i], (irn)=>{return String(irn)}), 50));
+      var objectIds = _.shuffle(_.take(_.without(_.map(relatedirns[i], (irn)=>{return String(irn)}), photo["irn"]), 50));
       getRelatedPromises.push(relevanceIndex.getObjects(objectIds))
     } else {
       getRelatedPromises.push(null)
@@ -60,9 +79,10 @@ function getRelated(photo, dispatch) {
 
     for (var i=0; i<relatedTerms.length; i++) {
       if (values[i] !== null){
-        if (relatedAliases[relatedTerms[i]]) {
+        if (relatedAliases[relatedTerms[i].term]) {
           var relatedResults = {
-            term: relatedAliases[relatedTerms[i]],
+            term: relatedAliases[relatedTerms[i].term],
+            label: relatedTerms[i].label,
             photos: _.without(values[i].results, null)
           }
           related.push(relatedResults);
@@ -70,7 +90,6 @@ function getRelated(photo, dispatch) {
       }
     }
 
-    console.log(related)
     dispatch({ type: "RELATED_LOADED",  related});
   });
 }

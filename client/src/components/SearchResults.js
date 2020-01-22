@@ -195,7 +195,7 @@ class SearchResults extends Component {
 					         		}}
 					            >
 					               { this.props.hits.map((hit, i) => {
-										return <SearchResult hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
+										return <SearchResult key={"result_"+i} hit={hit} i={i} onClick={() => { this.props.openPhoto(hit) }} />;
 									})}
 					            </Masonry>
 							</div>

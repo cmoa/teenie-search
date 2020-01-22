@@ -73,6 +73,7 @@ class Root extends Component {
         console.log('user is idle', e)
         console.log('last active', this.idleTimer.getLastActiveTime())
         this.props.resetInteractive();
+        window.location.reload()
     }
 }
 

@@ -177,28 +177,27 @@ class Photo extends Component {
                     { /* Suggestions */}
                     
                     <div>
+                        { this.props.relatedStatus === "LOADED" && 
+                            <React.Fragment>
+                                { this.props.related.map(({ term, photos }) => {
+                                    return (
+                                        <div style={{ marginBottom: '5vw' }}>
+                                            <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> Related to&nbsp;
+                                                <span style={{ color: globalStyles.cmoaRed}}>{term}</span>
+                                            </div>
+                                             <HorizontalPhotoGallery photos={photos} />
+                                        </div>
+                                    )
+                                })}
+                            </React.Fragment>
+                        }
                         <div style={{ marginBottom: '5vw' }}>
-                            <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More results for&nbsp;
+                            <div style={{...globalStyles.body, ...styles.suggestionsCategory}}>More results for&nbsp;
                                 <span style={{ color: globalStyles.cmoaRed}}>{this.props.searchTerm}</span>
                             </div>
                             <HorizontalPhotoGallery photos={_.differenceBy(this.props.hits, [this.props.photo], 'irn')} />
                         </div>
-                        { this.props.relatedStatus === "LOADED" && 
-                            <React.Fragment>
-                                <div style={{ marginBottom: '5vw' }}>
-                                    <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
-                                        <span style={{ color: globalStyles.cmoaRed}}>Pittsburgh, PA</span>
-                                    </div>
-                                     { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
-                                </div>
-                                <div>
-                                    <div style={{...globalStyles.body, ...styles.suggestionsCategory}}> More photos from&nbsp;
-                                        <span style={{ color: globalStyles.cmoaRed}}>1950</span>
-                                    </div>
-                                     { /* <HorizontalPhotoGallery photos={this.props.hits} /> */ }
-                                </div>
-                            </React.Fragment>
-                        }
+                        
                         { this.props.relatedStatus === "LOADING" && 
                             <div style={{ flex: 1, display: 'flex', alignItems:'center', justifyContent: 'center' }}> 
                               <div className="lds-ellipsis">
@@ -250,7 +249,7 @@ const mapStateToProps = state => {
         searchTerm: state.search.term,
         photo: state.photo.photo,
         hits: state.search.hits,
-        realted: state.photo.related,
+        related: state.photo.related,
         relatedStatus: state.photo.relatedStatus,
     }
 }

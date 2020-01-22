@@ -11,7 +11,8 @@ import _ from 'lodash';
 
 const styles = {
     photoSuggestions: {
-        overflow: 'scroll',
+        overflowX: 'scroll',
+        scrollY: 'none',
         display: 'flex',
         width:'100vw',
         paddingLeft: '0vw',
@@ -58,6 +59,7 @@ class HorizontalPhotoGallery extends Component {
             console.log("LEFT!")
             this.scrollingGallery.current.scrollLeft = this.scrollingGallery.current.scrollLeft + this.middleImages.current.offsetWidth;
         }
+
     }
 
 

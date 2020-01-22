@@ -3,6 +3,7 @@ import algoliasearch from 'algoliasearch';
 import _ from 'lodash';
 
 import relatedMap from './relatedMap';
+import relatedAliases from './relatedAliases';
 console.log(relatedMap)
 
 const client = algoliasearch(process.env.REACT_APP_ALGOLIA_APPLICATION_ID, process.env.REACT_APP_ALGOLIA_API_KEY);
@@ -25,51 +26,54 @@ export function resetInteractive() {
 function getRelated(photo, dispatch) {
   dispatch({ type: "LOADING_RELATED" });
 
-  var related = {};
-
   var relatedTerms = [];
 
-  console.log(photo);
-
-  console.log(relatedTerms);
+  var date = photo["CreDateCreated"]
+  if (date && !relatedTerms.includes(date)) relatedTerms.push(date);
 
   for (var i in photo["people"]) {
     var name = photo["people"][i];
-    relatedTerms.push(name)
+    if (!relatedTerms.includes(name)) relatedTerms.push(name)
   }
-
-  var date = photo["CreDateCreated"]
-  if (date) relatedTerms.push(date);
 
   for (var i in photo["places"]) {
     var place = photo["places"][i];
     if ((['establishment', 'place', 'neighborhood', 'route']).includes(place.type)) {
-      if (place.short_name) relatedTerms.push(place.short_name);
-      if (place.long_name) relatedTerms.push(place.long_name);
+      if (place.short_name && !relatedTerms.includes(place.short_name)) relatedTerms.push(place.short_name);
+      if (place.long_name && !relatedTerms.includes(place.long_name)) relatedTerms.push(place.long_name);
     } 
   }
 
-  console.log(relatedTerms)
-
   var relatedirns = _.map(relatedTerms, (term) => { return relatedMap[term]; });
 
+  var getRelatedPromises = []
   for (var i=0; i<relatedTerms.length; i++) {
     if (relatedirns[i]) {
-      var objectIds = _.take(_.map(relatedirns[i], (irn)=>{return String(irn)}), 100);
-      relevanceIndex.getObjects(objectIds).then(res => {
-        console.log(res);
-        var j = objectIds.indexOf(String(res.irn))
-        console.log(j)
-        console.log(objectIds)
-        // console.log(String(res.irn))
-
-        if (j !== -1) related[relatedTerms[j]] = _.without(res.results, null);
-      })
+      var objectIds = _.shuffle(_.take(_.map(relatedirns[i], (irn)=>{return String(irn)}), 50));
+      getRelatedPromises.push(relevanceIndex.getObjects(objectIds))
+    } else {
+      getRelatedPromises.push(null)
     }
   }
 
-  // console.log(relatedTerms);
-  console.log(related);
+  Promise.all(getRelatedPromises).then(function(values) {
+    var related = [];
+
+    for (var i=0; i<relatedTerms.length; i++) {
+      if (values[i] !== null){
+        if (relatedAliases[relatedTerms[i]]) {
+          var relatedResults = {
+            term: relatedAliases[relatedTerms[i]],
+            photos: _.without(values[i].results, null)
+          }
+          related.push(relatedResults);
+        }
+      }
+    }
+
+    console.log(related)
+    dispatch({ type: "RELATED_LOADED",  related});
+  });
 }
 
 export function openPhoto(photo) {

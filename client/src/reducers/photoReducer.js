@@ -31,11 +31,6 @@ export default (state = initialState, action) => {
       newState.relatedStatus = "LOADED";
       return newState;
 
-    case "NO_RELATED":
-      newState.related = {};
-      newState.relatedStatus = "NONE";
-      return newState;
-
     default:
       return state
     }

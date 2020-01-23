@@ -17,6 +17,8 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
 #### `npm run build`
 Runs build script in the client directory (see below) 
+<br/>
+<br/>
 
 #### In the *client* directory, you can run:
 

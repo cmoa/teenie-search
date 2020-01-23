@@ -236,7 +236,7 @@ class SearchResults extends Component {
 
 const SearchResult = (props) => {
 	return(
-		<div style={styles.searchResultContainer} onClick={props.onClick}>
+		<div style={styles.searchResultContainer} className="touchTarget" onClick={props.onClick}>
 			<div style={{ ...styles.searchResult, padding: '2.5vw'}}>
 				<img style={styles.searchResultImage} alt="" src={props.hit.image_url_small} width="100%" />
 				<div style={{...styles.searchResultTitle, ...globalStyles.photoTitle}}> { props.hit.TitMainTitle } </div>

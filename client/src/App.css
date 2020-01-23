@@ -87,8 +87,9 @@ input[type="search"]::-webkit-search-results-decoration {
     left:-10px; right:-10px;
 }
 
-.touchTarget {
+.touchTarget, .touchTargetSmaller {
   position: relative;
+  touch-action: manipulation;
 }
 
 .touchTarget:after {
@@ -96,6 +97,17 @@ input[type="search"]::-webkit-search-results-decoration {
     position:absolute;
     top:-10px; bottom:-10px; 
     left:-10px; right:-10px;
+}
+
+.touchTargetSmaller:after {
+    content:'';
+    position:absolute;
+    top:-5px; bottom:-5px; 
+    left:-5px; right:0px;
+}
+
+.touchTarget:active, .touchTargetSmaller:active {
+    opacity: 0.6;
 }
 
 .rc-slider-mark {

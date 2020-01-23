@@ -30,6 +30,7 @@ class HorizontalPhotoGallery extends Component {
                 { this.props.photos.map((photo, index) => {
                     return(
                       <img 
+                        className="touchTarget"
                         key={"images_"+index}
                         onClick={() => { this.props.openPhoto(photo) }}
                         alt="" 

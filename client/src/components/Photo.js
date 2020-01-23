@@ -6,9 +6,6 @@ import globalStyles from '../styles'
 
 import HorizontalPhotoGallery from './HorizontalPhotoGallery'
 
-import {PinchView} from 'react-pinch-zoom-pan'
-import PinchZoomPan from "react-responsive-pinch-zoom-pan";
-
 import SafariScroller from './SafariScroller';
 
 const styles = {
@@ -129,7 +126,7 @@ class Photo extends Component {
                         </div>   
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                            <span  className="touchTarget" style={{...globalStyles.body, ...styles.backButton}} onClick={() => { this.props.closePhoto() }}>
+                            <span className="touchTarget" style={{...globalStyles.body, ...styles.backButton}} onClick={() => { this.props.closePhoto() }}>
                                 <svg style={styles.backIcon} className="svg-inline--fa fa-chevron fa-w-16"  role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
                                 Return to search results
                             </span>  

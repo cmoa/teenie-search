@@ -100,7 +100,7 @@ class SearchBar extends Component {
                 this.input.current.blur();
         			}}
         		>     { this.props.screen === "SEARCH_RESULTS" &&
-                    <div style={styles.backButton} onClick={() => { this.props.resetInteractive() }}>
+                    <div style={styles.backButton} onClick={() => { this.props.resetInteractive() }} className="touchTargetSmaller">
                       <svg style={styles.backIcon} className="svg-inline--fa fa-chevron fa-w-16" aria-hidden="true" data-prefix="cmoa" data-icon="chevron" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" data-fa-i2svg="" focusable="false"><path fill="currentColor" d="M375,185.4L250,55.8L125,185.4L0,315.1l125,129.6l125-129.6l125,129.6l125-129.6L375,185.4L375,185.4L375,185.4z"></path></svg>
                     </div>
                   }

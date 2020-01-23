@@ -12,8 +12,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 #### In the *root* directory, you can run:
 
 #### `npm start`
-Starts a node express server which serves the static app from the client/build folder.
-
+Starts a node express server which serves the static app from the client/build folder.<br />
 Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
 #### `npm run build`

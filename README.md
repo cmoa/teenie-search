@@ -5,10 +5,9 @@ A custom search application created for Carnegie Museum of Art's Teenie Harris A
 Targets:   
 - 9.7 inch iPad, Safari browser
 
-# 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Development
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 #### In the *root* directory, you can run:
 

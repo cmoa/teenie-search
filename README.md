@@ -1,38 +1,41 @@
-# Teenie Search: In-Gallery Web App
+# Teenie Search: In-Gallery App
+
+A custom search application created for Carnegie Museum of Art's Teenie Harris Archive. The Teenie Harris Archive is a collection of over 50,000 negatives, which have been digitally scanned. For this application, the exisiting metadata records were enchanced by python text analysis and additional [image analysis](https://github.com/CreativeInquiry/TeenieHarrisProject). The search is powered by Algolia.
 
 Targets:   
 - 9.7 inch iPad, Safari browser
 
+# 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Development
 
-In the project directory, you can run:
+#### In the *root* directory, you can run:
 
-### `npm start`
+#### `npm start`
+Starts a node express server which serves the static app from the client/build folder.
 
-Serves the built app.<br />
 Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
-In the client directory, you can run:
+#### `npm run build`
+Runs build script in the client directory (see below) 
 
-### `npm start`
+#### In the *client* directory, you can run:
 
-Runs the app in the development mode.<br />
+#### `npm start`
+Runs the (serverless) app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `npm run build`
+#### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
 ## Learn More

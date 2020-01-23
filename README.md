@@ -50,4 +50,17 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Open Source
 
 
-## Credits
+## Collections As Data
+
+Funding for the development of this application was provided by [Collections as Data: Part to Whole](https://collectionsasdata.github.io/part2whole/)
+
+#### Team
+Ed Motznik, Senior Administrator <br/>
+Dominique Luster, Project Lead <br/>
+Charlene Foggie-Barnett, Disciplinary Scholar <br/>
+[Sam Ticknor](https://samt.work), Creative Technologist <br/><br/>
+
+#### Additional Thanks 
+[Frank-Ratchye STUDIO for Creative Inquiry](https://github.com/CreativeInquiry) <br/>
+Caroline Record <br/>
+[Carney](https://carney.co/) <br />

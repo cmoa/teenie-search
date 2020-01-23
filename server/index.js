@@ -5,6 +5,7 @@ const pino = require('express-pino-logger')();
 var path = require("path");
 
 const mailgun = require("mailgun-js"); 
+
 const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
 
 const app = express();
@@ -22,7 +23,7 @@ app.get('/api/mail/collection_inquiry', (req, res) => {
 	const image = req.query.image || '';
 
 	const data = {
-		from: "Mailgun Sandbox <postmaster@sandbox1f8a0605ffa94e749e35b298621acd19.mailgun.org>",
+		from: "Teenie Search <no-reply@teenie-search.cmoa.io>",		
 		to: process.env.COLLECTION_REP_EMAIL,
 		subject: "New message from Teenie Search in-gallery app!",
 		template: "collection_inquiry",
@@ -49,7 +50,7 @@ app.get('/api/mail/share_photograph', (req, res) => {
 	const description = req.query.description || '';
 
 	const data = {
-		from: "Mailgun Sandbox <postmaster@sandbox1f8a0605ffa94e749e35b298621acd19.mailgun.org>",
+		from: "Teenie Search <no-reply@teenie-search.cmoa.io>",
 		to: req.query.to,
 		subject: "Here is the image you requested from the Teenie Harris Archive.",
 		template: "share_photograph",

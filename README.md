@@ -58,7 +58,7 @@ Funding for the development of this application was provided by [Collections as 
 Ed Motznik, Senior Administrator <br/>
 Dominique Luster, Project Lead <br/>
 Charlene Foggie-Barnett, Disciplinary Scholar <br/>
-[Sam Ticknor](https://samt.work), Creative Technologist <br/><br/>
+[Sam Ticknor](https://samt.work), Creative Technologist <br/>
 
 #### Additional Thanks 
 [Frank-Ratchye STUDIO for Creative Inquiry](https://github.com/CreativeInquiry) <br/>

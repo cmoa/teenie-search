@@ -169,7 +169,7 @@ class SearchOptions extends Component {
           <div style={{ ...styles.sortOptionContainer }}>
             <span style={{ ...styles.optionLabel, width: '11vw' }}>Sort by</span>
               <span 
-                className="touchTarget" 
+                className="touchTarget sortByRelavance"
                 style={{ ...globalStyles.body, ...styles.sortOption}}  
                 onClick={() => {
                   if (this.props.sortBy !== "relevance") {
@@ -180,7 +180,7 @@ class SearchOptions extends Component {
                 relevance
               </span>
             <span 
-              className="touchTarget"
+              className="touchTarget sortByDate"
               style={{ ...globalStyles.body, ...styles.sortOption }}  
               onClick={() => {
                 if (this.props.sortBy === "dateAscending") {

@@ -174,7 +174,10 @@ export function updateSearchTerm(term){
 
 export function search(query, options = {}) {
 
-  window.ga('send', 'pageview', `/?s=${query}`);
+  window.dataLayer.push({
+    'event': 'search',
+    'query': query
+  });
 
   return dispatch => {
 

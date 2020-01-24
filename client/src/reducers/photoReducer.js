@@ -10,7 +10,6 @@ var initialState = {
 export default (state = initialState, action) => {
 
   var newState = Object.assign({}, state)
-  console.log(action)
 
   switch(action.type) {
 

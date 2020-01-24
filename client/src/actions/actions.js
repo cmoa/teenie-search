@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import relatedMap from './relatedMap';
 import relatedAliases from './relatedAliases';
-console.log(relatedMap)
 
 const client = algoliasearch(process.env.REACT_APP_ALGOLIA_APPLICATION_ID, process.env.REACT_APP_ALGOLIA_API_KEY);
 const relevanceIndex = client.initIndex("teenie-search");
@@ -180,8 +179,8 @@ export function search(query, options = {}) {
   return dispatch => {
 
     var sortBy = options.sortBy || "relevance";
-    var startDate = options.startDate || "1915";
-    var endDate = options.endDate || "1980";
+    var startDate = options.startDate || 1915;
+    var endDate = options.endDate || 1980;
 
     dispatch({ type: "SEARCH", term: query, sortBy, startDate, endDate });
 

@@ -6,28 +6,22 @@ Targets:
 - 9.7 inch iPad, Safari browser
 
 ## Development
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 #### In the *root* directory, you can run:
 
-#### `npm start`
-Starts a node express server which serves the static app from the client/build folder.<br />
-Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
+> #### `npm start`
+> Starts a node express server which serves the static app from the client/build folder.<br />
+> Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
-#### `npm run build`
-Runs build script in the client directory (see below) 
-<br/>
-<br/>
+> #### `npm run build`
+> Runs build script in the client directory (see below) 
 
 #### In the *client* directory, you can run:
 
-#### `npm start`
-Runs the (serverless) app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+> #### `npm start`
+> Runs the (serverless) app in the development mode.<br />
+> Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 #### `npm run build`
 
@@ -49,6 +43,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Open Source
 
+We're open sourcing the *code* in this repo, feel free to reuse, remix, rethink this work! The Teenie Harris photographs are property of the Carnegie Museum of Art, and are not open source. The Klavika fonts included here are licensed by Carnegie Museum of Art and are not open source.
 
 ## Collections As Data
 

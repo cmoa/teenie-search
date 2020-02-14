@@ -36,7 +36,7 @@ This application uses several external services:
 * [Mailgun](https://www.mailgun.com/) for email features
 * [Google Tag Manager](https://marketingplatform.google.com/about/tag-manager/) for analytics
 
-Fill in the missing values below with your own account information, and save to `client/.env`:
+Fill in the missing values below with your own account information, and save it to `.env` and `client/.env`:
 ```
 COLLECTION_REP_EMAIL=
 MAILGUN_API_KEY=

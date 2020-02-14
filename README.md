@@ -8,6 +8,8 @@ Targets:
 Demo at [https://teenie-search.herokuapp.com/](https://teenie-search.herokuapp.com/)
 - This is the site being served at the museum. For best vewing results, view on an iPad, use the web inspector to emulate a iPad, or resize your browser window to reflect iPad porportions. 
 
+[View video on YouTube](https://www.youtube.com/watch?v=KRgXsS7LgEQ&feature=youtu.be)
+
 ![Teenie Search Screens](https://github.com/cmoa/teenie-search/blob/master/TeenieSearchScreens.png?raw=true "Teenie Search Screens")
 
 ## Development

@@ -3,7 +3,10 @@
 A custom search application created for Carnegie Museum of Art's Teenie Harris Archive. The Teenie Harris Archive is a collection of over 50,000 negatives, which have been digitally scanned. For this application, the exisiting metadata records were enchanced by python text analysis and additional [image analysis](https://github.com/CreativeInquiry/TeenieHarrisProject). The search is powered by Algolia.
 
 Targets:   
-- 9.7 inch iPad, Safari browser
+- 9.7 inch iPad, Safari browser, portrait orientation
+
+Demo at [https://teenie-search.herokuapp.com/](https://teenie-search.herokuapp.com/)
+- This is the site being served at the museum. For best vewing results, view on an iPad, use the web inspector to emulate a iPad, or resize your browser window to reflect iPad porportions. 
 
 ## Development
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -26,6 +29,22 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 #### `npm run build`
 > Builds the app for production to the `build` folder.<br />
 > It correctly bundles React in production mode and optimizes the build for the best performance.
+
+#### Sample ENV
+This application uses several external services:
+* [Algolia](https://www.algolia.com/) for search feature
+* [Mailgun](https://www.mailgun.com/) for email features
+* [Google Tag Manager](https://marketingplatform.google.com/about/tag-manager/) for analytics
+
+Fill in the missing values below with your own account information, and save to `client/.env`:
+```
+COLLECTION_REP_EMAIL=
+MAILGUN_API_KEY=
+MAILGUN_DOMAIN=
+REACT_APP_ALGOLIA_API_KEY=
+REACT_APP_ALGOLIA_APPLICATION_ID=
+REACT_APP_GTM_ID=
+```
 
 ## Open Source
 

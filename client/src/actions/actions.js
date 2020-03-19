@@ -20,6 +20,14 @@ export function resetInteractive() {
   }
 }
 
+export function resize(width, height) {
+  return {
+    type: "RESIZE_SCREEN",
+    width,
+    height
+  }
+}
+
 function getRelated(photo, dispatch) {
   dispatch({ type: "LOADING_RELATED" });
 

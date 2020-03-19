@@ -8,12 +8,11 @@ import Photo from './Photo';
 import EmailAlert from './EmailAlert';
 import SafariScroller from './SafariScroller';
 
-
 import posed, { PoseGroup } from 'react-pose';
 
 import IdleTimer from 'react-idle-timer'
 
-import { resetInteractive } from '../actions/actions'
+import { resetInteractive, resize } from '../actions/actions'
 
 const Page = posed.div({
   enter: {
@@ -29,12 +28,17 @@ const Page = posed.div({
 class Root extends Component {
 
     constructor(props) {
-    super(props)
-    this.idleTimer = null
-    this.onAction = this._onAction.bind(this)
-    this.onActive = this._onActive.bind(this)
-    this.onIdle = this._onIdle.bind(this)
-  }
+      super(props)
+      this.idleTimer = null
+      this.onAction = this._onAction.bind(this)
+      this.onActive = this._onActive.bind(this)
+      this.onIdle = this._onIdle.bind(this)
+      window.addEventListener("resize", this.props.resize);
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener("resize");
+    }
 
     render() {
         return ( 
@@ -80,6 +84,7 @@ class Root extends Component {
 const mapDispatchToProps = dispatch => {
 	return {
         resetInteractive: () => dispatch(resetInteractive()),
+        resize: () => dispatch(resize(window.innerWidth, window.innerHeight))
     }
 }
 
